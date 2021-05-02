@@ -1,0 +1,60 @@
+.side-bar {
+    position: fixed;
+    width : 270px;
+    height : 100vh;
+    background: #25bc6d;
+    display : flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.side-container {
+    width : 250px;
+    text-align: left;
+    display : flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-top : 1px solid white;
+    content : "";
+}
+
+.link-login .side-tabs {
+    text-decoration: none;
+    color : white;
+    padding-left : 12px;
+    display : inline-block;
+    
+}
+
+#user {
+    padding-left : 40px;
+    line-height: 5px;
+}
+
+img {
+    width : 30px;
+    position : relative;
+    left : 30px;
+    top : 23px;
+}
+
+.side-bar .side-tab {
+    text-decoration: none;
+    color : white;
+    padding-left : 70px;
+}
+
+.side-tabm {
+    text-decoration: none;
+    color : white;
+    padding-left : 30px;
+    line-height: 1px;
+}
+
+
+@media (max-width : 767px) {
+    .side-bar {
+        display: none;
+    }
+}
+

@@ -1,0 +1,35 @@
+.board {
+    margin-left : 270px;
+    height : 100vh;
+    background: #eceff1;
+}
+
+.board-float {
+    width : 60%;
+    height : 60vh;
+    position : relative;
+    top : 70px;
+    padding : 50px;
+    margin : 0 20px 0 100px;
+    border : 1.5px solid #66ef9d;
+    box-shadow:5px 5px 8px #aaa;
+    background: white;
+}
+
+::-webkit-scrollbar {
+    width : 12px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow : inset 0 0 5px lightgrey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: lightgrey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: lightgrey;
+}
