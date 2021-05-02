@@ -16,6 +16,7 @@ export function Sidebar() {
         });
     });
     
+    
     return (
         <div className="side-bar">
             <img src={logo} alt="로고이미지" className="logo" style={{width : 150, marginLeft : 3, position : 'absolute'}}/>
