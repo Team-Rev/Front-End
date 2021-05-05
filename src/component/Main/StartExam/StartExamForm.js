@@ -3,14 +3,17 @@ import style from './StartExam.module.css'
 import styles from './StartExam.module.css'
 import { Link, useHistory } from 'react-router-dom'
 
-export function StartExamForm() {
+export function StartExamForm(props) {
 
     const history = useHistory();
+
+    console.log(props.token)
 
     
     return (
         <div className="board">
-          <div className="board-float">  
+          <div className="board-float">
+           <div className="board-in" style={{paddingLeft : 200, width : 353}}>    
             <div className={style.main}>  
                 <h2>
                 1. During a routine inspection, a <br/>
@@ -21,7 +24,7 @@ export function StartExamForm() {
                 the computer. Which type of threat is<br/>
                 affecting this computer?
                 </h2>
-            <div class="container">
+            <div className="container">
                 <form>
                 <label>
                     <input type="radio" name="radio"/>
@@ -42,16 +45,19 @@ export function StartExamForm() {
                 </form>
             </div>
           <div className="btn-forms" style={{marginTop : 30}}>  
-                <Link to="#"><button className={styles.btn1} style={{}}>이전</button></Link>
+                <Link to="#"><button className={styles.btn1}>이전</button></Link>
             <div className="bottom-btn right" style={{ float : 'right'}}>
                 <Link to="#">
                     <button  
-                    onClick={e => window.confirm("정말 제출하시겠습니까?") 
-                    && history.push('/')}
-                    className={styles.btn2} id="sub">제출</button></Link>
+                        onClick={e => window.confirm("정말 제출하시겠습니까?") 
+                        && history.push('/')} 
+                        className={styles.btn2} id="sub">제출
+                    </button>
+                </Link>
                 <Link to="#"><button className={styles.btn3}>다음</button></Link>
             </div>
           </div>   
+         </div>
          </div>
         </div> 
     </div>

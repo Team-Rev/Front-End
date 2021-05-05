@@ -14,20 +14,19 @@ label {
 }
 
 h2 {
-    font-size : 22px;
+    font-size : 20px;
     text-align: left;
 }
 
-
 .btn1 {
     display: inline-block;
-    width : 100px;
+    width : 70px;
     height : 40px;
     box-sizing: border-box;
     text-align: center;
     margin : 5px 7px 0 0;
     padding : 8px 0 8px 0;
-    border : 0.5px solid #25cc6d;
+    border : 0.5px solid #9dffcd;
     border-radius: 6px;
     font-family: 'Noto Sans KR', sans-serif;;
     font-size: 15px;
@@ -39,31 +38,38 @@ h2 {
 }
 .btn2 {
     display: inline-block;
-    width : 100px;
+    transition : all .5s ease;
+    width : 70px;
     height : 40px;
     box-sizing: border-box;
     text-align: center;
     margin : 5px 7px 0 0;
     padding : 8px 0 8px 0;
-    border : 0.5px solid #25cc6d;
+    border : 0.5px solid #9dffcd;
     border-radius: 6px;
     font-family: 'Noto Sans KR', sans-serif;;
     font-size: 15px;
     font-weight : normal;
     background-color: white;
-    color : black;
+    color : #25bc6d;
     outline: none;
     cursor: pointer;
 }
+
+.btn2:hover {
+    background-color : #25bc6d;
+    color : white;
+}
+
 .btn3 {
     display: inline-block;
-    width : 100px;
+    width : 70px;
     height : 40px;
     box-sizing: border-box;
     text-align: center;
     margin : 5px 7px 0 0;
     padding : 8px 0 8px 0;
-    border : 0.5px solid #25cc6d;
+    border : 0.5px solid #9dffcd;
     border-radius: 6px;
     font-family: 'Noto Sans KR', sans-serif;;
     font-size: 15px;
