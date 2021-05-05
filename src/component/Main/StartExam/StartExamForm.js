@@ -9,7 +9,8 @@ export function StartExamForm(props) {
 
     console.log(props.token)
 
-    /* node module ignore test */
+    /* node module ignore test1 */
+    /* node module ignore test2 */
 
     
     return (
