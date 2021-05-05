@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Sidebar.css'
 import { NavLink } from 'react-router-dom'
 import $ from 'jquery'
@@ -8,19 +8,21 @@ import learn from './img/learn.png'
 import notice from './img/notice.png'
 import ques from './img/ques.png'
 
-export function Sidebar() {
+export function Sidebar(props) {
+
+    /*
 
     useEffect(() => {
         $('.side-tab, .side-tabm').hover(function() {
             $('.active').css('color', "#00251a");
         });
-    });
-    
+    });*/
+
     
     return (
         <div className="side-bar">
-            <img src={logo} alt="로고이미지" className="logo" style={{width : 150, marginLeft : 3, position : 'absolute'}}/>
-        <div className="link-login" style={{marginTop : 25}}>
+            <img src={logo} alt="로고이미지" className="logo" style={{width : 170, marginLeft : 10, position : 'absolute', }}/>
+        <div className="link-login" style={{marginTop : 75}}>
                 <img src={user}  alt="유저아이콘" style={{position : 'relative', left : 30, top : 10}}/>    
                 <NavLink to="/login" className="side-tab" id="user">USER</NavLink>
         </div>

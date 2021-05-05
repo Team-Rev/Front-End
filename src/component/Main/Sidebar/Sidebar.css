@@ -9,12 +9,13 @@
 }
 
 .side-container {
-    width : 250px;
+    width : 270px;
     text-align: left;
     display : flex;
     flex-direction: column;
     justify-content: space-around;
     border-top : 1px solid white;
+    line-height: 1rem;
     content : "";
 }
 
@@ -44,7 +45,7 @@ img {
     padding-left : 70px;
 }
 
-.side-tabm {
+.side-bar .side-tabm {
     text-decoration: none;
     color : white;
     padding-left : 30px;

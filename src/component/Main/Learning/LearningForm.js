@@ -2,7 +2,9 @@ import React from 'react';
 import './Learning.css'
 import { Link } from 'react-router-dom'
 
-export function LearningForm() {
+export function LearningForm(props) {
+
+
     return (
         <div className="board">
           <div className="board-float">
