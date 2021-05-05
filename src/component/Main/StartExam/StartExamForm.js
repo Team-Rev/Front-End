@@ -9,6 +9,8 @@ export function StartExamForm(props) {
 
     console.log(props.token)
 
+    /* node module ignore test */
+
     
     return (
         <div className="board">
