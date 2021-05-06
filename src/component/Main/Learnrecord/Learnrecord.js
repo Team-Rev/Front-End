@@ -2,11 +2,11 @@ import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 import { Container } from './Container/Container'
 
-export function Learnrecord () {
+export function Learnrecord (props) {
     return (
         <>
             <Sidebar/>
-            <Container/>
+            {props.token.length > 0 && <Container token={props.token}/>}
         </>
     );
 };

@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
 import './Sidebar.css'
 import { NavLink } from 'react-router-dom'
-import $ from 'jquery'
 import logo from './img/logo.png'
 import user from './img/user.png'
 import learn from './img/learn.png'

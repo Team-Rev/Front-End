@@ -1,0 +1,86 @@
+.SummaryBoard{
+    display: flex;
+    margin-top: 30px;
+}
+
+.MainBoard{
+    height: 66vh;
+    background-color: white;
+    max-width: 320px;
+
+    border-radius: 5px ;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-right: 20px;
+    overflow-y: scroll;
+}
+.MainBoard::-webkit-scrollbar {
+    width: 7px;
+}
+.DetailBoard{
+    height: 66vh;
+    background-color: white;
+    flex-grow: 1;
+    border-radius: 5px ;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    
+}
+
+.Card{
+    display: flex;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    padding: 15px 70px 15px 10px;
+    transition: ease-in 0.15s;
+    position: relative;
+}
+.Card:hover{
+    background-color: rgb(240, 240, 240);
+}
+.Card span{
+    display: inline-block;
+    width: 100%;
+}
+
+.Category{
+
+}
+
+
+.Main{
+    font-weight: 500;
+}
+
+.Sub{
+    font-weight: 300;
+    font-size: 13px;
+    color : rgb(121, 121, 121);
+}
+
+.Info{
+    text-align: right;
+
+}
+.Correct{
+    display: inline !important;
+    color: #25bc6d;
+}
+.Total{
+    display: inline !important;
+}
+.Date{
+    font-size: 12px;
+    font-weight: 300;
+    color : rgb(128, 128, 128)
+}
+.Icon{
+    position: absolute;
+    right: 7%;
+    top:40%;
+    font-weight: 100;
+    font-size: 18px;
+    color: rgb(192, 192, 192);
+    width:14px;
+    height: 14px;
+    background-image: url("../../../../icon/chevron-right.png");
+    background-repeat:no-repeat;
+    background-size: contain;
+}
