@@ -50,7 +50,6 @@ export function Container(props){
             }).then(response => {
                 var data = response.data;
                 setRecords(data);
-                console.log(data);
                 setEnrieSummary(total(data));
             });
         }
@@ -73,7 +72,7 @@ export function Container(props){
             <div className={style.container}>
                 <div className={style.inner}>
                     <Summary entireSummary={entireSummary}/>
-                    <SummaryBoard records={records}/>
+                    <SummaryBoard records={records} token={fixedstring}/>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
     height: 66vh;
     background-color: white;
     max-width: 320px;
-
+    flex-shrink: 0;
     border-radius: 5px ;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     margin-right: 20px;
@@ -19,37 +19,51 @@
 .DetailBoard{
     height: 66vh;
     background-color: white;
-    flex-grow: 1;
     border-radius: 5px ;
+    flex-grow: 1;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    
+    overflow-y: scroll;
 }
 
 .Card{
     display: flex;
-    border-bottom: 1px solid rgb(216, 216, 216);
-    padding: 15px 70px 15px 10px;
-    transition: ease-in 0.15s;
+}
+
+.Card button{
+    padding: 15px 60px 15px 20px;
+    background-color: white;
     position: relative;
+    outline: none;
+    width: 100%;
+    border: none;
+    display: flex;
+    transition: ease-in 0.15s;
+    border-bottom: 1px solid rgb(216, 216, 216);
 }
-.Card:hover{
+
+.Card button:hover{
     background-color: rgb(240, 240, 240);
+    cursor: pointer;
 }
+
+.Active button{
+    background-color: rgb(240, 240, 240) !important;
+}
+
 .Card span{
     display: inline-block;
     width: 100%;
 }
 
-.Category{
-
-}
 
 
 .Main{
     font-weight: 500;
+    text-align: left;
 }
 
 .Sub{
+    text-align: left;
     font-weight: 300;
     font-size: 13px;
     color : rgb(121, 121, 121);

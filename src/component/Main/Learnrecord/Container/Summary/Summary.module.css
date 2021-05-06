@@ -26,13 +26,15 @@
     border-left : none !important;
 }
 .summary ul li:first-child .info{
-    color: #488A99;
+    color: #484848;
 }
 .summary ul li:nth-child(2) .info{
+    color: #488A99;
+}
+.summary ul li:nth-child(3) .info{
     color: #f74b36;
-}.summary ul li:nth-child(3) .info{
-    color: #484848;
-}.summary ul li:nth-child(4) .info{
+}
+.summary ul li:nth-child(4) .info{
     color: #ffca09;
 }
 .info{ 

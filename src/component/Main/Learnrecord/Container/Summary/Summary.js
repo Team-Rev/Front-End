@@ -20,8 +20,8 @@ export function Summary(props){
         <div className={style.summary}>
             <ul>
                 <TotalSummary title="시험 횟수" info={props.entireSummary.examCount}/>
-                <TotalSummary title="푼 문제 수" info={props.entireSummary.totalCount}/>
                 <TotalSummary title="맞힌 문제 수" info={props.entireSummary.correctCount}/>
+                <TotalSummary title="푼 문제 수" info={props.entireSummary.totalCount}/>
                 <TotalSummary title="평균 정답률" info={ `${parseInt(props.entireSummary.correctRatioAvg * 100)}%` }/>
             </ul>
         </div>
