@@ -27,7 +27,7 @@ export function Sidebar(props) {
                 <NavLink to="/login" className="side-tab" id="user">USER</NavLink>
         </div>
         <div className="side-container">    
-                <img src={learn}  alt="학습아이콘"/> 
+        <img src={learn}  alt="학습아이콘"/> 
                 <NavLink to="/learning" className="side-tab">학습하기</NavLink>
                 <img src={notice}  alt="공지아이콘"/> 
                 <NavLink to="/notice" className="side-tab">공지사항</NavLink>

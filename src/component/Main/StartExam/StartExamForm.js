@@ -1,68 +1,98 @@
-import React from 'react';
-import style from './StartExam.module.css'
-import styles from './StartExam.module.css'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import style from "./StartExam.module.css";
+import { Link, useHistory } from "react-router-dom";
+import axios from 'axios'
 
 export function StartExamForm(props) {
-
     const history = useHistory();
 
-    console.log(props.token)
+    var [question, setQuestion] = useState(null);
 
-    /* node module ignore test1 */
-    /* node module ignore test2 */
-
+    var token = props.token
+    var fixedstring = encodeURIComponent(escape(token));
+    useEffect( () => {
+        let completed = false;
+        async function fetchData(){
+            axios({
+                method: 'get',
+                url: '/problem/question/1',
+                headers: {
+                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json',
+                  "Authorization" : `Bearer ${fixedstring}`,
+                  withCredentials: true,
+                  mode: 'no-cors',
+                }
+            }).then(response => {
+                var data = response.data;
+                if(!completed) setQuestion(data)
+                console.log(data)
+            });
+        }
+        fetchData();
+        return () => {
+            completed = true;
+          };
+    }, [fixedstring]);
     
-    return (
-        <div className="board">
-          <div className="board-float">
-           <div className="board-in" style={{paddingLeft : 200, width : 353}}>    
-            <div className={style.main}>  
-                <h2>
-                1. During a routine inspection, a <br/>
-                technician discovered that software<br/>
-                that was installed on a computer was<br/> 
-                secretly collecting data about<br/>
-                websites that were visited by users of<br/>
-                the computer. Which type of threat is<br/>
-                affecting this computer?
-                </h2>
+    
+        if(!question) return `NULL`;
+    
+   
+  return (
+    <div className="board">
+      <div className={style.container}>
+        <div className={style.inner}>
+          <div className={style.maintab}>
+            <p className={style.page}>1/20</p>
+            <h2> 
+              {question.id} . {question.exam}
+            </h2>
             <div className="container">
-                <form>
+              <form>
                 <label>
-                    <input type="radio" name="radio"/>
-                    <span>1. DoS attack</span>
+                  <input type="radio" name="radio" />
+                  <span>1. DoS attack</span>
                 </label>
                 <label>
-                    <input type="radio" name="radio"/>
-                    <span>2. spyware</span>
+                  <input type="radio" name="radio" />
+                  <span>2. spyware</span>
                 </label>
                 <label>
-                    <input type="radio" name="radio"/>
-                    <span>3. identity theft</span>
+                  <input type="radio" name="radio" />
+                  <span>3. identity theft</span>
                 </label>
                 <label>
-                    <input type="radio" name="radio"/>
-                    <span>4. zero-day attack</span>
+                  <input type="radio" name="radio" />
+                  <span>4. zero-day attack</span>
                 </label>
-                </form>
+              </form>
             </div>
-          <div className="btn-forms" style={{marginTop : 30}}>  
-                <Link to="#"><button className={styles.btn1}>이전</button></Link>
-            <div className="bottom-btn right" style={{ float : 'right'}}>
+            <div className="btn-forms" style={{ marginTop: 30 }}>
+              <Link to="#">
+                <button className={style.btn1}>이전</button>
+              </Link>
+              <div className="bottom-btn right" style={{ float: "right" }}>
                 <Link to="#">
-                    <button  
-                        onClick={e => window.confirm("정말 제출하시겠습니까?") 
-                        && history.push('/')} 
-                        className={styles.btn2} id="sub">제출
-                    </button>
+                  <button
+                    onClick={(e) =>
+                      window.confirm("정말 제출하시겠습니까?") &&
+                      history.push("/totalpage")
+                    }
+                    className={style.btn2}
+                    id="sub"
+                  >
+                    제출
+                  </button>
                 </Link>
-                <Link to="#"><button className={styles.btn3}>다음</button></Link>
+                <Link to="#">
+                  <button className={style.btn3}>다음</button>
+                </Link>
+              </div>
             </div>
-          </div>   
-         </div>
-         </div>
-        </div> 
+          </div>
+        </div>
+      </div>
     </div>
-    );
-};
+  );
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 
-export function Learnrecord () {
+export function Learnrecord (props) {
     return (
         <>
             <Sidebar/>
