@@ -5,17 +5,47 @@ import axios from 'axios'
 
 export function StartExamForm(props) {
     const history = useHistory();
-
+    
     var [question, setQuestion] = useState(null);
+    var [num, setNum] = useState(0);
+
+    var submitList = [
+      {
+        iscorrect
+      }
+    ]
+
+
+    const onChangeCheck = (e) => {
+      const checked = e.target.checked;
+      const value = e.target.value;
+      const count = e.target.name;
+
+      const data = [
+        {
+
+        }
+      ]
+
+      if (checked) {
+        console.log(e)
+        console.log(value)
+        console.log(count)
+      }
+      else {
+        
+      }
+    };
 
     var token = props.token
+
     var fixedstring = encodeURIComponent(escape(token));
-    useEffect( () => {
+    useEffect(() => {
         let completed = false;
-        async function fetchData(){
+        async function fetchData(){ 
             axios({
                 method: 'get',
-                url: '/problem/question/1',
+                url: '/problem/rangeQuestions?start=1&end=20',
                 headers: {
                   'Access-Control-Allow-Origin': '*',
                   'Content-Type': 'application/json',
@@ -26,51 +56,56 @@ export function StartExamForm(props) {
             }).then(response => {
                 var data = response.data;
                 if(!completed) setQuestion(data)
-                console.log(data)
             });
         }
         fetchData();
-        return () => {
-            completed = true;
-          };
     }, [fixedstring]);
+
+    console.log(question)
+
     
     
         if(!question) return `NULL`;
-    
-   
+        var count = 0;
+        /* 보기 체크 */
+        var listTag = [];
+       /* var counts = [];*/
+          for(let i = 0; i < question[num].choices.length; i++) {
+            if(question[num].choices[i].isCorrect === true)
+              count++;
+              /*counts*/
+          }
+
+          for(let j = 0; j < question[num].choices.length; j++) {
+
+            var choice = [question[num].choices[j].id, question[num].choices[j].isCorrect]
+            
+            var bogi = question[num].choices[j].choice
+            var id = question[num].choices[j].id
+            var iscorrect = question[num].choices[j].isCorrect
+            listTag.push(
+              <label> 
+                 <input type="checkbox" value={choice} name={count}  onClick={(e) => onChangeCheck(e)}/>
+                 <span key={id}> {bogi} </span>
+              </label> 
+            )
+          }
+
   return (
     <div className="board">
       <div className={style.container}>
         <div className={style.inner}>
           <div className={style.maintab}>
-            <p className={style.page}>1/20</p>
-            <h2> 
-              {question.id} . {question.exam}
-            </h2>
+            <p className={style.page}>{num + 1} / {question.length}  </p>
+            <h2 data-key={question[num].id}>{question[num].id} . {question[num].exam}</h2>
             <div className="container">
               <form>
-                <label>
-                  <input type="radio" name="radio" />
-                  <span>1. DoS attack</span>
-                </label>
-                <label>
-                  <input type="radio" name="radio" />
-                  <span>2. spyware</span>
-                </label>
-                <label>
-                  <input type="radio" name="radio" />
-                  <span>3. identity theft</span>
-                </label>
-                <label>
-                  <input type="radio" name="radio" />
-                  <span>4. zero-day attack</span>
-                </label>
+                {listTag}
               </form>
             </div>
             <div className="btn-forms" style={{ marginTop: 30 }}>
               <Link to="#">
-                <button className={style.btn1}>이전</button>
+                <button className={style.btn1} onClick={() => setNum(num - 1)}>이전</button>
               </Link>
               <div className="bottom-btn right" style={{ float: "right" }}>
                 <Link to="#">
@@ -86,7 +121,7 @@ export function StartExamForm(props) {
                   </button>
                 </Link>
                 <Link to="#">
-                  <button className={style.btn3}>다음</button>
+                  <button className={style.btn3} onClick={() => setNum(num + 1)}>다음</button>
                 </Link>
               </div>
             </div>
