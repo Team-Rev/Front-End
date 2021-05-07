@@ -17,8 +17,8 @@ const MainBoard = (props) =>{
 
 const dateFormating = (date)=>{
     var result = `${date.getFullYear()}-`;
-    if(date.getMonth() < 10) result = `${result}0${date.getMonth()}-`
-    else result = `${result}${date.getMonth()}-`
+    if(date.getMonth() < 10) result = `${result}0${date.getMonth()+1}-`
+    else result = `${result}${date.getMonth()+1}-`
     
     if(date.getDate() < 10) result = `${result}0${date.getDate()} `
     else result = `${result}${date.getDate()} `
@@ -62,25 +62,63 @@ const SummaryCard = (props =>{
     );
 });
 
+const ColorInfo = (props) => {
+    return(
+        <div className={style.ColorInfo}>
+            <ul>
+                <li>
+                    <div className={style.RightInfo}></div>
+                    <div> Correct</div>
+                </li>
+                <li>
+                    <div className={style.ActualInfo}></div>
+                    <div> Actual</div>
+                </li>
+                <li>
+                    <div className={style.SelectInfo}></div>
+                    <div> Your select</div>
+                </li>
+            </ul>
+        </div>
+    );
+}
+
 const DetailBoard = (props) =>{
-    
-    const renderQuestion = (question) => {
+    if(props.questions) var details = props.questions.answerMain.details;
+    const renderChoice = (choice, detailChoices) =>{
+        const detailChoice = detailChoices.find(function(detailChoice){
+            return detailChoice.multipleChoiceId === choice.id;
+        });
+        if(detailChoice && choice.isCorrect) return(<li className={style.Match}>{choice.choice}</li>);
+        if(detailChoice) return(<li className={style.Choice}>{choice.choice}</li>);
+        if(choice.isCorrect) return(<li className={style.Right}>{choice.choice}</li>);
+        return (<li className={style.Normal}>{choice.choice}</li>);
+
+    }
+
+    const renderQuestion = (question, index) => {
+        console.log(question)
+        const detail = details.find(function (detail){
+            return detail.questionId === question.id;
+        });
         return(
-            <>
-                <div>{question.exam}</div>
-                {question.choices.map( choice =>(
-                    <div>{choice.choice}</div>
-                ))}
-                <br/>
-            </>
+            <div className={style.Question}>
+                <div className={style.Exam}>{`${index}. ${question.exam}`}</div>
+                <ol className={style.Choices}>
+                    {question.choices.map( choice =>(
+                        renderChoice(choice, detail.choices)
+                    ))}
+                </ol>
+            </div>
         );
     };
-    if(props.questions) console.log(props.questions[0])
-    
+    var index = 0;
     return(
         <div className={style.DetailBoard}>
+            <ColorInfo/>
+            {!props.questions && <div className={style.Loading}>Select the record</div>}
             {props.questions && props.questions.map( question => (
-                renderQuestion(question)
+                renderQuestion(question, ++index)
             ))}
         </div>
     );
@@ -96,7 +134,6 @@ export function SummaryBoard(props){
             return record.answerMain.answerMainId.toString() === key;
         });
         record = record.answerMain;
-        console.log(record.details);
         
         var url = `/problem/selectQuestions?ids=${record.details[0].questionId}`;
         
@@ -111,8 +148,9 @@ export function SummaryBoard(props){
                 "Authorization" : `Bearer ${props.token}`,
             }
         }).then( res => {
-            console.log(res.data);
-            setQuestions(res.data);
+            var data = res.data;
+            data.answerMain = record;
+            setQuestions(data);
         });
 
     }
