@@ -19,24 +19,48 @@ export function Sidebar(props) {
     
     return (
         <div className="side-bar">
-            <img src={logo} alt="로고이미지" className="logo" style={{width : 170, marginLeft : 10, position : 'absolute', }}/>
-        <div className="link-login" style={{marginTop : 75}}>
-                <img src={user}  alt="유저아이콘" style={{position : 'relative', left : 30, top : 10}}/>    
-                <NavLink to="/login" className="side-tab" id="user">USER</NavLink>
-        </div>
-        <div className="side-container">    
-                <img src={learn}  alt="학습아이콘"/> 
-                <NavLink to="/learning" className="side-tab">학습하기</NavLink>
-                <img src={notice}  alt="공지아이콘"/> 
-                <NavLink to="/notice" className="side-tab">공지사항</NavLink>
-                <img src={ques}  alt="질문아이콘"/>     
-                <NavLink to="/question" className="side-tab">질문 게시판</NavLink>
-         </div>
-                <NavLink to="/learnrecord" className="side-tabm">학습 내역</NavLink>
-                <NavLink to="/vulnerable" className="side-tabm">취약점</NavLink>
-                <NavLink to="/pointrecord" className="side-tabm">포인트 내역</NavLink>
-                <NavLink to="/createques" className="side-tabm">생성한 문제</NavLink>
-                <NavLink to="/writer" className="side-tabm">작성한 글</NavLink>
+            <div className="logo-box">
+                <img src={logo} alt="로고이미지" className="logo" />
+            </div>
+            <div className="menu__container">
+                <div className="login-box" >
+                        <img src={user}  alt="유저아이콘"/>
+                        {true && <NavLink to="/login" className="login">로그인</NavLink>}
+                        {!true && <NavLink to="/login" className="user">USER</NavLink>}
+                </div>
+            
+                <ul className="main-box">
+                    <li>
+                        <img src={learn}  alt="학습아이콘"/>
+                        <NavLink to="/learning">학습하기</NavLink>
+                    </li>
+                    <li>
+                        <img src={notice}  alt="공지아이콘"/>
+                        <NavLink to="/notice">공지사항</NavLink>
+                    </li>
+                    <li>
+                        <img src={ques}  alt="질문아이콘"/>
+                        <NavLink to="/question">질문 게시판</NavLink>
+                    </li>
+                </ul>
+                <ul className="sub-box">
+                    <li>
+                        <NavLink to="/learnrecord">학습 내역</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/vulnerable">취약점</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/pointrecord">포인트 내역</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/createques">생성한 문제</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/writer">작성한 글</NavLink>
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 }

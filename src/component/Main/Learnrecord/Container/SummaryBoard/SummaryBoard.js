@@ -6,6 +6,7 @@ import axios from 'axios';
 const MainBoard = (props) =>{
     return(
         <div className={style.MainBoard}>
+            {props.records.length <= 0 && <div className={style.EmptyMain}>There's no record.</div>}
             <ul>
                 { props.records.map( function(record){
                     return <SummaryCard record={record} key={record.answerMain.answerMainId} loadQuestions={props.loadQuestions}/>
@@ -116,7 +117,7 @@ const DetailBoard = (props) =>{
     return(
         <div className={style.DetailBoard}>
             <ColorInfo/>
-            {!props.questions && <div className={style.Loading}>Select the record</div>}
+            {!props.questions && <div className={style.Loading}>Select the record.</div>}
             {props.questions && props.questions.map( question => (
                 renderQuestion(question, ++index)
             ))}
