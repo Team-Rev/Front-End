@@ -26,7 +26,7 @@ export function Sidebar(props) {
                 <div className="login-box" >
                         <img src={user}  alt="유저아이콘"/>
                         {!isLogin && <button to="/login" className="login" onClick={() => props.setLoginOpen(true)} >로그인</button>}
-                        {isLogin && <NavLink to="/login" className="user">{props.nickname}</NavLink>}
+                        {isLogin && <a href="/#" className="user">{props.nickname}</a>}
                 </div>
             
                 <ul className="main-box">
@@ -43,6 +43,7 @@ export function Sidebar(props) {
                         <NavLink to="/question">질문 게시판</NavLink>
                     </li>
                 </ul>
+                {isLogin && 
                 <ul className="sub-box">
                     <li>
                         <NavLink to="/learnrecord">학습 내역</NavLink>
@@ -59,7 +60,11 @@ export function Sidebar(props) {
                     <li>
                         <NavLink to="/writer">작성한 글</NavLink>
                     </li>
+                    <li>
+                        <button className="logout">로그아웃</button>
+                    </li>
                 </ul>
+                }
             </div>
         </div>
     );

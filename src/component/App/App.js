@@ -27,32 +27,48 @@ export function App () {
         setInfo(info);
     }
    
+    const logout = () => {
+        setLogin(false);
+        setInfo({
+            token : "",
+            nickname : ""
+        });
+    }
     return (
         <>
             {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login}/>}
             
-            <Route 
-                exact path="/"
-                render={() => {
+            <Route exact path="/"
+                render={() => 
                     <Main
                         isLogin={isLogin}
+                        logout={logout}
                         info={info}
                         setLoginOpen={setLoginOpen}/>
-                 }}>
+                 }>
             </Route>
             
-            <Route 
-                path="/learning" 
-                render={() => {
+            <Route path="/learning" 
+                render={() => 
                     <Learning 
+                        isLogin={isLogin}
+                        logout={logout}
+                        info={info}
+                        setLoginOpen={setLoginOpen}
+                    />
+                }>
+            </Route>
+
+            <Route path="/notice" 
+                render={() => 
+                    <Notice 
                         isLogin={isLogin}
                         info={info}
                         setLoginOpen={setLoginOpen}
                     />
-                }}>
+                }>
             </Route>
-
-            <Route path="/notice" render={() => <Notice isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            
             <Route path="/question" render={() => <Question isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
             <Route path="/learnrecord" render={() => <Learnrecord isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
             <Route path="/vulnerable" render={() => <Vulnerable isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>

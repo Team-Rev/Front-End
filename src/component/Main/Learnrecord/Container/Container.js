@@ -3,6 +3,7 @@ import axios from 'axios';
 import style from './Container.module.css'
 import {Summary} from './Summary/Summary'
 import {SummaryBoard} from './SummaryBoard/SummaryBoard'
+import jwt_decode from "jwt-decode";
 //34.64.73.179
 
 // const containerStyle = {
@@ -39,11 +40,13 @@ export function Container(props){
         return newEntireSummary;
     };
     useEffect( () => {
+        var decoded = jwt_decode(token);
+        console.log(decoded);
         let completed = false;
         async function fetchData(){
             axios({
                 method: 'get',
-                url: `/problem/answer/result?id=yeong@naver.com`,
+                url: `/problem/answer/result?id=${decoded.sub}`,
                 headers: {
                     "Authorization" : `Bearer ${fixedstring}`,
                 }

@@ -89,7 +89,21 @@
     font-size: 16px !important;
     padding-left: 10px;
 }
-
+.sub-box .logout{
+    font-size: 16px !important;
+    padding-left: 10px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color : rgb(221, 221, 221);
+    font-size: 18px;
+    display : inline-block;
+    transition: ease-in 0.15s;
+    font-weight: 300;
+}
+.sub-box .logout:hover{
+    color : rgb(255, 255, 255);
+}
 @media (max-width : 1024px) {
     .side-bar {
         display: none;
