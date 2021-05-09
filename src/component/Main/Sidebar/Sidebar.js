@@ -61,7 +61,7 @@ export function Sidebar(props) {
                         <NavLink to="/writer">작성한 글</NavLink>
                     </li>
                     <li>
-                        <button className="logout">로그아웃</button>
+                        <button className="logout" onClick={() => props.logout()}>로그아웃</button>
                     </li>
                 </ul>
                 }

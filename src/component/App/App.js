@@ -12,6 +12,7 @@ import { Writer } from '../Main/Writer/Writer'
 import { Main } from '../Main/Main'
 import { Solveques } from '../Main/Solveques/Solveques'
 import { StartExam } from '../Main/StartExam/StartExam'
+import { Sidebar } from '../Main/Sidebar/Sidebar'
 
 export function App () {
 
@@ -37,46 +38,78 @@ export function App () {
     return (
         <>
             {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login}/>}
-            
+            <Sidebar 
+                nickname={info.nickname} 
+                setLoginOpen={setLoginOpen}
+                isLogin={isLogin}
+                logout={logout}
+            />
+
             <Route exact path="/"
                 render={() => 
-                    <Main
-                        isLogin={isLogin}
-                        logout={logout}
-                        info={info}
-                        setLoginOpen={setLoginOpen}/>
+                    <Main/>
                  }>
             </Route>
             
             <Route path="/learning" 
                 render={() => 
-                    <Learning 
-                        isLogin={isLogin}
-                        logout={logout}
-                        info={info}
-                        setLoginOpen={setLoginOpen}
-                    />
+                    <Learning/>
                 }>
             </Route>
 
             <Route path="/notice" 
                 render={() => 
-                    <Notice 
-                        isLogin={isLogin}
+                    <Notice/>
+                }>
+            </Route>
+
+            <Route path="/question"
+                render={() => 
+                    <Question/>
+                }>
+            </Route>
+
+            <Route path="/learnrecord" 
+                render={() => 
+                    <Learnrecord
                         info={info}
-                        setLoginOpen={setLoginOpen}
                     />
                 }>
             </Route>
-            
-            <Route path="/question" render={() => <Question isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
-            <Route path="/learnrecord" render={() => <Learnrecord isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
-            <Route path="/vulnerable" render={() => <Vulnerable isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
-            <Route path="/pointrecord" render={() => <Pointrecord isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
-            <Route path="/createques" render={() => <Createques sLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
-            <Route path="/writer" render={() => <Writer isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
-            <Route path="/solveques" render={() => <Solveques isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
-            <Route path="/startexam" render={() => <StartExam isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+
+            <Route path="/vulnerable" 
+                render={() => 
+                    <Vulnerable/>
+                }>
+            </Route>
+
+            <Route path="/pointrecord" 
+                render={() => 
+                    <Pointrecord />
+                }>
+            </Route>
+
+            <Route path="/createques" 
+                render={() => 
+                    <Createques />
+                }>
+            </Route>
+
+            <Route path="/writer" 
+                render={() => 
+                    <Writer />
+                }>
+            </Route>
+            <Route path="/solveques" 
+                render={() => 
+                    <Solveques/>
+                }>
+            </Route>
+            <Route path="/startexam" 
+                render={() => 
+                    <StartExam/>
+                }>
+            </Route>
             
         </>
     );

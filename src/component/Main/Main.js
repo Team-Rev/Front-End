@@ -6,7 +6,7 @@ export function Main(props) {
 
     return (
         <div>
-            <Sidebar nickname={ props.info.nickname} setLoginOpen={props.setLoginOpen} isLogin={props.isLogin} />
+        
         </div>
     );
 }
