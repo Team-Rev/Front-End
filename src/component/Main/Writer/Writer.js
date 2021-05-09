@@ -1,10 +1,9 @@
 import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 
-export function Writer () {
+export function Writer (props) {
     return (
         <>
-            <Sidebar/>
         </>
     );
 };

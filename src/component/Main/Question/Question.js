@@ -1,10 +1,9 @@
 import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 
-export function Question () {
+export function Question (props) {
     return (
         <>
-            <Sidebar/>
         </>
     );
 };

@@ -3,59 +3,109 @@
     width : 270px;
     height : 100vh;
     background: #25bc6d;
-    display : flex;
-    flex-direction: column;
-    justify-content: space-evenly;
 }
-
-.side-container {
-    width : 270px;
-    text-align: left;
-    display : flex;
-    flex-direction: column;
-    justify-content: space-around;
-    border-top : 1px solid white;
-    line-height: 1rem;
-    content : "";
-}
-
-.link-login .side-tabs {
+.side-bar a{
     text-decoration: none;
-    color : white;
+    color : rgb(221, 221, 221);
     padding-left : 15px;
+    font-size: 18px;
     display : inline-block;
-    
+    transition: ease-in 0.15s;
+    font-weight: 300;
+}
+.side-bar a:hover{
+    color : rgb(255, 255, 255);
 }
 
-#user {
-    padding-left : 40px;
-    line-height: 5px;
+.logo-box{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }
 
-img {
-    width : 30px;
-    position : relative;
-    left : 30px;
-    top : 23px;
+.logo-box .logo{
+    display: block;
+    width : 160px;
 }
 
-.side-bar .side-tab {
-    text-decoration: none;
-    color : white;
-    padding-left : 70px;
+.menu__container{
+    margin-top: 40px;
+    margin-left: 40px ;
+    margin-right: 40px ;
 }
 
-.side-bar .side-tabm {
-    text-decoration: none;
-    color : white;
-    padding-left : 30px;
-    line-height: 1px;
+.login-box{
+    border-top: 1.5px solid rgb(209, 209, 209);
+    border-bottom: 1.5px solid rgb(209, 209, 209);
+    padding: 15px 0px 15px 10px;
+    display: flex;
+    align-items: center;
+    background-color: #25bc6d;
 }
 
+.login-box img{
+    width : 24px;
+    height : 24px;
+}
 
-@media (max-width : 767px) {
+.login-box .login{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color : rgb(221, 221, 221);
+    padding-left : 15px;
+    font-size: 18px;
+    display : inline-block;
+    transition: ease-in 0.15s;
+    font-weight: 300;
+}
+.login-box .login:hover{
+    color : rgb(255, 255, 255);
+}
+.main-box {
+    border-bottom: 1.5px solid rgb(209, 209, 209);
+}
+
+.main-box li{
+    display: flex;
+    padding: 15px 0px 15px 10px;
+    align-items: center;
+}
+.main-box img {
+    width : 24px;
+    height : 24px;
+}
+
+.sub-box{
+    border-bottom: 1.5px solid rgb(209, 209, 209);
+}
+
+.sub-box li{
+    display: flex;
+    padding: 12px 0px 12px 0px;
+    align-items: center;
+}
+.sub-box a{
+    font-size: 16px !important;
+    padding-left: 10px;
+}
+.sub-box .logout{
+    font-size: 16px !important;
+    padding-left: 10px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color : rgb(221, 221, 221);
+    font-size: 18px;
+    display : inline-block;
+    transition: ease-in 0.15s;
+    font-weight: 300;
+}
+.sub-box .logout:hover{
+    color : rgb(255, 255, 255);
+}
+@media (max-width : 1024px) {
     .side-bar {
         display: none;
     }
 }
-

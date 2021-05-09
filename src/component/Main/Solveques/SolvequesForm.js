@@ -13,8 +13,10 @@ export function SolvequesForm() {
                     나에게 맞는 문제를 추천합니다<br/>
                     개선사항에 대한 의견을 게시판에서 들려주세요.
                 </p>
+              <div className={style.btn}>  
                <Link to="/startexam"><button className={style.test_btn}>추천 문제 풀기</button></Link>
                <Link to="/startexam"><button className={style.test_btn}>키워드 선택 풀기</button></Link>
+              </div>  
                 <p className={style.test_p}>아직 ONE PASS가 처음이시군요? 진단평가를 치뤄보세요.</p>
             </div>   
            </div> 

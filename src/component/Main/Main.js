@@ -2,11 +2,11 @@ import React from 'react'
 import { Sidebar } from './Sidebar/Sidebar'
 import './main.css'
 
-export function Main() {
+export function Main(props) {
 
     return (
         <div>
-            <Sidebar/>
+        
         </div>
     );
 }
