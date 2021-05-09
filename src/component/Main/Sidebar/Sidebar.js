@@ -5,7 +5,6 @@ import user from './img/user.png'
 import learn from './img/learn.png'
 import notice from './img/notice.png'
 import ques from './img/ques.png'
-
 export function Sidebar(props) {
 
     /*
@@ -16,7 +15,8 @@ export function Sidebar(props) {
         });
     });*/
 
-    
+    var isLogin = props.isLogin;
+
     return (
         <div className="side-bar">
             <div className="logo-box">
@@ -25,8 +25,8 @@ export function Sidebar(props) {
             <div className="menu__container">
                 <div className="login-box" >
                         <img src={user}  alt="유저아이콘"/>
-                        {true && <NavLink to="/login" className="login">로그인</NavLink>}
-                        {!true && <NavLink to="/login" className="user">USER</NavLink>}
+                        {!isLogin && <button to="/login" className="login" >로그인</button>}
+                        {isLogin && <NavLink to="/login" className="user">USER</NavLink>}
                 </div>
             
                 <ul className="main-box">

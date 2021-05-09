@@ -1,10 +1,10 @@
 import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 
-export function Pointrecord () {
+export function Pointrecord (props) {
     return (
         <>
-            <Sidebar/>
+            <Sidebar isLogin={props.isLogin}/>
         </>
     );
 };

@@ -6,7 +6,7 @@ export function StartExam (props) {
     
     return (
         <>
-            <Sidebar/>
+            <Sidebar isLogin={props.isLogin}/>
             <StartExamForm token={props.education}/>
         </>
     );

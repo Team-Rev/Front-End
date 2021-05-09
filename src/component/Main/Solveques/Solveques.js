@@ -2,10 +2,10 @@ import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 import { SolvequesForm } from '../Solveques/SolvequesForm' 
 
-export function Solveques () {
+export function Solveques (props) {
     return (
         <>
-            <Sidebar/>
+            <Sidebar isLogin={props.isLogin}/>
             <SolvequesForm/>
         </>
     );

@@ -5,7 +5,7 @@ import { LearningForm } from '../Learning/LearningForm'
 export function Learning(props) {
     return (
         <>
-            <Sidebar/>
+            <Sidebar isLogin={props.isLogin}/>
             <LearningForm/>
         </>
     );

@@ -1,0 +1,111 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10001;
+    
+}
+
+.form{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    width: 360px;
+    height: 500px;
+}
+.logoBox{
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+.logo{
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+.logoBox span{
+    display: inline-block;
+    font-size: 22px;
+    color : rgb(63, 63, 63);
+    font-weight: 300;
+}
+
+.loginForm{
+    margin-bottom: 30px;
+}
+.loginForm form{
+    display: flex;
+    align-items: center;   
+    margin-top: 30px;
+}
+.loginForm input{
+    width: 270px;
+    border: 1px solid #25bc6d;
+    border-radius: 8px;
+    padding: 10px 12px 10px 12px;
+    outline: #1faf65;
+    margin-bottom: 15px;
+}
+
+.loginBtn{
+    width: 270px;
+    border: 1px solid #25bc6d;
+    background-color: #25bc6d;
+    padding: 8px 0 8px 0;
+    border-radius: 8px;
+    outline: #1faf65;
+    color:white;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: ease-in 0.15s;
+    box-shadow: 3px 3px 7px transparent;
+}
+
+.loginBtn:hover{
+    background-color: #2bc777;
+    box-shadow: 3px 3px 7px thistle;
+}
+
+.loginBtn:focus{
+    background-color: #2bc777;
+    border-color: #9dffcd;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3) inset;;
+}
+
+
+.info div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.findIdPw{
+    margin-bottom: 15px;
+}
+.info span{
+    font-size: 14px;
+    font-weight: 300;
+    color: teal;
+}
+
+.info button{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    cursor: pointer;
+    color: teal;
+    transition: ease-in 0.15s;
+}
+
+.info button:hover{
+    color: rgb(65, 65, 65);
+    text-decoration-color: rgb(65, 65, 65);
+    
+}

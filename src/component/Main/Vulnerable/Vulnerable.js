@@ -1,10 +1,10 @@
 import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 
-export function Vulnerable () {
+export function Vulnerable (props) {
     return (
         <>
-            <Sidebar/>
+            <Sidebar isLogin={props.isLogin}/>
         </>
     );
 };

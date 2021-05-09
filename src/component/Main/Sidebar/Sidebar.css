@@ -48,7 +48,20 @@
     height : 24px;
 }
 
-
+.login-box .login{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color : rgb(221, 221, 221);
+    padding-left : 15px;
+    font-size: 18px;
+    display : inline-block;
+    transition: ease-in 0.15s;
+    font-weight: 300;
+}
+.login-box .login:hover{
+    color : rgb(255, 255, 255);
+}
 .main-box {
     border-bottom: 1.5px solid rgb(209, 209, 209);
 }
@@ -77,7 +90,7 @@
     padding-left: 10px;
 }
 
-@media (max-width : 767px) {
+@media (max-width : 1024px) {
     .side-bar {
         display: none;
     }
