@@ -16,7 +16,7 @@ export function Container(props){
 
     var [records, setRecords] = useState(null);
 
-    var token = props.token;
+    var token = props.info.token;
     var fixedstring = encodeURIComponent(escape(token));
 
     // 상단에 보여줄 내용
@@ -43,7 +43,7 @@ export function Container(props){
         async function fetchData(){
             axios({
                 method: 'get',
-                url: `/problem/answer/result?id=user@naver.com`,
+                url: `/problem/answer/result?id=yeong@naver.com`,
                 headers: {
                     "Authorization" : `Bearer ${fixedstring}`,
                 }
@@ -53,7 +53,7 @@ export function Container(props){
                 setEnrieSummary(total(data));
             });
         }
-        if(props.token.length <= 0) return() => {
+        if(token.length <= 0) return() => {
             completed = false;
         }
 
@@ -62,7 +62,7 @@ export function Container(props){
         return () => {
             completed = true;
         };
-    }, [props.token, fixedstring]);
+    }, [token, fixedstring]);
 
     
     if(!entireSummary) return `NULL`;

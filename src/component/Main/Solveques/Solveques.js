@@ -5,7 +5,7 @@ import { SolvequesForm } from '../Solveques/SolvequesForm'
 export function Solveques (props) {
     return (
         <>
-            <Sidebar isLogin={props.isLogin}/>
+            <Sidebar isLogin={props.isLogin} setLoginOpen={props.setLoginOpen}/>
             <SolvequesForm/>
         </>
     );

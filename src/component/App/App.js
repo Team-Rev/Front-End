@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom'
 import { Login } from '../Main/Login/Login'
 import { Learning } from '../Main/Learning/Learning'
@@ -12,42 +12,55 @@ import { Writer } from '../Main/Writer/Writer'
 import { Main } from '../Main/Main'
 import { Solveques } from '../Main/Solveques/Solveques'
 import { StartExam } from '../Main/StartExam/StartExam'
-import axios from 'axios'
 
 export function App () {
 
-    const [ token , setToken ] = useState("");
-    var isLogin = false;
-   useEffect(() => {
-    axios({
-        method: 'post',
-        url: '/authenticate',
-        data : {
-            "username" : "user@naver.com",
-            "password" : "xptmxm123"
-        }
-    }).then(res => {
-        console.log(res.data.jwt);
-        setToken(res.data.jwt);
-    })
-    .catch(error => console.log(error));
-   }, []);
+    const [isLogin, setLogin] = useState(false);
+    const [isLoginOpen, setLoginOpen] = useState(false);
+    const [info, setInfo] = useState({
+        token:"",
+        nickname:""
+    });
 
+    const login =(info) => {
+        setLogin(info.token.length > 0);
+        setInfo(info);
+    }
+   
     return (
         <>
-            <Login/>
-            <Route exact path="/" render={() => <Main isLogin={isLogin}/>}></Route>
-            <Route path="/login" render={() => <Login isLogin={isLogin}/>}></Route>
-            <Route path="/learning" render={() => <Learning isLogin={isLogin}/>}></Route>
-            <Route path="/notice" render={() => <Notice isLogin={isLogin}/>}></Route>
-            <Route path="/question" render={() => <Question isLogin={isLogin}/>}></Route>
-            <Route path="/learnrecord" render={() => <Learnrecord isLogin={isLogin} token={token}/>}></Route>
-            <Route path="/vulnerable" render={() => <Vulnerable isLogin={isLogin}/>}></Route>
-            <Route path="/pointrecord" render={() => <Pointrecord isLogin={isLogin}/>}></Route>
-            <Route path="/createques" render={() => <Createques sLogin={isLogin}/>}></Route>
-            <Route path="/writer" render={() => <Writer isLogin={isLogin}/>}></Route>
-            <Route path="/solveques" render={() => <Solveques isLogin={isLogin}/>}></Route>
-            <Route path="/startexam" render={() => <StartExam isLogin={isLogin} token={token}/>}></Route>
+            {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login}/>}
+            
+            <Route 
+                exact path="/"
+                render={() => {
+                    <Main
+                        isLogin={isLogin}
+                        info={info}
+                        setLoginOpen={setLoginOpen}/>
+                 }}>
+            </Route>
+            
+            <Route 
+                path="/learning" 
+                render={() => {
+                    <Learning 
+                        isLogin={isLogin}
+                        info={info}
+                        setLoginOpen={setLoginOpen}
+                    />
+                }}>
+            </Route>
+
+            <Route path="/notice" render={() => <Notice isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/question" render={() => <Question isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/learnrecord" render={() => <Learnrecord isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/vulnerable" render={() => <Vulnerable isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/pointrecord" render={() => <Pointrecord isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/createques" render={() => <Createques sLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/writer" render={() => <Writer isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/solveques" render={() => <Solveques isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
+            <Route path="/startexam" render={() => <StartExam isLogin={isLogin} info={info} setLoginOpen={setLoginOpen}/>}></Route>
             
         </>
     );

@@ -7,7 +7,7 @@ export function StartExamForm(props) {
 
     const history = useHistory();
 
-    console.log(props.token)
+    console.log(props.info.token)
 
     /* node module ignore test1 */
     /* node module ignore test2 */

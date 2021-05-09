@@ -25,8 +25,8 @@ export function Sidebar(props) {
             <div className="menu__container">
                 <div className="login-box" >
                         <img src={user}  alt="유저아이콘"/>
-                        {!isLogin && <button to="/login" className="login" >로그인</button>}
-                        {isLogin && <NavLink to="/login" className="user">USER</NavLink>}
+                        {!isLogin && <button to="/login" className="login" onClick={() => props.setLoginOpen(true)} >로그인</button>}
+                        {isLogin && <NavLink to="/login" className="user">{props.nickname}</NavLink>}
                 </div>
             
                 <ul className="main-box">
