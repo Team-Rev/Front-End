@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Container } from '../../Container/Container'
 import style from './Notice.module.css'
 import axios from 'axios'
+import { dateCal } from '../../../util/DateManager'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
+import $ from "jquery";
 
 export function Notice (props) {
     return (
@@ -20,11 +24,10 @@ const NoticeBoard = () =>{
         async function fetchNotices(){
             axios({
                 method: 'get',
-                url: `/board/post`,
+                url: `/board/post-main`,
             }).then(response => {
                 var data = response.data;
                 setNoice(data);
-                console.log(notice);
             });
         }
         if(!completed) fetchNotices();
@@ -40,33 +43,50 @@ const NoticeBoard = () =>{
     );
 }
 const Slide = (props) => {
+    const [isNoticeOpend, setIsNoticeOpend] = useState(false);
+    const [noticeHeight, setNoticeHeight] = useState(60)
     const [pos, setPos] = useState(0);
     const savedCallback = useRef();
 
-  function callback() {
-    var count = props.notice.length;
-    
-    if(pos === (count-1) *100) setPos(0);
-    else setPos(pos + 100);
-    console.log(`${count} and ${pos}`)
-    // elem.style.top = `-${pos}%`;
-  }
-
-  useEffect(() => {
-    savedCallback.current = callback;
-  });
-
-  useEffect(() => {
-    function animate() {
-      savedCallback.current();
+    function callback() {
+        var count = props.notice.length;
+        
+        if(isNoticeOpend) setPos(0);
+        else if(pos === (count-1) *100) setPos(0);
+        else setPos(pos + 100);
     }
 
-    let id = setInterval(animate, 2000);
-    return () => clearInterval(id);
-  });
+    useEffect(() => {
+        isNoticeOpend ? setNoticeHeight(props.notice.length*60) : setNoticeHeight(60);
+        savedCallback.current = callback;
+    });
+
+    useEffect(()=>{
+        $(`.${style.NoticeOpen}`).click(function(){
+            $(`.${style.NoticeOpen}`).toggleClass(style.DownActive);
+        });
+    });
+
+    useEffect(() => {
+        function animate() {
+        savedCallback.current();
+        }
+
+        let id = setInterval(animate, 4000);
+        return () => clearInterval(id);
+    });
 
     return(
-        <div className={style.Slide}>
+        <div className={style.Slide} style={{
+            "height" : `${noticeHeight}px`
+        }}>
+            <button className={style.NoticeOpen} 
+                onClick={() => {
+                    setIsNoticeOpend(!isNoticeOpend);
+                    setPos(0);
+                }
+            }>
+            </button>
             <ul className={style.Animate} style={{
                 "top": `-${pos}%`,
             }}>
@@ -80,16 +100,21 @@ const Slide = (props) => {
 
 
 const NoticeCard = (props) =>{
+
+    var dateInfo = dateCal(props.notice.postDate);
     return(
-        <li >
-            {props.notice.boardId}
-            {props.notice.category}
-            {props.notice.content}
-            {props.notice.hits}
-            {props.notice.postDate}
-            {props.notice.status}
-            {props.notice.title}
-            {props.notice.userId}
+        <li>
+            <div className={style.DateInfo}>{dateInfo}</div>
+            <div className={style.TitleWrapper}>
+                <button className={style.Title}>
+                    {props.notice.title}
+                </button>
+            </div>
+            <div className={style.Author}>{props.notice.nickname}</div>
+            <div className={style.HitsWrapper}>
+                <span className={style.Hits}>{props.notice.hits}</span>
+                <FontAwesomeIcon icon={faEye} />
+            </div>
         </li>
     );
 }

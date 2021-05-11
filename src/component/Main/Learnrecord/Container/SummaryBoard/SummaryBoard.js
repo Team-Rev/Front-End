@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import style from './SummaryBoard.module.css'
 import $ from "jquery";
 import axios from 'axios';
+import { dateFormating } from '../../../../../util/DateManager'
 
 const MainBoard = (props) =>{
     return(
@@ -16,23 +17,6 @@ const MainBoard = (props) =>{
     );
 };
 
-const dateFormating = (date)=>{
-    var result = `${date.getFullYear()}-`;
-    if(date.getMonth() < 10) result = `${result}0${date.getMonth()+1}-`
-    else result = `${result}${date.getMonth()+1}-`
-    
-    if(date.getDate() < 10) result = `${result}0${date.getDate()} `
-    else result = `${result}${date.getDate()} `
-
-    if(date.getHours() < 10) result = `${result}0${date.getHours()}:`
-    else result = `${result}${date.getHours()}:`
-
-    if(date.getMinutes() < 10) result = `${result}0${date.getMinutes()}`
-    else result = `${result}${date.getMinutes()}`
-    
-    return result;
-}
-
 const SummaryCard = (props =>{
     useEffect(()=>{
         $(`.${style.Card}`).click(function(){
@@ -41,8 +25,7 @@ const SummaryCard = (props =>{
         
     });
     const main = props.record.answerMain;
-    const date = new Date(main.date);
-    const dateStr = dateFormating(date);
+    const dateStr = dateFormating(main.date);
     return(
         <li className={style.Card}  >
             <button onClick={(e) => props.loadQuestions(e)} data-key={main.answerMainId}>
