@@ -59,13 +59,15 @@ export function App () {
 
             <Route path="/notice" 
                 render={() => 
-                    <Notice/>
+                    <Notice/> // 공지사항은 토큰 필요 없음
                 }>
             </Route>
 
             <Route path="/question"
                 render={() => 
-                    <Question/>
+                    <Question
+                        info={info}
+                    />
                 }>
             </Route>
 
