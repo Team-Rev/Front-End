@@ -1,6 +1,8 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './Summary.module.css'
+import jwt_decode from "jwt-decode";
+import axios from 'axios';
 
 const TotalSummary = (props) => {
     return(
@@ -16,15 +18,38 @@ const TotalSummary = (props) => {
 }
 
 export function Summary(props){
-    var avg = parseInt(props.entireSummary.correctRatioAvg * 100)
-    avg = avg ? avg : 0;
+    var decodedToken = jwt_decode(props.token);
+    const [totalInfo, setTotalInfo] = useState(null);
+
+    const [isCompleted, setIsCompleted] = useState(false);
+    useEffect(() => {
+        async function fetchData(){
+            axios({
+                method : 'get',
+                url : `/problem/answer/total?id=${decodedToken.sub}`,
+                headers: {
+                    "Authorization" : `Bearer ${props.token}`,
+                }
+            }).then(res => {
+                var data = res.data;
+                setTotalInfo(data)
+            });
+        } 
+
+        if(!isCompleted) fetchData();
+
+        return () => {
+            setIsCompleted(false);
+        }
+    })
+
     return(
         <div className={style.summary}>
             <ul>
-                <TotalSummary title="시험 횟수" info={props.entireSummary.examCount}/>
-                <TotalSummary title="맞힌 문제 수" info={props.entireSummary.correctCount}/>
-                <TotalSummary title="푼 문제 수" info={props.entireSummary.totalCount}/>
-                <TotalSummary title="평균 정답률" info={ `${avg}%` }/>
+                {totalInfo && <TotalSummary title="시험 횟수" info={totalInfo.examCount}/> }
+                {totalInfo && <TotalSummary title="맞힌 문제 수" info={totalInfo.totalCorrectCount}/> }
+                {totalInfo && <TotalSummary title="푼 문제 수" info={totalInfo.totalQuestionCount}/> } 
+                {totalInfo && <TotalSummary title="평균 정답률" info={totalInfo.correctAverage}/> }
             </ul>
         </div>
     );

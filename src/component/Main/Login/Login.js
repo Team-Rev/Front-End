@@ -10,8 +10,6 @@ export function Login(props) {
 
     const handleInput = (e) => {
         var name = e.target.name
-        console.log(name)
-        console.log(e.target.value)
         switch(name){
             case "id":
                 setId(e.target.value);
