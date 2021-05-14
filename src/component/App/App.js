@@ -36,9 +36,11 @@ export function App () {
             nickname : ""
         });
     }
+    const [userId, setUserId] = useState("")
+
     return (
         <>
-            {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login}/>}
+            {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login} setUserId={setUserId}/>}
             <Sidebar 
                 nickname={info.nickname} 
                 setLoginOpen={setLoginOpen}
@@ -108,7 +110,7 @@ export function App () {
             </Route>
             <Route path="/startexam" 
                 render={() => 
-                    <StartExam info={info}/>
+                    <StartExam info={info} userId={userId}/>
                 }>
             </Route>
             <Route path="/totalpage" 

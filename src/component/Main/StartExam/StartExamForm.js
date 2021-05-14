@@ -4,54 +4,74 @@ import { Link, useHistory } from "react-router-dom";
 import axios from 'axios'
 import $ from 'jquery'
 
-var  multipleChoiceIds= [];
+
 export function StartExamForm(props) {
 
     const history = useHistory();
-    var userId = 'yeong@naver.com'
-    var submitList = [];
+    var userId = props.userId  // yeong@naver.com 사용자 ID
+    var [check, setCheck] = useState(false)
+    var [arr, setArr] = useState([
+      {
+        
+      }
+    ])
+    var [submitList, setSubmitList] = useState({  //문제 ID와 선택한 보기가 들어가는 배열
+        questionId : '',
+        multiple : []
+    })
 
     var [question, setQuestion] = useState(null);
     var [num, setNum] = useState(0);
-
+    // 이전 버튼
     const handleDecrese = () => {
       if(num == 0) alert('첫번째 페이지입니다')
-      else setNum(num - 1)
+      else {
+        setNum(num - 1)
+      }
     }
-
+    // 다음 버튼
     const handleIncrese = () => {
       if(num == question.length-1) alert('마지막 페이지입니다')
-      else setNum(num + 1)
-    }
-  
-    const onChangeCheck = (e) => {
-      const checked = e.target.checked;
-      const value = e.target.value;
-      // const a = value.split(",");     
-
-      if (checked) {
-        multipleChoiceIds.push({
-          id : value
-        })
-         //console.log(multipleChoiceIds)
+      else {
+        setNum(num + 1)
+        $('.checks').prop('checked', false);
       }
+    }
+
+
+    const onChangeCheck = (e) => {
+      var temp = []
+      const checked = e.target.checked
+      const value = e.target.value
+      const list = value.split(",");
+      const [bogi, bogiid, questionId, count] = list
+      
+    if(checked) {
+      setSubmitList((prevState) => ({
+        ...prevState,
+        questionId : questionId,
+        ["multiple"] : [...prevState["multiple"].concat(bogiid)],
+      }));
+    }
+    //   setSubmitList({
+    //     ...submitList,
+    //     [questionId] : questionId,
+    //     [multiple] : bogiid,
+    //   })
+    // }
       // 체크해제
       else {
-        var uncheked = value
-        // console.log(uncheked)
-        var temp = []
-        for(let i = 0; i < multipleChoiceIds.length; i++) {
-          if(multipleChoiceIds[i].id != uncheked)
-            temp.push(multipleChoiceIds[i])
-        }
-        multipleChoiceIds = temp
-         console.log(multipleChoiceIds)
+        setSubmitList((prevState) => ({
+          ...prevState,
+          questionId : questionId,
+          ["multiple"] : [...prevState["multiple"].filter((element) => (element) !== bogiid)],
+        }));
       }
     };
-
+    console.log(submitList)
 
     var token = props.info.token
-    console.log(token)
+    //console.log(token)
 
     var fixedstring = encodeURIComponent(escape(token));
     useEffect(() => {
@@ -59,7 +79,7 @@ export function StartExamForm(props) {
         async function fetchData(){ 
             axios({
                 method: 'get',
-                url: '/problem/rangeQuestions?start=1&end=5',
+                url: '/problem/rangeQuestions?start=1&end=10',
                 headers: {
                   'Access-Control-Allow-Origin': '*',
                   'Content-Type': 'application/json',
@@ -85,22 +105,52 @@ export function StartExamForm(props) {
         var count = 0;
         /* 정답개수 체크 */
         var listTag = [];
-          for(let i = 0; i < question[num].choices.length; i++) {  //보기 길이 만큼
-            if(question[num].choices[i].isCorrect === true)        // 정답이면 +1
-              count++;
-          }
           /* 보기 출력 */
-          for(let j = 0; j < question[num].choices.length; j++) {
-            var bogi = question[num].choices[j].choice 
-            var id = question[num].choices[j].id
+          for(let j = 0; j < question[num].choices.length; j++) {  
+            var bogi = question[num].choices[j].choice          
+            var bogiid = question[num].choices[j].id
             var questionId = question[num].choices[j].questionId
+            var choice = [bogi, bogiid, questionId, count]
             listTag.push(
               <label> 
-                 <input type="checkbox" value={id} onClick={(e) => onChangeCheck(e)}/>
-                 <span key={id}> {bogi} </span>
+                 <input type="checkbox" className="checks" value={choice} onClick={(e) => onChangeCheck(e)}/>
+                 <span key={bogiid}> {bogi} </span>
               </label> 
             )
           }
+          for(let i = 0; i < question[num].choices.length; i++) {  //보기 길이 만큼
+            if(question[num].choices[i].isCorrect === true)        // 정답이면 +1
+              count++
+          }
+       
+        //   $("input:checkbox").on('click', function() {
+        //     if($('input:checkbox:checked').length == 1) {
+        //         $(":checkbox:not(:checked)").attr("disabled", "disabled");
+        //     } else {
+        //         $("input:checkbox").removeAttr("disabled");
+        //     }
+        // })
+      // } else if(count == 2) {
+      //   $("input:checkbox").on('click', function() {
+      //     if($('input:checkbox:checked').length == 2) {
+      //         $(":checkbox:not(:checked)").attr("disabled", "disabled");
+      //     } else {
+      //         $("input:checkbox").removeAttr("disabled");
+      //     }
+      // })
+
+          
+
+          // var url = "http://34.64.73.179:8760/problem/submit"
+
+          // axios({
+          //     method : 'post',
+          //     url : url,
+          //     data : {
+          //         "userId" : userId,
+          //         "submitList" : []
+          //     }
+          // })
 
   return (
     <div className="board">
@@ -121,10 +171,9 @@ export function StartExamForm(props) {
               <div className="bottom-btn right" style={{ float: "right" }}>
                 <Link to="#">
                   <button
-                    onClick={(e) =>
-                      window.confirm("정말 제출하시겠습니까?") &&
-                      history.push("/totalpage")
-                    }
+                   onClick={(e) =>
+                    window.confirm("정말 제출하시겠습니까?") &&
+                    history.push("/totalpage")}
                     className={style.btn2}
                     id="sub"
                   >

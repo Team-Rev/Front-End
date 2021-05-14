@@ -15,6 +15,7 @@ export function Login(props) {
         switch(name){
             case "id":
                 setId(e.target.value);
+                props.setUserId(e.target.value)
                 break;
             case "pw":
                 setPassword(e.target.value);
