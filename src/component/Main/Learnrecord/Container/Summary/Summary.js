@@ -49,7 +49,7 @@ export function Summary(props){
                 {totalInfo && <TotalSummary title="시험 횟수" info={totalInfo.examCount}/> }
                 {totalInfo && <TotalSummary title="맞힌 문제 수" info={totalInfo.totalCorrectCount}/> }
                 {totalInfo && <TotalSummary title="푼 문제 수" info={totalInfo.totalQuestionCount}/> } 
-                {totalInfo && <TotalSummary title="평균 정답률" info={totalInfo.correctAverage}/> }
+                {totalInfo && <TotalSummary title="평균 정답률" info={totalInfo.correctAverage+"%"}/> }
             </ul>
         </div>
     );
