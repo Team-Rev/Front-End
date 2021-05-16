@@ -14,3 +14,4 @@ function PointBoard(props){
         <div>point</div>
     );
 }
+

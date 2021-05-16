@@ -10,6 +10,7 @@ export function Container(props){
     var token = props.info.token;
     var fixedstring = encodeURIComponent(escape(token));
 
+
     return(
         <div className="board">
             <div className={style.container}>

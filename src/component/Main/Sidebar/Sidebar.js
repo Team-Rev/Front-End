@@ -8,7 +8,6 @@ import ques from './img/ques.png'
 export function Sidebar(props) {
 
     /*
-
     useEffect(() => {
         $('.side-tab, .side-tabm').hover(function() {
             $('.active').css('color', "#00251a");

@@ -13,6 +13,7 @@ import { Main } from '../Main/Main'
 import { Solveques } from '../Main/Solveques/Solveques'
 import { StartExam } from '../Main/StartExam/StartExam'
 import { Sidebar } from '../Main/Sidebar/Sidebar'
+import { TotalPage } from '../Main/TotalPage/TotalPage'
 
 export function App () {
 
@@ -35,9 +36,12 @@ export function App () {
             nickname : ""
         });
     }
+
+    const [userId, setUserId] = useState("")
+
     return (
         <>
-            {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login}/>}
+            {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login} setUserId={setUserId}/>}
             <Sidebar 
                 nickname={info.nickname} 
                 setLoginOpen={setLoginOpen}
@@ -109,10 +113,14 @@ export function App () {
             </Route>
             <Route path="/startexam" 
                 render={() => 
-                    <StartExam/>
+                    <StartExam info={info} userId={userId}/>
                 }>
             </Route>
-            
+            <Route path="/totalpage" 
+                render={() => 
+                    <TotalPage/>
+                }>
+            </Route>
         </>
     );
 };

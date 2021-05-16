@@ -1,0 +1,66 @@
+.container{
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll; 
+}
+
+.inner{
+    max-width: 1000px;
+    padding-top: 30vh;
+    padding-bottom: 20vh;
+    padding-left: 35px;
+    padding-right: 35px;
+    box-shadow:5px 5px 8px #aaa;
+    margin : 30px 0 0 50px;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.maintab {
+    text-align: center;
+}
+
+.h1 {
+    margin-top : -90px;
+    line-height: 50px;
+    font-size: 37px;
+}
+
+.p {
+    margin-top : 50px;
+    font-size : 15px;
+    line-height: 1.2rem;
+    color : #62757f;
+}
+
+
+.test_btn {
+    display: inline-block;
+    width : 310px;
+    height : 40px;
+    box-sizing: border-box;
+    text-align: center;
+    margin : 80px 7px 0 0;
+    padding : 8px 0 8px 0;
+    border : 0.3px solid #25cc6d;
+    border-radius: 6px;
+    font-family: 'Noto Sans KR', sans-serif;;
+    font-size: 15px;
+    font-weight : normal;
+    background-color: #25bc6d;
+    color : white;
+    outline: none;
+    cursor: pointer;
+    transition : all .5s ease;
+}
+
+.test_btn:hover {
+    background-color : white;
+    color : #25bc6d;
+}
+
+.test_p {
+    margin-top : 11px;
+    font-size : 13px;
+    color: gray;
+}

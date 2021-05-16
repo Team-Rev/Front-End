@@ -1,0 +1,105 @@
+.container{
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll; 
+}
+
+.inner{
+    max-width: 1000px;
+    padding-top: 30px;
+    padding-bottom: 5vh;
+    padding-left: 35px;
+    padding-right: 35px;
+    box-shadow:5px 5px 8px #aaa;
+    border-radius: 15px;
+    margin : 30px 0 0 50px;
+    background-color : white;
+}
+
+.maintab {
+    border-bottom : 0.1px solid rgb(117, 117, 117);
+    text-align: left;
+}
+
+.p {
+    display: inline-block;
+    font-size : 20px;
+    color : rgb(41, 41, 41);
+    padding : 0 30px 8px 0;
+    text-decoration: none;
+}
+
+.p:focus {
+    border : 0.5px solid rgb(30, 30, 30);
+    border-radius: 2.5px;
+}
+
+.total {
+    display : flex;
+    justify-content: space-evenly;
+    margin-top : 50px;
+    border-bottom : 0.1px solid rgb(117, 117, 117);
+}
+
+.total_box {
+    margin-bottom: 20px;
+}
+
+.total_box p:first-child {
+    font-weight : 50
+} 
+
+.total_box p:nth-child(2){
+    font-size : 40px;
+}
+
+.keyword {
+    padding : 15px 0 30px 21px;
+    font-weight : 700;
+}
+
+.btna {
+    display: inline-block;
+    width : auto;
+    white-space: normal;
+    height : 40px;
+    box-sizing: border-box;
+    text-align: center;
+    padding : 5px 12px 10px 12px;
+    margin-left : 20px;
+    margin-bottom : 15px;
+    border : 0.3px solid #25cc6d;
+    border-radius: 6px;
+    font-family: 'Noto Sans KR', sans-serif;;
+    font-size: 15px;
+    font-weight : normal;
+    background-color: #25bc6d;
+    color : white;
+    outline: none;
+    cursor: pointer;
+}
+
+.btnb {
+    display: inline-block;
+    width : auto;
+    white-space: normal;
+    height : 40px;
+    box-sizing: border-box;
+    text-align: center;
+    padding : 5px 12px 10px 12px;
+    margin-left : 20px;
+    border : 0.3px solid #25cc6d;
+    border-radius: 6px;
+    font-family: 'Noto Sans KR', sans-serif;;
+    font-size: 15px;
+    font-weight : normal;
+    background-color: white;
+    color : #25bc6d;
+    outline: none;
+    cursor: pointer;
+}
+
+
+
+
+
