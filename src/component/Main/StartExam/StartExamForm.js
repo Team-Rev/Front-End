@@ -9,24 +9,28 @@ export function StartExamForm(props) {
 
     const history = useHistory();
     var userId = props.userId  // yeong@naver.com 사용자 ID
-    var [check, setCheck] = useState(false)
-    var [arr, setArr] = useState([
-      {
-        
-      }
-    ])
-    var [submitList, setSubmitList] = useState({  //문제 ID와 선택한 보기가 들어가는 배열
+    var [submitList, setSubmitList] = useState([]) //문제 ID와 선택한 보기가 들어가는 배열
+
+    var [arr, setArr] = useState({  
         questionId : '',
-        multiple : []
+        multiple : [
+          
+        ]
     })
 
     var [question, setQuestion] = useState(null);
     var [num, setNum] = useState(0);
     // 이전 버튼
-    const handleDecrese = () => {
+    const handleDecrese = () => { 
       if(num == 0) alert('첫번째 페이지입니다')
       else {
         setNum(num - 1)
+        submitList.pop()
+        console.log(submitList)
+        $("input:checkbox[name=8]:checked").each(function() {
+            var checkVal = $(this).val();
+            console.log(checkVal)
+        })
       }
     }
     // 다음 버튼
@@ -35,10 +39,15 @@ export function StartExamForm(props) {
       else {
         setNum(num + 1)
         $('.checks').prop('checked', false);
+        setSubmitList(submitList.concat(arr))
+        setArr((prevState) => ({
+          ...prevState.arr,
+          questionId : questionId,
+          ["multiple"] : [],
+        }));
       }
     }
-
-
+  
     const onChangeCheck = (e) => {
       var temp = []
       const checked = e.target.checked
@@ -46,22 +55,16 @@ export function StartExamForm(props) {
       const list = value.split(",");
       const [bogi, bogiid, questionId, count] = list
       
-    if(checked) {
-      setSubmitList((prevState) => ({
-        ...prevState,
+    if(checked){
+      setArr((prevState) => ({
+        ...prevState.arr,
         questionId : questionId,
         ["multiple"] : [...prevState["multiple"].concat(bogiid)],
       }));
-    }
-    //   setSubmitList({
-    //     ...submitList,
-    //     [questionId] : questionId,
-    //     [multiple] : bogiid,
-    //   })
-    // }
+    } 
       // 체크해제
       else {
-        setSubmitList((prevState) => ({
+        setArr((prevState) => ({
           ...prevState,
           questionId : questionId,
           ["multiple"] : [...prevState["multiple"].filter((element) => (element) !== bogiid)],
@@ -69,6 +72,9 @@ export function StartExamForm(props) {
       }
     };
     console.log(submitList)
+    console.log(arr)
+    // setArr(arr.concat(submitList))
+    // console.log(arr)
 
     var token = props.info.token
     //console.log(token)
@@ -113,7 +119,7 @@ export function StartExamForm(props) {
             var choice = [bogi, bogiid, questionId, count]
             listTag.push(
               <label> 
-                 <input type="checkbox" className="checks" value={choice} onClick={(e) => onChangeCheck(e)}/>
+                 <input type="checkbox" name={bogiid} className="checks" value={choice} onClick={(e) => onChangeCheck(e)}/>
                  <span key={bogiid}> {bogi} </span>
               </label> 
             )
