@@ -98,7 +98,8 @@ export function StartExamForm(props) {
         };
     }, [fixedstring]);
 
-        console.log(question)
+    console.log(props.info.token)
+
 
         if(!question) return `NULL`;
 
