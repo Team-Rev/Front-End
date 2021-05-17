@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '../../Container/Container'
 import style from './Question.module.css'
+
 export function Question (props) {
     return (
         <Container content={QuestionBoard}/>
@@ -13,6 +14,7 @@ const QuestionBoard = () =>{
             <TopOfQuestion/>
             <FrequentlyAskedQuestions/>
             <TotalQuestion/>
+
         </>
     );
 }

@@ -1,15 +1,42 @@
+.container{
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll; 
+}
+
+.inner{
+    max-width: 1000px;
+    padding-top: 15vh;
+    padding-bottom: 20vh;
+    padding-left: 35px;
+    padding-right: 35px;
+    box-shadow:5px 5px 8px #aaa;
+    margin : 30px 0 0 50px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.maintab {
+    height : 40vh;
+}
+
+.page {
+    float : right;
+    margin : -90px 10px 0 0;
+}
+
 form {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    margin-top : 50px;
+    margin : 50px 0 0 20px;
     text-align: left;
 }
 
 
 label {
     cursor: pointer;
-    font-weight: 520;
+    font-weight: 470;
     margin-bottom: 1.5em;
 }
 
@@ -20,7 +47,7 @@ h2 {
 
 .btn1 {
     display: inline-block;
-    width : 70px;
+    width : 80px;
     height : 40px;
     box-sizing: border-box;
     text-align: center;
@@ -39,7 +66,7 @@ h2 {
 .btn2 {
     display: inline-block;
     transition : all .5s ease;
-    width : 70px;
+    width : 80px;
     height : 40px;
     box-sizing: border-box;
     text-align: center;
@@ -63,7 +90,7 @@ h2 {
 
 .btn3 {
     display: inline-block;
-    width : 70px;
+    width : 80px;
     height : 40px;
     box-sizing: border-box;
     text-align: center;

@@ -69,6 +69,7 @@ const SummaryCard = (props =>{
     });
     const main = props.record;
     const dateStr = dateFormating(main.date);
+
     return(
         <li className={style.Card}  >
             <button onClick={(e) => props.loadQuestions(e)} data-key={main.answerMainId}>
@@ -111,7 +112,6 @@ const ColorInfo = (props) => {
 }
 
 const DetailBoard = (props) =>{
-    
     const renderChoice = (choice, selects) =>{
         const select = selects.find(function(select){
             return choice.id === select;
@@ -119,6 +119,7 @@ const DetailBoard = (props) =>{
 
         if(select && choice.isCorrect) return(<li className={style.Match}>{choice.choice}</li>);
         if(select) return(<li className={style.Choice}>{choice.choice}</li>);
+
         if(choice.isCorrect) return(<li className={style.Right}>{choice.choice}</li>);
         return (<li className={style.Normal}>{choice.choice}</li>);
 
@@ -132,13 +133,13 @@ const DetailBoard = (props) =>{
                 <ol className={style.Choices}>
                     {question.question.choices.map( choice =>(
                         renderChoice(choice, question.choices)
+
                     ))}
                 </ol>
             </div>
         );
     };
     var index = 0;
-
     return(
         <div className={style.DetailBoard}>
             <ColorInfo/>
@@ -159,11 +160,13 @@ export function SummaryBoard(props){
         axios({
             method: 'get',
             url: `/problem/answer/detail?id=${key}`,
+
             headers: {
                 "Authorization" : `Bearer ${props.token}`,
             }
         }).then( res => {
             var data = res.data;
+
             setQuestions(data);
         });
 
