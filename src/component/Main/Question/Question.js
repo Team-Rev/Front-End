@@ -118,9 +118,48 @@ function FrequentlyAskedQuestions(props){
 }
 
 
+const TotalCard = (props) =>{
+    const article = props.article;
+    return(
+        <div>
+            <div className={style.TotalTitle}>{article.title}</div>
+            <div className={style.TotalDetail}>{article.detail}</div>
+            <div className={style.TotalInfo}>
+                <span className={style.TotalHits} >{article.hits} Hits</span>
+                <span className={style.TotalComments} >{article.comments} Comments</span>
+            </div>
+        </div>
+    );
+}
+
 
 function TotalQuestion(props){
+    const article = {
+        title : `동영이 컬러링 왜저럼?`,
+        detail : `동영이한테 전화 했는데 컬러링 트로트 나오던데, 컬러링 왜 저따구임 ㅋㅋㅋ`,
+        hits : 0,
+        comments : 0,
+    }
     return(
-        <div></div>
+        <div className={style.TotalBoard}>
+            <div className={style.TotalBoardMain}>
+                    전체 질문
+            </div>
+            <div className={style.Total__Container}>
+                <ul>
+                    <TotalCard article={article}/>
+                    <TotalCard article={article}/>
+                    <TotalCard article={article}/>
+                    <TotalCard article={article}/>
+                    <TotalCard article={article}/>
+                    <TotalCard article={article}/>
+                    <TotalCard article={article}/>
+                    <TotalCard article={article}/>
+                </ul>
+            </div>
+            <div className={style.PageBar}>
+                 1 2 3 4 5 6 7 8 9 10 
+            </div>
+        </div>
     );
 }
