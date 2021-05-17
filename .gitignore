@@ -1,3 +1,5 @@
 node_modules
 config/
 scripts/
+.idea/.gitignore
+.idea/
