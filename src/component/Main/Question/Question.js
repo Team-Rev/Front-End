@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container } from '../../Container/Container'
 import style from './Question.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 export function Question (props) {
     return (
@@ -123,24 +126,33 @@ function FrequentlyAskedQuestions(props){
 const TotalCard = (props) =>{
     const article = props.article;
     return(
-        <div>
+        <li>
             <div className={style.TotalTitle}>{article.title}</div>
             <div className={style.TotalDetail}>{article.detail}</div>
             <div className={style.TotalInfo}>
-                <span className={style.TotalHits} >{article.hits} Hits</span>
                 <span className={style.TotalComments} >{article.comments} Comments</span>
+                <span className={style.TotalDate} >{article.date}</span>
             </div>
-        </div>
+        </li>
     );
 }
 
+function renderMoveBtn(page){
+    var rows = [];
 
+    for(let i = 1 ; i <= 10 ; i++){
+        rows.push(<button key={i} className={style.PageMoveBtn}>
+            {page*10+i}
+        </button>)
+    }
+    return rows;
+}
 function TotalQuestion(props){
     const article = {
         title : `동영이 컬러링 왜저럼?`,
         detail : `동영이한테 전화 했는데 컬러링 트로트 나오던데, 컬러링 왜 저따구임 ㅋㅋㅋ`,
-        hits : 0,
         comments : 0,
+        date : "3분전"
     }
     return(
         <div className={style.TotalBoard}>
@@ -160,7 +172,15 @@ function TotalQuestion(props){
                 </ul>
             </div>
             <div className={style.PageBar}>
-                 1 2 3 4 5 6 7 8 9 10 
+                <button className={style.MoveLeft}>
+                    <FontAwesomeIcon icon={faChevronLeft}/> 이전
+                </button>
+                
+                {renderMoveBtn(0)}
+                 
+                <button className={style.MoveRight}>
+                    다음 <FontAwesomeIcon icon={faChevronRight} /> 
+                </button>
             </div>
         </div>
     );
