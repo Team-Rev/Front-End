@@ -33,13 +33,14 @@ export function Summary(props){
             }).then(res => {
                 var data = res.data;
                 setTotalInfo(data)
+                props.setTotal(data.examCount);
             });
         } 
 
         if(!isCompleted) fetchData();
 
         return () => {
-            setIsCompleted(false);
+            setIsCompleted(true);
         }
     })
 

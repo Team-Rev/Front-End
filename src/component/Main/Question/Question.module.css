@@ -73,6 +73,7 @@
     height: 30px;
     border-bottom: 1px solid rgb(224, 224, 224);
     font-weight: 500;
+    padding-left: 5px;
 }
 
 .FrequentContentBoard{
@@ -145,6 +146,7 @@
     font-weight: 500;
     margin-left: 20px;
     margin-right: 20px;
+    padding-left: 5px;
 }
 
 
@@ -154,14 +156,15 @@
     margin-left: 20px;
     margin-right: 20px;
     border-bottom: 1px solid rgb(199, 199, 199);
+    padding-left: 5px;
 }
 
 .Total__Container ul li:hover {
     background-color: rgb(247, 247, 247);
-    margin-left: 0px;
+    /* margin-left: 0px;
     margin-right: 0px;
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 20px; */
 }
 
 .TotalTitle{
