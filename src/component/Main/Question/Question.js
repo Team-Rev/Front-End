@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '../../Container/Container'
 import style from './Question.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
+import {ContentCard} from './ContentCard/ContentCard'
+import {PageBar} from "../../util/PageBar/PageBar"
 export function Question (props) {
     return (
         <Container content={QuestionBoard}/>
@@ -22,42 +22,36 @@ const QuestionBoard = () =>{
     );
 }
 
+
 function TopOfQuestion(props){
+    const cards = [];
+
+    cards.push({
+        title : "오늘의 TIP",
+        content : "혹시 아시나요? 내가 만든 문제를 다른 사용자가 풀면 포인트를 얻을 수 있어요!"
+    })
+    cards.push({
+        title : "질문하기",
+        content : "공부하다 잘 모르는 문제가 나왔으면 질문을 올려보세요."
+    })
+    cards.push({
+        title : "문의하기",
+        content : "서비스를 이용하는데 불편한 점이 있다면 들려주세요."
+    })
+    cards.push({
+        title : "문의내역",
+        content : "보내주신 문의에 대한 답변이 도착했어요."
+    })
+
     return(
         <div className={style.Top__Container}>
             <div className={style.TopSlider}>
-                <div className={style.ContentCard}>
-                    <div className={style.ContentTitle}>
-                        오늘의 TIP
-                    </div>
-                    <div className={style.ContentDetail}>
-                        혹시 아시나요? 내가 만든 문제를 다른 사용자가 풀면 포인트를 얻을 수 있어요!
-                    </div>
-                </div>
-                <div className={style.ContentCard}>
-                    <div className={style.ContentTitle}>
-                        질문하기
-                    </div>
-                    <div className={style.ContentDetail}>
-                        공부하다 잘 모르는 문제가 나왔으면 질문을 올려보세요.
-                    </div>
-                </div>
-                <div className={style.ContentCard}>
-                    <div className={style.ContentTitle}>
-                        문의하기
-                    </div>
-                    <div className={style.ContentDetail}>
-                        서비스를 이용하는데 불편한 점이 있다면 들려주세요.
-                    </div>
-                </div>
-                <div className={style.ContentCard}>
-                    <div className={style.ContentTitle}>
-                        문의내역
-                    </div>
-                    <div className={style.ContentDetail}>
-                        보내주신 문의에 대한 답변이 도착했어요.
-                    </div>
-                </div>
+                {cards.map(e => (
+                    <ContentCard
+                        title = {e.title}
+                        content = {e.content}
+                    />)
+                )}
             </div>
         </div>
     );
@@ -137,16 +131,7 @@ const TotalCard = (props) =>{
     );
 }
 
-function renderMoveBtn(page){
-    var rows = [];
 
-    for(let i = 1 ; i <= 10 ; i++){
-        rows.push(<button key={i} className={style.PageMoveBtn}>
-            {page*10+i}
-        </button>)
-    }
-    return rows;
-}
 function TotalQuestion(props){
     const article = {
         title : `동영이 컬러링 왜저럼?`,
@@ -171,17 +156,8 @@ function TotalQuestion(props){
                     <TotalCard article={article}/>
                 </ul>
             </div>
-            <div className={style.PageBar}>
-                <button className={style.MoveLeft}>
-                    <FontAwesomeIcon icon={faChevronLeft}/> 이전
-                </button>
-                
-                {renderMoveBtn(0)}
-                 
-                <button className={style.MoveRight}>
-                    다음 <FontAwesomeIcon icon={faChevronRight} /> 
-                </button>
-            </div>
+            <PageBar/>
         </div>
     );
 }
+
