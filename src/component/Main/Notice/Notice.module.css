@@ -247,6 +247,7 @@
     background-repeat:no-repeat;
     background-size: contain;
     transition: ease-in 0.3s;
+    background-color: transparent;
 }
 .PageMoveToLeft:hover svg{
     color: rgb(0, 0, 0);
@@ -258,6 +259,7 @@
     height: 24px;
     border : 0px;
     outline: none;
+    background-color: transparent;
     transition: ease-in 0.3s;
 }
 .PageMoveToRight:hover svg{
@@ -272,6 +274,7 @@
     cursor: pointer;
     font-size: 16px;
     transition: ease-in 0.3s;
+    background-color: transparent;
 }
 .PageMoveBtn:hover{
     color: rgb(0, 0, 0);

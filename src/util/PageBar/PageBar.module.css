@@ -1,0 +1,29 @@
+.PageBar{
+    margin-top: 20px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.PageBar button{
+    outline: 0px;
+    border : 1px solid white;
+    background-color: white;
+    transition: ease-out 0.3s;
+}
+
+.PageBar button:hover{
+    border : 1px solid #25bc6d;
+    color : #25bc6d;
+}
+
+.PageMoveBtn{
+    width: 28px;
+    height: 28px;
+}
+
+.MoveLeft, .MoveRight{
+    width: 50px;
+    height: 28px;
+}

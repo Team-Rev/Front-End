@@ -4,6 +4,7 @@ import $ from "jquery";
 import axios from 'axios';
 import { dateFormating } from '../../../../../util/DateManager'
 import jwt_decode from "jwt-decode";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const MainBoard = (props) =>{
 
@@ -12,11 +13,42 @@ const MainBoard = (props) =>{
     const [page, setPage] = useState(0);
 
     const [isCompleted, setIsCompleted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+    const fetchMoreData = () => {
+        if(!isLoading){
+            setIsLoading(true);
+            axios({
+                method : 'get',
+                url : `/problem/answer/summary?id=${decodedToken.sub}&page=${page+1}`,
+                headers: {
+                    "Authorization" : `Bearer ${props.token}`,
+                }
+            }).then(res => {
+                var data = res.data;
+                if(mainSummaries){
+                    var newMainSummaryes = mainSummaries;
+                    data.map( (e => (
+                        newMainSummaryes.add(e)
+                        )
+                    ));
+                    console.log(newMainSummaryes);
+                    setMainSummaries(newMainSummaryes);
+                    setIsLoading(false);
+                }else setMainSummaries(data);
+            });
+            console.log(`${page+1} ${parseInt( props.total/10 )}`)
+            if(page+1 === parseInt( props.total/10 )) setHasMore(false);
+            setPage(page+1);
+        }
+        
+    }
+
     useEffect(() => {
         async function fetchData(){
             axios({
                 method : 'get',
-                url : `/problem/answer/summary?id=${decodedToken.sub}&page=${page}`,
+                url : `/problem/answer/summary?id=${decodedToken.sub}&page=0`,
                 headers: {
                     "Authorization" : `Bearer ${props.token}`,
                 }
@@ -49,14 +81,27 @@ const MainBoard = (props) =>{
     );
     var records = Array.from(mainSummaries);
     return(
-        <div className={style.MainBoard}>
+        <div id="scrollableDiv" className={style.MainBoard}>
             {mainSummaries.size <= 0 && <div className={style.EmptyMain}>There's no record.</div>}
-            <ul>
+            <InfiniteScroll
+            dataLength={records.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={ <h4>loading...</h4> }
+            endMessage={
+                <p style={{ textAlign: 'center' }}>
+                <b>Yay! You have seen it all</b>
+                </p>
+            }
+            scrollableTarget="scrollableDiv"
+            >
                 { records.map( function(record){
                     return <SummaryCard record={record} key={record.answerMainId} loadQuestions={props.loadQuestions}/>
                 })}    
-            </ul>
+
+            </InfiniteScroll>
         </div>
+            
     );
 };
 
@@ -71,7 +116,7 @@ const SummaryCard = (props =>{
     const dateStr = dateFormating(main.date);
 
     return(
-        <li className={style.Card}  >
+        <div className={style.Card}  >
             <button onClick={(e) => props.loadQuestions(e)} data-key={main.answerMainId}>
                 <div className={style.Category} data-key={main.answerMainId}>
                     <span className={style.Main} data-key={main.answerMainId}>{props.record.mainCategory}</span>
@@ -86,7 +131,7 @@ const SummaryCard = (props =>{
                 <div className={style.Icon} data-key={main.answerMainId}>
                 </div>
             </button>
-        </li>
+        </div>
     );
 });
 
@@ -177,6 +222,7 @@ export function SummaryBoard(props){
             <MainBoard 
                 loadQuestions={loadQuestions}
                 token={props.token}
+                total={props.total}
             />
             <DetailBoard questions={questions}/>
         </div>

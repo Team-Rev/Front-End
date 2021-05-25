@@ -20,6 +20,9 @@
 .MainBoard::-webkit-scrollbar {
     width: 7px;
 }
+.MainBoard div::-webkit-scrollbar{
+    width : 0px;
+}
 .LoadingMainBoard{
     width: 100%;
     height: 100%;
