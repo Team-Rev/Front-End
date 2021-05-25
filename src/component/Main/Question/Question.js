@@ -1,10 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Container } from '../../Container/Container'
 import style from './Question.module.css'
-
+import axios from 'axios'
 import {ContentCard} from './ContentCard/ContentCard'
-import {PageBar} from "../../util/PageBar/PageBar"
+import {PageBar} from "../../../util/PageBar/PageBar"
+import {dateCal} from "../../../util/DateManager"
+
 export function Question (props) {
     return (
         <Container content={QuestionBoard}/>
@@ -122,10 +123,11 @@ const TotalCard = (props) =>{
     return(
         <li>
             <div className={style.TotalTitle}>{article.title}</div>
-            <div className={style.TotalDetail}>{article.detail}</div>
+            <div className={style.TotalDetail}>{article.content}</div>
             <div className={style.TotalInfo}>
                 <span className={style.TotalComments} >{article.comments} Comments</span>
-                <span className={style.TotalDate} >{article.date}</span>
+                <span className={style.TotalDate} >{dateCal(article.postDate)}</span>
+                <span>{article.askId}</span>
             </div>
         </li>
     );
@@ -133,12 +135,29 @@ const TotalCard = (props) =>{
 
 
 function TotalQuestion(props){
-    const article = {
-        title : `동영이 컬러링 왜저럼?`,
-        detail : `동영이한테 전화 했는데 컬러링 트로트 나오던데, 컬러링 왜 저따구임 ㅋㅋㅋ`,
-        comments : 0,
-        date : "3분전"
-    }
+    
+    var [ ask , setAsk ] = useState([]);
+    var [completed, setCompleted ]= useState(false);
+    const [ nowPage, setNowPage ] = useState(0);
+    const [ pageCount, setPageCount ] = useState(0);
+    useEffect(()=>{
+        async function fetchData(){
+            axios({
+                method: 'get',
+                url: `/board/ask?page=${nowPage}`,
+            }).then(res => {
+                var data = res.data;
+                setAsk(data.asks.content);
+                setPageCount(data.pageCount)
+            });
+        }
+        if(!completed) fetchData();
+
+        return () => {
+            setCompleted(true);
+        };
+    });
+
     return(
         <div className={style.TotalBoard}>
             <div className={style.TotalBoardMain}>
@@ -146,17 +165,17 @@ function TotalQuestion(props){
             </div>
             <div className={style.Total__Container}>
                 <ul>
-                    <TotalCard article={article}/>
-                    <TotalCard article={article}/>
-                    <TotalCard article={article}/>
-                    <TotalCard article={article}/>
-                    <TotalCard article={article}/>
-                    <TotalCard article={article}/>
-                    <TotalCard article={article}/>
-                    <TotalCard article={article}/>
+                    { ask.length > 0 && ask.map( e => (
+                        <TotalCard key={e.askId} article={e}/>
+                    ))}
                 </ul>
             </div>
-            <PageBar/>
+            <PageBar 
+                nowPage={nowPage}
+                setNowPage={setNowPage}
+                pageCount={pageCount}
+                setPageAsk={setAsk}
+            />
         </div>
     );
 }

@@ -8,13 +8,13 @@ import $ from 'jquery'
 export function StartExamForm(props) {
 
     const history = useHistory();
-    var userId = props.userId  // yeong@naver.com 사용자 ID
-    var [check, setCheck] = useState(false)
-    var [arr, setArr] = useState([
-      {
+    // var userId = props.userId  // yeong@naver.com 사용자 ID
+    // var [check, setCheck] = useState(false)
+    // var [arr, setArr] = useState([
+    //   {
         
-      }
-    ])
+    //   }
+    // ])
     var [submitList, setSubmitList] = useState({  //문제 ID와 선택한 보기가 들어가는 배열
         questionId : '',
         multiple : []

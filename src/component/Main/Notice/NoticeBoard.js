@@ -92,7 +92,7 @@ export const Board = (props) => {
 
                 <button className={style.PageMoveToRight} 
                     onClick={() => {
-                        if(parseInt(props.pageNotice.pageCount/10) - Math.floor(props.nowPage)> 10) props.setNowPage(props.nowPage+10)
+                        if(parseInt(props.pageNotice.pageCount/10) - Math.floor(props.nowPage)> 10) props.setNowPage(Math.floor(props.nowPage)+10)
                     }
                 }>
                     <FontAwesomeIcon icon={faChevronRight} />
@@ -111,7 +111,7 @@ const renderMoveBtn = (page, max, setPageNotice) =>{
     page = parseInt(page/10);
 
     for(let i = 1 ; i <= left ; i++){
-        rows.push(<button key={page*10+i}className={style.PageMoveBtn} onClick={ () => {
+        rows.push(<button key={page*10+i} className={style.PageMoveBtn} onClick={ () => {
             axios({
                 method : "get",
                 url : `/board/notice?page=${page*10 + i - 1}`

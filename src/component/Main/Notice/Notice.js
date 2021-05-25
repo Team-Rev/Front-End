@@ -16,11 +16,11 @@ export function Notice (props) {
 
 const NoticeBoard = () =>{
 
-    var [notice, setNoice] = useState(null);
 
     var [nowPage, setNowPage] = useState(0);
     var [pageNotice, setPageNotice] = useState(null);
 
+    var [notice, setNoice] = useState(null);
     var [completed, setCompleted ]= useState(false);
     useEffect(()=>{
         async function fetchData(){
@@ -57,14 +57,14 @@ const NoticeBoard = () =>{
 const Slide = (props) => {
 
     const [isContentOpend, setIsContentOpend] = useState(false);
-    const [contentHeight, setcontentHeight] = useState(0)
+    const [contentHeight, setContentHeight] = useState(0)
 
     const [content, setContent] = useState(null);
 
     
 
     useEffect(() => {
-        isContentOpend ? setcontentHeight(100) : setcontentHeight(0);
+        isContentOpend ? setContentHeight(100) : setContentHeight(0);
     });
 
     useEffect(()=>{

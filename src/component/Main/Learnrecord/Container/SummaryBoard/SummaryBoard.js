@@ -5,7 +5,6 @@ import axios from 'axios';
 import { dateFormating } from '../../../../../util/DateManager'
 import jwt_decode from "jwt-decode";
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 const MainBoard = (props) =>{
 
