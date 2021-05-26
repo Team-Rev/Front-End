@@ -4,7 +4,8 @@ import style from './Question.module.css'
 import axios from 'axios'
 import {ContentCard} from './ContentCard/ContentCard'
 import {PageBar} from "../../../util/PageBar/PageBar"
-import {dateCal} from "../../../util/DateManager"
+import {dateCal } from "../../../util/DateManager"
+import { AskBoard } from "./AskBoard/AskBoard"
 
 export function Question (props) {
     return (
@@ -13,13 +14,26 @@ export function Question (props) {
 };
 
 const QuestionBoard = () =>{
+    
+    const [isAskOpened, setIsAskOpened] = useState(false);
     return(
-        <>
-            <TopOfQuestion/>
-            <FrequentlyAskedQuestions/>
-            <TotalQuestion/>
+        <div className={style.QuestionBoard}>
+            <AskBoard
+                isAskOpened={isAskOpened}
+                setIsAskOpened={setIsAskOpened} 
+            />
+            <TopOfQuestion
+                isAskOpened={isAskOpened}
+            />
+            <FrequentlyAskedQuestions
+                isAskOpened={isAskOpened}
+            />
+            <TotalQuestion
+                isAskOpened={isAskOpened}
+                setIsAskOpened={setIsAskOpened} 
+            />
 
-        </>
+        </div>
     );
 }
 
@@ -44,6 +58,7 @@ function TopOfQuestion(props){
         content : "보내주신 문의에 대한 답변이 도착했어요."
     })
 
+    if( props.isAskOpened ) return null;
     return(
         <div className={style.Top__Container}>
             <div className={style.TopSlider}>
@@ -81,6 +96,7 @@ function FrequentlyAskedQuestions(props){
         hits : 0,
         comments : 0,
     }
+    if( props.isAskOpened ) return null;
     return(
         <div className={style.FrequentlyBoard}>
             <div className={style.Frequently}>
@@ -122,13 +138,36 @@ const TotalCard = (props) =>{
     const article = props.article;
     return(
         <li>
-            <div className={style.TotalTitle}>{article.title}</div>
-            <div className={style.TotalDetail}>{article.content}</div>
-            <div className={style.TotalInfo}>
-                <span className={style.TotalComments} >{article.comments} Comments</span>
-                <span className={style.TotalDate} >{dateCal(article.postDate)}</span>
-                <span>{article.askId}</span>
-            </div>
+            <button className={style.TotalBtn}
+            data-key={article.askId}
+            onClick={(e) =>{
+                const key = e.target.getAttribute('data-key');
+                console.log(key);
+                if(!props.isAskOpened) props.setIsAskOpened(true)
+            }}>
+                <div className={style.TotalTitle}
+                    data-key={article.askId}>
+                    {article.title}
+                </div>
+
+                <div className={style.TotalDetail}
+                    data-key={article.askId}>
+                    {article.content}
+                </div>
+
+                <div className={style.TotalInfo}
+                    data-key={article.askId}>
+                    <span className={style.TotalComments}
+                        data-key={article.askId}>
+                        {article.comments}Comments
+                    </span>
+                    <span className={style.TotalDate}
+                        data-key={article.askId}>
+                        {dateCal(article.postDate)}
+                    </span>
+                    <span data-key={article.askId}>{article.askId}</span>
+                </div>
+            </button>
         </li>
     );
 }
@@ -157,6 +196,7 @@ function TotalQuestion(props){
             setCompleted(true);
         };
     });
+    if( props.isAskOpened ) return null;
 
     return(
         <div className={style.TotalBoard}>
@@ -166,7 +206,12 @@ function TotalQuestion(props){
             <div className={style.Total__Container}>
                 <ul>
                     { ask.length > 0 && ask.map( e => (
-                        <TotalCard key={e.askId} article={e}/>
+                        <TotalCard 
+                            key={e.askId}
+                            article={e}
+                            setIsAskOpened={props.setIsAskOpened}
+                            isAskOpened={props.isAskOpened}
+                        />
                     ))}
                 </ul>
             </div>
