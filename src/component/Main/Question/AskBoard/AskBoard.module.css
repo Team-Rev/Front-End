@@ -22,11 +22,11 @@
     background-color: white !important;
     border-radius: 5px ;
     transition: ease-in-out 0.5s;
-    padding : 30px;
     overflow-x: hidden;
     overflow-y: scroll;
     margin-right: 30px;
     position: relative;
+    display: flex;
 }
 
 .Ask::-webkit-scrollbar {
@@ -38,6 +38,7 @@
     top: 10px;
     border : 0px;
     outline: 0px;
+    z-index: 10000;
     background-color: white;
     color: rgb(150, 150, 150);
     transition: ease-in 0.15s;
@@ -45,4 +46,80 @@
 .AskClose:hover{
     color: rgb(0, 0, 0);
 
+}
+
+.ContentBox{
+    flex-grow: 1;
+    padding: 30px;
+    padding-right: 0px;
+    border-right: 1px solid rgba(0,0,0,0.15);
+}
+
+.ComentBox{
+    width: 270px;
+    padding-top: 30px;
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.CommentTop{
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.Coment{
+    padding : 5px 10px 5px 10px
+}
+
+.ComentInput{
+    resize: none;
+    width: 250px;
+    margin: 0px 10px 0px 10px;
+    border-radius: 5px;
+    border : 1px solid rgba(0,0,0,0.15);
+    padding : 10px;
+}
+
+.CommentBottom{
+    padding-top: 10px;
+    /* position: absolute;
+    bottom: 0;
+    left: 0; */
+    border-top: 1px solid rgba(0,0,0,0.15);   
+}
+
+.ComentInputBox{
+    margin-bottom: 10px;
+}
+
+.ComentInput:focus{
+    outline: none;
+}
+
+.SubmitBox{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.Submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #25bc6d;
+    background-color: #25bc6d;
+    border-radius: 5px;
+    outline: #1faf65;
+    color: white;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: ease-in 0.15s;
+    box-shadow: 3px 3px 7px transparent;
 }

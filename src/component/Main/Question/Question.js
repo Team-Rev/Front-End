@@ -16,11 +16,14 @@ export function Question (props) {
 const QuestionBoard = () =>{
     
     const [isAskOpened, setIsAskOpened] = useState(false);
+    const [nowAsk, setNowAsk] = useState(null);
+
     return(
         <div className={style.QuestionBoard}>
             <AskBoard
                 isAskOpened={isAskOpened}
-                setIsAskOpened={setIsAskOpened} 
+                setIsAskOpened={setIsAskOpened}
+                nowAsk={nowAsk}
             />
             <TopOfQuestion
                 isAskOpened={isAskOpened}
@@ -30,7 +33,8 @@ const QuestionBoard = () =>{
             />
             <TotalQuestion
                 isAskOpened={isAskOpened}
-                setIsAskOpened={setIsAskOpened} 
+                setIsAskOpened={setIsAskOpened}
+                setNowAsk={setNowAsk}
             />
 
         </div>
@@ -143,6 +147,7 @@ const TotalCard = (props) =>{
             onClick={(e) =>{
                 const key = e.target.getAttribute('data-key');
                 console.log(key);
+                props.loadAsk();
                 if(!props.isAskOpened) props.setIsAskOpened(true)
             }}>
                 <div className={style.TotalTitle}
@@ -179,6 +184,17 @@ function TotalQuestion(props){
     var [completed, setCompleted ]= useState(false);
     const [ nowPage, setNowPage ] = useState(0);
     const [ pageCount, setPageCount ] = useState(0);
+
+    const loadAsk = (e) => {
+        axios({
+            method: 'get',
+            url : `/board/ask/${e}`,
+        }).then(res => {
+            props.setNowAsk(res.data)
+            console.log(res.data);
+        });
+    }
+
     useEffect(()=>{
         async function fetchData(){
             axios({
@@ -196,6 +212,7 @@ function TotalQuestion(props){
             setCompleted(true);
         };
     });
+
     if( props.isAskOpened ) return null;
 
     return(
@@ -211,6 +228,7 @@ function TotalQuestion(props){
                             article={e}
                             setIsAskOpened={props.setIsAskOpened}
                             isAskOpened={props.isAskOpened}
+                            loadAsk={() => loadAsk(e.askId)}
                         />
                     ))}
                 </ul>
