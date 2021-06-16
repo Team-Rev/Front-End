@@ -30,7 +30,7 @@
 }
 
 .Ask::-webkit-scrollbar {
-    width: 7px !important;
+    width: 0px !important;
 }
 .AskClose{
     position: absolute;
@@ -55,7 +55,7 @@
     border-right: 1px solid rgba(0,0,0,0.15);
 }
 
-.ComentBox{
+.CommentBox{
     width: 270px;
     padding-top: 30px;
     position:relative;
@@ -69,11 +69,14 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.Coment{
+.CommentTop::-webkit-scrollbar {
+    width: 0px;
+}
+.Comment{
     padding : 5px 10px 5px 10px
 }
 
-.ComentInput{
+.CommentInput{
     resize: none;
     width: 250px;
     margin: 0px 10px 0px 10px;
@@ -90,11 +93,11 @@
     border-top: 1px solid rgba(0,0,0,0.15);   
 }
 
-.ComentInputBox{
+.CommentInputBox{
     margin-bottom: 10px;
 }
 
-.ComentInput:focus{
+.CommentInput:focus{
     outline: none;
 }
 

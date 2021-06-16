@@ -9,11 +9,14 @@ import { AskBoard } from "./AskBoard/AskBoard"
 
 export function Question (props) {
     return (
-        <Container content={QuestionBoard}/>
+        <Container 
+            content={QuestionBoard}
+            info={props.info}
+        />
     );
 };
 
-const QuestionBoard = () =>{
+const QuestionBoard = (props) =>{
     
     const [isAskOpened, setIsAskOpened] = useState(false);
     const [nowAsk, setNowAsk] = useState(null);
@@ -21,6 +24,7 @@ const QuestionBoard = () =>{
     return(
         <div className={style.QuestionBoard}>
             <AskBoard
+                info={props.info}
                 isAskOpened={isAskOpened}
                 setIsAskOpened={setIsAskOpened}
                 nowAsk={nowAsk}
