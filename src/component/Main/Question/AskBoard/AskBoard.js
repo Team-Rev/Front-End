@@ -1,18 +1,79 @@
 import React, { useState, useEffect } from 'react';
-import {dateFormating } from "../../../../util/DateManager"
+import {dateFormating, dateCal } from "../../../../util/DateManager"
 import style from "./AskBoard.module.css"
 import TextareaAutosize from 'react-textarea-autosize';
 import axios from 'axios';
 import jwt from 'jwt-decode';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const AskBoard = (props) => {
     const [contentHeight, setContentHeight] = useState(0);
+    const [comments , setComments] = useState(new Set())
+    const [commentPage, setCommentsPage] = useState(0);
 
+    const [isCompleted, setIsCompleted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
     useEffect(() => {
         props.isAskOpened ? setContentHeight(100) : setContentHeight(0);
         
     });
+    const fetchMoreData = () => {
+        if(!isLoading){
+            setIsLoading(true);
+            axios({
+                method : 'get',
+                url : `/board/comment?askId=${props.nowAsk.askId}&page=${commentPage+1}`,
+                // headers: {
+                //     "Authorization" : `Bearer ${props.info.token}`,
+                // }
+            }).then(res => {
+                var data = res.data;
+                if(comments){
+                    var newComments = comments;
+                    data.map( (e => (
+                        newComments.add(e)
+                        )
+                    ));
+                    console.log(newComments);
+                    setComments(newComments);
+                    setIsLoading(false);
+                }else setComments(data);
+            });
+
+            if(commentPage+1 === parseInt( props.nowAsk.comments/10 )) setHasMore(false);
+            setCommentsPage(commentPage+1);
+        }
+    };
     
+    useEffect(() => {
+        async function fetchData(){
+            axios({
+                method : 'get',
+                url : `/board/comment?askId=${props.nowAsk.askId}&page=0`,
+                // headers: {
+                //     "Authorization" : `Bearer ${props.info.token}`,
+                // }
+            }).then(res => {
+                var data = res.data;
+                if(comments){
+                    var newComments = comments;
+                    data.map( (e => (
+                        newComments.add(e)
+                        )
+                    ));
+                    console.log(newComments);
+                    setComments(newComments);
+                    setIsCompleted(true);
+                }else setComments(data);
+                
+            });
+        } 
+
+        if(!isCompleted && props.nowAsk) fetchData();
+    });
+
+    var commentsArr = Array.from(comments);
     return (
         <div className={style.AskBoard} style={{
             "height" : `${contentHeight}vh`
@@ -36,10 +97,24 @@ export const AskBoard = (props) => {
                     {props.nowAsk && props.nowAsk.comments}<br/>
                 </div>
                 <div className={style.CommentBox}>
-                    <div className={style.CommentTop}>
-                        <Comment />
-                        <Comment />
-                        <Comment />
+                    <div id="scrollableDiv" className={style.CommentTop}>
+                        <InfiniteScroll
+                        dataLength={commentsArr.length}
+                        next={fetchMoreData}
+                        hasMore={hasMore}
+                        loader={ <h4>loading...</h4> }
+                        endMessage={
+                            <p style={{ textAlign: 'center' }}>
+                            <b>Yay! You have seen it all</b>
+                            </p>
+                        }
+                        scrollableTarget="scrollableDiv"
+                        >
+                            { commentsArr.map( function(comment){
+                                return <Comment comment={comment} />
+                            })}    
+
+                        </InfiniteScroll>
                     </div>
                     {props.info.token.length > 0 && <CommentBottom 
                         info={props.info}
@@ -53,23 +128,17 @@ export const AskBoard = (props) => {
 }
 
 const Comment = (props) => {
-    const comment = {
-        writer : "김태영",
-        date : "2달전",
-        comment : "김동영 트로트 레전드 ㅋㅋㅋ",
-        recomment : 10,
-        good : 5,
-    }
+    var comment = props.comment;
     return(
         <div className={style.Comment}>
             <div>
-                {comment.writer}
+                {comment.nickname}
             </div>
             <div>
                 {comment.comment}
             </div>
             <div>
-                {comment.date} {comment.good} {comment.recomment}
+                {dateCal(comment.postDate)} {comment.good} {comment.reComment}
             </div>
             <div>
                 답글 더보기
@@ -99,6 +168,10 @@ const CommentBottom = (props) => {
             <div className={style.SubmitBox}>
                 <button className={style.Submit}
                     onClick={ () => {
+                        if(areaValue.length <= 0) {
+                            alert("댓글을 입력하세요");
+                            return;
+                        }
                         axios({
                             method : 'post',
                             url: `/board/comment`,
