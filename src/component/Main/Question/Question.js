@@ -28,6 +28,7 @@ const QuestionBoard = (props) =>{
                 isAskOpened={isAskOpened}
                 setIsAskOpened={setIsAskOpened}
                 nowAsk={nowAsk}
+                setNowAsk={setNowAsk}
             />
             <TopOfQuestion
                 isAskOpened={isAskOpened}

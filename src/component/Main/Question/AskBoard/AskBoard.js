@@ -18,8 +18,16 @@ export const AskBoard = (props) => {
         props.isAskOpened ? setContentHeight(100) : setContentHeight(0);
         
     });
+
+    const initComment = () => {
+        setComments(new Set());
+        setCommentsPage(0);
+        setIsCompleted(false);
+        setIsLoading(false);
+        setHasMore(true);
+    }
     const fetchMoreData = () => {
-        if(!isLoading){
+        if(!isLoading && props.nowAsk){
             setIsLoading(true);
             axios({
                 method : 'get',
@@ -81,6 +89,8 @@ export const AskBoard = (props) => {
             <div className={style.Ask} > 
                 <button className={style.AskClose} onClick={()=>{
                         props.setIsAskOpened(false)
+                        props.setNowAsk(null);
+                        initComment();
                     }
                 }>
                     닫기
@@ -96,33 +106,47 @@ export const AskBoard = (props) => {
                     {props.nowAsk && props.nowAsk.content}<br/>
                     {props.nowAsk && props.nowAsk.comments}<br/>
                 </div>
-                <div className={style.CommentBox}>
-                    <div id="scrollableDiv" className={style.CommentTop}>
-                        <InfiniteScroll
-                        dataLength={commentsArr.length}
-                        next={fetchMoreData}
-                        hasMore={hasMore}
-                        loader={ <h4>loading...</h4> }
-                        endMessage={
-                            <p style={{ textAlign: 'center' }}>
-                            <b>Yay! You have seen it all</b>
-                            </p>
-                        }
-                        scrollableTarget="scrollableDiv"
-                        >
-                            { commentsArr.map( function(comment){
-                                return <Comment comment={comment} />
-                            })}    
-
-                        </InfiniteScroll>
-                    </div>
-                    {props.info.token.length > 0 && <CommentBottom 
-                        info={props.info}
-                        nowAsk={props.nowAsk}
-                    />}
-                    
-                </div>
+                <CommentBox
+                    commentsArr={commentsArr}
+                    fetchMoreData={fetchMoreData}
+                    hasMore={hasMore}
+                    info={props.info}
+                    nowAsk={props.nowAsk}
+                    initComment={initComment}
+                />
             </div>
+        </div>
+    );
+}
+
+const CommentBox = (props) => {
+    return (
+        <div className={style.CommentBox}>
+            <div id="comment_scroll" className={style.CommentTop}>
+                <InfiniteScroll
+                dataLength={props.commentsArr.length}
+                next={props.fetchMoreData}
+                hasMore={props.hasMore}
+                loader={ <h4>loading...</h4> }
+                endMessage={
+                    <p style={{ textAlign: 'center' }}>
+                        <b>Yay! You have seen it all</b>
+                    </p>
+                }
+                scrollableTarget="comment_scroll"
+                >
+                    { props.commentsArr.map( function(comment){
+                        return <Comment comment={comment} />
+                    })}    
+
+                </InfiniteScroll>
+            </div>
+            {props.info.token.length > 0 && <CommentBottom 
+                info={props.info}
+                nowAsk={props.nowAsk}
+                initComment={props.initComment}
+            />}
+            
         </div>
     );
 }
@@ -186,6 +210,7 @@ const CommentBottom = (props) => {
                             }
                         }).then( res => {
                             setAreaValue("");
+                            props.initComment();
                             console.log(res.data);
                         });
                     }}>
