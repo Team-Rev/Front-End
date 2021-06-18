@@ -14,6 +14,7 @@ import { Solveques } from '../Main/Solveques/Solveques'
 import { StartExam } from '../Main/StartExam/StartExam'
 import { Sidebar } from '../Main/Sidebar/Sidebar'
 import { TotalPage } from '../Main/TotalPage/TotalPage'
+import { Join } from '../Main/Join/Join'
 
 export function App () {
 
@@ -116,6 +117,11 @@ export function App () {
             <Route path="/totalpage" 
                 render={() => 
                     <TotalPage/>
+                }>
+            </Route>
+            <Route path="/join" 
+                render={() => 
+                    <Join/>
                 }>
             </Route>
         </>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom'
 import style from './Login.module.css'
 import logo from './img/logo.png'
 import axios from 'axios'
@@ -80,7 +81,7 @@ export function Login(props) {
                         <span>
                             아직도 One Pass를 모르시나요?
                         </span>
-                        <button>회원가입</button>
+                        <NavLink to="/join" onClick={() => { props.setLoginOpen(false)}}>회원가입</NavLink>
                     </div>
                 </div>
 

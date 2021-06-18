@@ -1,0 +1,19 @@
+/* UPDATED AT 태영 2021-05-06 */
+/* INNER에서 컨텐츠가 넘치면 스크롤 하기 위해서 한번 더 담음 */
+.container{
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    position:relative;
+}
+
+/* UPDATED AT 태영 2021-05-06 */
+/* 컨텐츠를 담을 곳. 속성 고정*/
+.inner{
+    max-width: 1000px; 
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    padding-left: 35px;
+    padding-right: 35px;
+}
