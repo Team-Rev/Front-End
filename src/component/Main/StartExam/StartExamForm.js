@@ -250,7 +250,7 @@ export function StartExamForm(props) {
                         count : question.length,
                         question : question
                     }}}>
-                  <button>제출</button>
+                  <button className={style.btn3}>제출</button>
                 </Link>
                 <Link to="#">
                   <button className={style.btn3} onClick={handleIncrese.bind()}>다음</button>

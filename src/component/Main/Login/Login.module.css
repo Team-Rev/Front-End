@@ -119,3 +119,8 @@
     text-decoration-color: rgb(65, 65, 65);
     
 }
+
+.joinBtn{
+    text-decoration: none;
+    font-size : 14px;
+}

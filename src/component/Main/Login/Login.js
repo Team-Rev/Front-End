@@ -81,7 +81,7 @@ export function Login(props) {
                         <span>
                             아직도 One Pass를 모르시나요?
                         </span>
-                        <NavLink to="/join" onClick={() => { props.setLoginOpen(false)}}>회원가입</NavLink>
+                        <NavLink to="/join" className={style.joinBtn} onClick={() => { props.setLoginOpen(false)}}>회원가입</NavLink>
                     </div>
                 </div>
 
