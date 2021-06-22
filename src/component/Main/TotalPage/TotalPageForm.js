@@ -6,18 +6,26 @@ import Doughnut from '../Doughnut'
 // import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
   export function TotalPageForm(props) {
-
     const TopBar = (props) => {
       return (
         <div className={style.maintab}>
           <ul>
-            <li onClick={TotalPage} className={style.p}>종합</li>
-            <li onClick={CurrentChk} className={style.p}>정답</li>
-            <li onClick={FalseChk} className={style.p}>오답</li>     
+            <li id="total" onClick={TotalPage} className={style.p}>종합</li>
+            <li id="correct" onClick={CurrentChk} className={style.p}>정답</li>
+            <li id="uncorrect" onClick={FalseChk} className={style.p}>오답</li>     
           </ul>           
         </div>
       );
     }
+
+    // if(TotalPage) {
+    //   console.log(document.getElementById("total"))
+    //   document.getElementById("total").style.border = "2px solid red"
+    // } else if(CurrentChk) {
+    //   document.getElementById("correct").style.border = "2px solid blue"
+    // } else {
+    //   document.getElementById("uncorrect").style.border = "2px solid green"
+    // }
 
     const ColorInfo = (props) => {
       return(
@@ -278,7 +286,7 @@ import Doughnut from '../Doughnut'
         }
     }, [fixedstring])
 
-    console.log(resultList)
+    // console.log(resultList)
   
     if(showing == "totalpage") {
     return (
@@ -317,6 +325,8 @@ import Doughnut from '../Doughnut'
       )
     }
   };
+
+  
 
 
 
