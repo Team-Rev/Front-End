@@ -1,0 +1,128 @@
+
+.AskBoard{
+    display: flex;
+    align-items: center;
+    margin-left: 35px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    background-color: #eceff1;
+    z-index: 20;
+    overflow: hidden;
+    transition: ease-in-out 0.5s;
+    padding-right: 35px;
+}
+
+.Ask{
+    width: 100%;
+    max-width: 930px;
+    height: 90vh;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white !important;
+    border-radius: 5px ;
+    transition: ease-in-out 0.5s;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-right: 30px;
+    position: relative;
+    display: flex;
+}
+
+.Ask::-webkit-scrollbar {
+    width: 0px !important;
+}
+.AskClose{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border : 0px;
+    outline: 0px;
+    z-index: 10000;
+    background-color: white;
+    color: rgb(150, 150, 150);
+    transition: ease-in 0.15s;
+}
+.AskClose:hover{
+    color: rgb(0, 0, 0);
+
+}
+
+.ContentBox{
+    flex-grow: 1;
+    padding: 30px;
+    padding-right: 0px;
+    border-right: 1px solid rgba(0,0,0,0.15);
+}
+
+.CommentBox{
+    width: 270px;
+    padding-top: 30px;
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.CommentTop{
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.CommentTop::-webkit-scrollbar {
+    width: 0px;
+}
+.Comment{
+    padding : 5px 10px 5px 10px
+}
+
+.CommentInput{
+    resize: none;
+    width: 250px;
+    margin: 0px 10px 0px 10px;
+    border-radius: 5px;
+    border : 1px solid rgba(0,0,0,0.15);
+    padding : 10px;
+}
+
+.CommentBottom{
+    padding-top: 10px;
+    /* position: absolute;
+    bottom: 0;
+    left: 0; */
+    border-top: 1px solid rgba(0,0,0,0.15);   
+}
+
+.CommentInputBox{
+    margin-bottom: 10px;
+}
+
+.CommentInput:focus{
+    outline: none;
+}
+
+.SubmitBox{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.Submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #25bc6d;
+    background-color: #25bc6d;
+    border-radius: 5px;
+    outline: #1faf65;
+    color: white;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: ease-in 0.15s;
+    box-shadow: 3px 3px 7px transparent;
+}

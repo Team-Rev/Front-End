@@ -57,15 +57,11 @@ const NoticeBoard = () =>{
 const Slide = (props) => {
 
     const [isContentOpend, setIsContentOpend] = useState(false);
-    const [contentHeight, setContentHeight] = useState(0)
-
     const [content, setContent] = useState(null);
 
     
 
-    useEffect(() => {
-        isContentOpend ? setContentHeight(100) : setContentHeight(0);
-    });
+    
 
     useEffect(()=>{
         $(`.${style.NoticeOpen}`).click(function(){
@@ -81,38 +77,12 @@ const Slide = (props) => {
     });
     return(
         <>
-
-            <div className={style.ContentBoard} style={{
-                "height" : `${contentHeight}vh`
-            }}>
-                <div className={style.Content} > 
-                    <button className={style.ContentClose} onClick={()=>{
-                            setIsContentOpend(false)
-                        }
-                    }>
-                        닫기
-                    </button>
-
-                    <div className={style.ContetTitle}>
-                        {content && content.title}
-                    </div>
-                    <ul className={style.ContentInfo}>
-                        <li>
-                            {content && content.nickname}
-                        </li>
-                        <li>
-                            {content && dateFormating(content.postDate)}
-                        </li>
-                        <li>
-                            {content && content.hits} HITS
-                        </li>
-                    </ul>
-                    <div className={style.ContentDetail}>
-                        {content && content.content}
-                    </div>
-                </div>
-            </div>
-
+            <ContentBoard 
+                content={content}
+                isContentOpend={isContentOpend}
+                setIsContentOpend={setIsContentOpend}
+            />
+            
             {!isContentOpend && <Board 
                 notice ={props.notice}
                 nowPage={props.nowPage}
@@ -125,6 +95,49 @@ const Slide = (props) => {
 
             />}
         </>
+    );
+}
+
+const ContentBoard = (props) => {
+    
+    const [contentHeight, setContentHeight] = useState(0);
+    const content = props.content;
+
+    useEffect(() => {
+        props.isContentOpend ? setContentHeight(100) : setContentHeight(0);
+    });
+
+    return (
+        <div className={style.ContentBoard} style={{
+            "height" : `${contentHeight}vh`
+        }}>
+            <div className={style.Content} > 
+                <button className={style.ContentClose} onClick={()=>{
+                        props.setIsContentOpend(false)
+                    }
+                }>
+                    닫기
+                </button>
+
+                <div className={style.ContetTitle}>
+                    {content && content.title}
+                </div>
+                <ul className={style.ContentInfo}>
+                    <li>
+                        {content && content.nickname}
+                    </li>
+                    <li>
+                        {content && dateFormating(content.postDate)}
+                    </li>
+                    <li>
+                        {content && content.hits} HITS
+                    </li>
+                </ul>
+                <div className={style.ContentDetail}>
+                    {content && content.content}
+                </div>
+            </div>
+        </div>
     );
 }
 

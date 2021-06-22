@@ -4,22 +4,45 @@ import style from './Question.module.css'
 import axios from 'axios'
 import {ContentCard} from './ContentCard/ContentCard'
 import {PageBar} from "../../../util/PageBar/PageBar"
-import {dateCal} from "../../../util/DateManager"
+import {dateCal } from "../../../util/DateManager"
+import { AskBoard } from "./AskBoard/AskBoard"
 
 export function Question (props) {
     return (
-        <Container content={QuestionBoard}/>
+        <Container 
+            content={QuestionBoard}
+            info={props.info}
+        />
     );
 };
 
-const QuestionBoard = () =>{
-    return(
-        <>
-            <TopOfQuestion/>
-            <FrequentlyAskedQuestions/>
-            <TotalQuestion/>
+const QuestionBoard = (props) =>{
+    
+    const [isAskOpened, setIsAskOpened] = useState(false);
+    const [nowAsk, setNowAsk] = useState(null);
 
-        </>
+    return(
+        <div className={style.QuestionBoard}>
+            <AskBoard
+                info={props.info}
+                isAskOpened={isAskOpened}
+                setIsAskOpened={setIsAskOpened}
+                nowAsk={nowAsk}
+                setNowAsk={setNowAsk}
+            />
+            <TopOfQuestion
+                isAskOpened={isAskOpened}
+            />
+            <FrequentlyAskedQuestions
+                isAskOpened={isAskOpened}
+            />
+            <TotalQuestion
+                isAskOpened={isAskOpened}
+                setIsAskOpened={setIsAskOpened}
+                setNowAsk={setNowAsk}
+            />
+
+        </div>
     );
 }
 
@@ -44,6 +67,7 @@ function TopOfQuestion(props){
         content : "보내주신 문의에 대한 답변이 도착했어요."
     })
 
+    if( props.isAskOpened ) return null;
     return(
         <div className={style.Top__Container}>
             <div className={style.TopSlider}>
@@ -81,6 +105,7 @@ function FrequentlyAskedQuestions(props){
         hits : 0,
         comments : 0,
     }
+    if( props.isAskOpened ) return null;
     return(
         <div className={style.FrequentlyBoard}>
             <div className={style.Frequently}>
@@ -122,13 +147,37 @@ const TotalCard = (props) =>{
     const article = props.article;
     return(
         <li>
-            <div className={style.TotalTitle}>{article.title}</div>
-            <div className={style.TotalDetail}>{article.content}</div>
-            <div className={style.TotalInfo}>
-                <span className={style.TotalComments} >{article.comments} Comments</span>
-                <span className={style.TotalDate} >{dateCal(article.postDate)}</span>
-                <span>{article.askId}</span>
-            </div>
+            <button className={style.TotalBtn}
+            data-key={article.askId}
+            onClick={(e) =>{
+                const key = e.target.getAttribute('data-key');
+                console.log(key);
+                props.loadAsk();
+                if(!props.isAskOpened) props.setIsAskOpened(true)
+            }}>
+                <div className={style.TotalTitle}
+                    data-key={article.askId}>
+                    {article.title}
+                </div>
+
+                <div className={style.TotalDetail}
+                    data-key={article.askId}>
+                    {article.content}
+                </div>
+
+                <div className={style.TotalInfo}
+                    data-key={article.askId}>
+                    <span className={style.TotalComments}
+                        data-key={article.askId}>
+                        {article.comments}Comments
+                    </span>
+                    <span className={style.TotalDate}
+                        data-key={article.askId}>
+                        {dateCal(article.postDate)}
+                    </span>
+                    <span data-key={article.askId}>{article.askId}</span>
+                </div>
+            </button>
         </li>
     );
 }
@@ -140,6 +189,17 @@ function TotalQuestion(props){
     var [completed, setCompleted ]= useState(false);
     const [ nowPage, setNowPage ] = useState(0);
     const [ pageCount, setPageCount ] = useState(0);
+
+    const loadAsk = (e) => {
+        axios({
+            method: 'get',
+            url : `/board/ask/${e}`,
+        }).then(res => {
+            props.setNowAsk(res.data)
+            console.log(res.data);
+        });
+    }
+
     useEffect(()=>{
         async function fetchData(){
             axios({
@@ -158,6 +218,8 @@ function TotalQuestion(props){
         };
     });
 
+    if( props.isAskOpened ) return null;
+
     return(
         <div className={style.TotalBoard}>
             <div className={style.TotalBoardMain}>
@@ -166,7 +228,13 @@ function TotalQuestion(props){
             <div className={style.Total__Container}>
                 <ul>
                     { ask.length > 0 && ask.map( e => (
-                        <TotalCard key={e.askId} article={e}/>
+                        <TotalCard 
+                            key={e.askId}
+                            article={e}
+                            setIsAskOpened={props.setIsAskOpened}
+                            isAskOpened={props.isAskOpened}
+                            loadAsk={() => loadAsk(e.askId)}
+                        />
                     ))}
                 </ul>
             </div>
