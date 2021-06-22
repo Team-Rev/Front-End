@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Children } from "react";
 import style from "./StartExam.module.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from 'axios'
@@ -8,67 +8,127 @@ import $ from 'jquery'
 export function StartExamForm(props) {
 
     const history = useHistory();
-    // var userId = props.userId  // yeong@naver.com 사용자 ID
-    // var [check, setCheck] = useState(false)
-    // var [arr, setArr] = useState([
-    //   {
-        
-    //   }
-    // ])
-    var [submitList, setSubmitList] = useState({  //문제 ID와 선택한 보기가 들어가는 배열
-        questionId : '',
-        multiple : []
-    })
+    var userId = props.userId  // yeong@naver.com 사용자 ID
+    var [arr, setArr] = useState([
+      
+    ])
+    var [data, setData] = useState([
 
+    ])
     var [question, setQuestion] = useState(null);
     var [num, setNum] = useState(0);
+
     // 이전 버튼
-    const handleDecrese = () => {
+    const handleDecrese = () => { 
       if(num == 0) alert('첫번째 페이지입니다')
       else {
         setNum(num - 1)
-      }
+        if(data[num-1] != null) {
+          $('.checks').prop('checked', false);
+          var choiceIdlist = []
+          // if(arr[num-1].questionId == num-1){
+            choiceIdlist = data[num-1].multipleChoiceIds //문제 id가 들어감 ex) 256, 3
+          // }else {
+            
+          // }
+          for(let i = 0; i < choiceIdlist.length; i++){
+            $(document).ready(function() {
+              $("input:checkbox[id=" + choiceIdlist[i] + "]").prop("checked", true);
+          })
+        }
+        }
     }
+  }
     // 다음 버튼
     const handleIncrese = () => {
       if(num == question.length-1) alert('마지막 페이지입니다')
       else {
         setNum(num + 1)
-        $('.checks').prop('checked', false);
+        var choiceIdlist = []
+        var prevIdlist = []
+        choiceIdlist = data[num+1]
+        prevIdlist = data[num]
+        console.log(choiceIdlist)
+        console.log(prevIdlist)
+        if(choiceIdlist){
+          // for(let j = 0; j < prevIdlist.multiple.length; j++){
+          //   $(document).ready(function() {
+          //     console.log(prevIdlist.multiple[j])
+          //     $("input:checkbox[id=" + prevIdlist.multiple[j] + "]").prop("checked", false);
+          //     console.log("체크 풀었다")
+          //   })
+          // }
+          $('.checks').prop('checked', false);
+          for(let i = 0; i < choiceIdlist.multipleChoiceIds.length; i++){
+            $(document).ready(function() {
+              $("input:checkbox[id=" + choiceIdlist.multipleChoiceIds[i] + "]").prop("checked", true);
+              console.log("체크 했다")
+            })
+          }
+        } else{
+          $('.checks').prop('checked', false);
+        }
       }
     }
-
-
+    
     const onChangeCheck = (e) => {
-      var temp = []
       const checked = e.target.checked
       const value = e.target.value
       const list = value.split(",");
-      const [bogi, bogiid, questionId, count] = list
+      const [bogi, choiceId, questionId, count] = list
       
-    if(checked) {
-      setSubmitList((prevState) => ({
-        ...prevState,
-        questionId : questionId,
-        ["multiple"] : [...prevState["multiple"].concat(bogiid)],
-      }));
+    if(checked){
+      var prevState = data;
+      console.log(prevState)
+      
+      let submit = prevState.find( (prevSubmit) => {
+        return prevSubmit.questionId === questionId;
+      });
+      console.log(submit)
+      
+      if(submit){
+        console.log("submit 성공")
+        let index = prevState.indexOf(submit);
+        console.log(index)
+        submit.multipleChoiceIds.push(choiceId);
+        prevState[index] = submit;
+      }else{
+        console.log("submit 실패")
+        submit = {
+          questionId : questionId,
+          multipleChoiceIds : [choiceId]
+        }
+        prevState.push(submit);
+      }
+      setData(prevState);
     }
-    //   setSubmitList({
-    //     ...submitList,
-    //     [questionId] : questionId,
-    //     [multiple] : bogiid,
-    //   })
-    // }
       // 체크해제
       else {
-        setSubmitList((prevState) => ({
-          ...prevState,
-          questionId : questionId,
-          ["multiple"] : [...prevState["multiple"].filter((element) => (element) !== bogiid)],
-        }));
+        let prevState = data;
+        
+        let submit = prevState.find( (prevSubmit) => {
+          return prevSubmit.questionId === questionId;
+        });
+        console.log(submit)
+        
+        if(submit){
+          let index = prevState.indexOf(submit);
+          console.log(index)
+          let multiple = submit.multipleChoiceIds.find( (multiple) => {
+            console.log(choiceId)
+            return multiple === choiceId;
+          });
+          console.log(multiple)
+          if(multiple){
+            let index = submit.multipleChoiceIds.indexOf(multiple);
+            submit.multipleChoiceIds.splice(index);
+          }
+          prevState[index] = submit;
+        }
+        setData(prevState);
       }
     };
-    console.log(submitList)
+    console.log(arr)
 
     var token = props.info.token
     //console.log(token)
@@ -81,27 +141,37 @@ export function StartExamForm(props) {
                 method: 'get',
                 url: '/problem/rangeQuestions?start=1&end=10',
                 headers: {
-                  'Access-Control-Allow-Origin': '*',
-                  'Content-Type': 'application/json',
                   "Authorization" : `Bearer ${fixedstring}`,
-                  withCredentials: true,
-                  mode: 'no-cors',
                 }
             }).then(response => {
                 var data = response.data;
-                if(!completed) setQuestion(data)
+                if(!completed) {
+                  setQuestion(data)
+                  var temp = []
+                  for(let i = 0; i < data.length; i++){
+                    let success = {
+                      questionId : String(data[i].id),
+                      multipleChoiceIds : []
+                    }
+                    temp.push(success)
+                  }
+                  setData(temp)
+                }
             });
         }
         fetchData();
         return () => {
           completed = true;
         };
-    }, [fixedstring]);
+    }, [fixedstring]);    
+        console.log(question)
 
-    console.log(props.info.token)
+        if(!question) return `NULL`;  
 
-
-        if(!question) return `NULL`;
+        console.log(question[0].id)
+        console.log(question.length)
+        
+        console.log(data)
 
         var count = 0;
         /* 정답개수 체크 */
@@ -109,13 +179,13 @@ export function StartExamForm(props) {
           /* 보기 출력 */
           for(let j = 0; j < question[num].choices.length; j++) {  
             var bogi = question[num].choices[j].choice          
-            var bogiid = question[num].choices[j].id
+            var choiceid = question[num].choices[j].id
             var questionId = question[num].choices[j].questionId
-            var choice = [bogi, bogiid, questionId, count]
+            var choice = [bogi, choiceid, questionId, count]
             listTag.push(
               <label> 
-                 <input type="checkbox" className="checks" value={choice} onClick={(e) => onChangeCheck(e)}/>
-                 <span key={bogiid}> {bogi} </span>
+                 <input type="checkbox" id={choiceid} className="checks" value={choice} onClick={(e) => onChangeCheck(e)}/>
+                 <span key={choiceid}> {bogi} </span>
               </label> 
             )
           }
@@ -141,7 +211,7 @@ export function StartExamForm(props) {
       // })
 
           
-
+            
           // var url = "http://34.64.73.179:8760/problem/submit"
 
           // axios({
@@ -170,16 +240,14 @@ export function StartExamForm(props) {
                 <button className={style.btn1} onClick={handleDecrese.bind()}>이전</button>
               </Link>
               <div className="bottom-btn right" style={{ float: "right" }}>
-                <Link to="#">
-                  <button
-                   onClick={(e) =>
-                    window.confirm("정말 제출하시겠습니까?") &&
-                    history.push("/totalpage")}
-                    className={style.btn2}
-                    id="sub"
-                  >
-                    제출
-                  </button>
+                <Link to={{pathname : '/totalpage', state : 
+                    {   submitList : data, 
+                        userId : userId, 
+                        token : token,
+                        count : question.length,
+                        question : question
+                    }}}>
+                  <button className={style.btn3}>제출</button>
                 </Link>
                 <Link to="#">
                   <button className={style.btn3} onClick={handleIncrese.bind()}>다음</button>
