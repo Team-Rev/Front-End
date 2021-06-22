@@ -1,4 +1,5 @@
-* {
+
+*{
     margin : 0;
     padding : 0;
     user-select: none;
@@ -6,6 +7,7 @@
     box-sizing: border-box;
 }
 
+/* UPDATED AT 태영 2021-05-06 속성 고정*/
 .board {
     margin-left : 270px; 
     height : 100vh;
@@ -40,4 +42,10 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: lightgrey;
+}
+
+@media (max-width : 1024px) {
+    .board {
+        margin-left : 0px !important; 
+    }
 }

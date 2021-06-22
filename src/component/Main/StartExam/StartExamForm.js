@@ -166,9 +166,6 @@ export function StartExamForm(props) {
     }, [fixedstring]);    
         console.log(question)
 
-        
-
-
         if(!question) return `NULL`;  
 
         console.log(question[0].id)

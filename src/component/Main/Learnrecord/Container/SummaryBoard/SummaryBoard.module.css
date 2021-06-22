@@ -20,6 +20,17 @@
 .MainBoard::-webkit-scrollbar {
     width: 7px;
 }
+.MainBoard div::-webkit-scrollbar{
+    width : 0px;
+}
+.LoadingMainBoard{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(194, 194, 194);
+}
 .EmptyMain{
     width: 320px;
     height: 100%;

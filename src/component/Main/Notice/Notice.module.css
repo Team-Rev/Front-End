@@ -1,0 +1,282 @@
+.NoticeBoard{
+    max-width: 1000px;
+}
+.ContentBoard{
+    display: flex;
+    align-items: center;
+    margin-left: 35px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    background-color: #eceff1;
+    z-index: 20;
+    overflow : hidden;
+    transition: ease-in-out 0.5s;
+    padding-right: 35px;
+}
+
+.Content{
+    width: 100%;
+    max-width: 930px;
+    height: 90vh;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white !important;
+    border-radius: 5px ;
+    transition: ease-in-out 0.5s;
+    padding : 30px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-right: 30px;
+    position: relative;
+}
+
+.Content::-webkit-scrollbar {
+    width: 7px !important;
+}
+.ContentClose{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border : 0px;
+    outline: 0px;
+    background-color: white;
+    color: rgb(150, 150, 150);
+    transition: ease-in 0.15s;
+}
+.ContentClose:hover{
+    color: rgb(0, 0, 0);
+
+}
+.ContetTitle{
+    width: 100%;
+    font-size: 28px;
+    word-break: break-all;
+    margin-bottom: 30px;
+}
+.ContentInfo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(177, 177, 177);
+}
+.ContentInfo li{
+    color: rgb(122, 122, 122);
+    font-size: 15px;
+    font-weight: 300;
+    padding-right: 10px;
+    border-right: 1px solid rgb(177, 177, 177);
+    margin-right: 10px;
+}
+.ContentInfo li:last-child{
+    border-right: none;
+}
+.Slide{
+    overflow: hidden;
+    position: relative;
+    height: 60px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white !important;
+    border-radius: 5px ;
+    transition: ease-in-out 0.3s;
+}
+
+.NoticeOpen{
+    top: 23px;
+    right: 3%;
+    position: absolute;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-image: url("../../icon/chevron-right.png");
+    transform: rotate(90deg);
+    background-color: transparent;
+    border : 0px;
+    outline: none;
+    background-repeat:no-repeat;
+    background-size: contain;
+    transition: ease-in 0.3s;
+    z-index: 10;
+}
+.DownActive{
+    transform: rotate(-90deg);
+}
+
+
+.Animate{
+    top:0%;
+    position : absolute;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 60px;
+    transition: ease 0.7s;
+}
+
+.Animate li{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color : black;
+    font-size: 16px;
+}
+
+.Animate li span{
+    display: flex;
+    align-items: center;
+    
+}
+
+.DateInfo{
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(119, 119, 119);
+    font-size: 14px;
+    margin-right: 15px;
+    height: 30%;
+    border-right: 1px solid rgb(179, 179, 179);
+}
+.TitleWrapper{
+    width: 47%;
+    display: flex;
+    align-items: center;
+    /* padding-right: 30px; */
+    font-size: 16px;
+    overflow : hidden;
+    
+}
+.Title{
+    max-width: 100%;
+    font-size: 16px;
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space:nowrap;
+    color: rgb(58, 58, 58);
+    border : 0px;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    transition: ease-in 0.15s;
+    cursor: pointer;
+}
+.Title:hover{
+    color: rgb(17, 17, 17);
+    border-bottom: 1px solid rgb(129, 129, 129);
+
+}
+
+.content{
+    color: rgb(99, 99, 99);
+    font-weight: 300;
+    font-size: 14px;
+}
+.Author{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    color: rgb(49, 49, 49);
+    font-size: 15px;
+    margin-left: 15px;
+    height: 30%;
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space:nowrap;
+    border-left: 1px solid rgb(179, 179, 179);
+    border-right: 1px solid rgb(179, 179, 179);
+}
+
+.HitsWrapper{
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Hits{
+    color: rgb(119, 119, 119);
+    font-size: 15px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.HitsWrapper svg{
+    font-size: 16px;
+    color: rgb(119, 119, 119);
+    margin-top:2px
+}
+
+.Notice{
+    margin-top: 30px;
+    height: 600px;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white !important;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.Notice ul li{
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+.PageMoveContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PageMoveContainer svg{
+    margin-top: 2px;
+    font-size: 20px;
+    color: rgb(83, 83, 83);
+}
+
+.PageMoveToLeft{
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    border : 0px;
+    outline: none;
+    background-repeat:no-repeat;
+    background-size: contain;
+    transition: ease-in 0.3s;
+    background-color: transparent;
+}
+.PageMoveToLeft:hover svg{
+    color: rgb(0, 0, 0);
+}
+
+.PageMoveToRight{
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    border : 0px;
+    outline: none;
+    background-color: transparent;
+    transition: ease-in 0.3s;
+}
+.PageMoveToRight:hover svg{
+    color: rgb(0, 0, 0);
+}
+.PageMoveBtn{
+    color: rgb(83, 83, 83);
+    width: 38px;
+    height: 30px;
+    border : 0px;
+    outline : none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: ease-in 0.3s;
+    background-color: transparent;
+}
+.PageMoveBtn:hover{
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+}
