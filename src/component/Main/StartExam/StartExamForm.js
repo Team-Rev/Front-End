@@ -2,13 +2,14 @@ import React, { useState, useEffect, Children } from "react";
 import style from "./StartExam.module.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from 'axios'
+import jwt_decode from "jwt-decode";
 import $ from 'jquery'
 
 
 export function StartExamForm(props) {
 
     const history = useHistory();
-    var userId = props.userId  // yeong@naver.com 사용자 ID
+    var userId = jwt_decode(props.info.token).sub  // yeong@naver.com 사용자 ID
     var [arr, setArr] = useState([
       
     ])
@@ -165,6 +166,9 @@ export function StartExamForm(props) {
         };
     }, [fixedstring]);    
         console.log(question)
+
+        
+
 
         if(!question) return `NULL`;  
 

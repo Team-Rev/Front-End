@@ -11,10 +11,11 @@ export function Login(props) {
 
     const handleInput = (e) => {
         var name = e.target.name
+        console.log(name)
+        console.log(e.target.value)
         switch(name){
             case "id":
                 setId(e.target.value);
-
                 break;
             case "pw":
                 setPassword(e.target.value);
@@ -34,6 +35,7 @@ export function Login(props) {
                 "password": password
             }
         }).then(res => {
+            console.log(res)
             props.login({
                 token : res.data.jwt,
                 nickname : res.data.nickname

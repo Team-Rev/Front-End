@@ -1,3 +1,7 @@
+.QuestionBoard{
+    max-width: 1000px;
+}
+
 .Top__Container{
     overflow-x: auto;
     overflow-y: hidden;
@@ -127,6 +131,15 @@
     padding-right: 20px; */
 }
 
+.TotalBtn{
+    display: flex;
+    flex-direction: column;
+    outline: 0px;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
 .TotalTitle{
     font-weight: 500;
     margin-bottom: 10px;

@@ -1,27 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Doughnut} from 'react-chartjs-2';
-const data = {
-  labels: [
-    '정답',
-    '오답',
-  ],
-  datasets: [{
-    data: [15, 5],
-    backgroundColor: [
-        '#25bc6d',
-        '#f44336',
-    ],
-    hoverBackgroundColor: [
-        '#25bc6d',
-        '#f44336',
-    ]
-  }]
-};
-function App() {
+
+export function Graph(props) {
+
+  const [isFetch, setIsFetch] = useState(false);
+  const [data, setData] = useState(null);
+  useEffect( () => {
+    if(!isFetch && props.correct >= 0 && props.uncorrect >= 0){
+      console.log("UPDATE DATA")
+      setData({
+        labels: [
+          '정답',
+          '오답',
+        ],
+        datasets: [{
+          data: [props.correct, props.uncorrect],
+          backgroundColor: [
+              '#25bc6d',
+              '#f44336',
+          ],
+          hoverBackgroundColor: [
+              '#25bc6d',
+              '#f44336',
+          ]
+        }]
+      })
+      console.log(data)
+      setIsFetch(true)
+    }
+    
+  });
+  if(!isFetch) return null;
+
   return (
-    <div>
-        <Doughnut data={data} />
-    </div>
+    <Doughnut data={data} />
   );
 }
-export default App;

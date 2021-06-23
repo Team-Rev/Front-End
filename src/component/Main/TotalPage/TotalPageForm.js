@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import style from './TotalPage.module.css'
-import Doughnut from '../Doughnut'
+import {Graph} from '../Doughnut'
 // import InfiniteScroll from 'react-infinite-scroll-component';
 // import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
   export function TotalPageForm(props) {
+    const handleInput = (e) => setShowing(e.target.getAttribute('data-key'))
+  
     const TopBar = (props) => {
       return (
         <div className={style.maintab}>
           <ul>
-            <li id="total" onClick={TotalPage} className={style.p}>종합</li>
-            <li id="correct" onClick={CurrentChk} className={style.p}>정답</li>
-            <li id="uncorrect" onClick={FalseChk} className={style.p}>오답</li>     
+            <li id="total" onClick={handleInput} className={style.p} data-key="totalpage">종합</li>
+            <li id="correct" onClick={handleInput} className={style.p} data-key="answerpage">정답</li>
+            <li id="uncorrect" onClick={handleInput} className={style.p} data-key="falsepage">오답</li>     
           </ul>           
         </div>
       );
     }
-
-    // if(TotalPage) {
-    //   console.log(document.getElementById("total"))
-    //   document.getElementById("total").style.border = "2px solid red"
-    // } else if(CurrentChk) {
-    //   document.getElementById("correct").style.border = "2px solid blue"
-    // } else {
-    //   document.getElementById("uncorrect").style.border = "2px solid green"
-    // }
 
     const ColorInfo = (props) => {
       return(
@@ -59,7 +52,6 @@ import Doughnut from '../Doughnut'
   
     const FalseChk = (props) => {
       console.log(count)
-      setShowing("falsepage")
       const reslen = props.reslen;
       const resultList = props.resultList
       const detail = props.detail
@@ -92,7 +84,6 @@ import Doughnut from '../Doughnut'
       }
 
       const renderQuestion = (question) => {
-        // console.log(question)/
         const details = detail.find(function (details){
           return details.questionId === question.id
         });
@@ -127,7 +118,6 @@ import Doughnut from '../Doughnut'
     }
   
     const CurrentChk = (props) => {
-      setShowing("answerpage")
       const reslen = props.reslen;
       const resultList = props.resultList
       const detail = props.detail
@@ -203,11 +193,11 @@ import Doughnut from '../Doughnut'
   }
   
     const TotalPage = (props) => {
-      setShowing("totalpage")
+      console.log(`ANSWER : ${props.ans}, WRONG : ${props.wrong}`)
       return (
            <div>
                <div style={{width : 250 , margin : "0 auto"}}> 
-                  <Doughnut correct={props.ans} uncorrect={props.wrong}/> 
+                  {<Graph correct={props.ans} uncorrect={props.wrong}/> }
                </div>
                <div className={style.total}>
                   <div className={style.total_box}>
@@ -250,6 +240,7 @@ import Doughnut from '../Doughnut'
     }
 
     const [isCompleted, setIsCompleted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [anscount, setAnscount] = useState("");
     const [resultList, setResultList] = useState([]);
     const [showing, setShowing] = useState("totalpage");
@@ -257,11 +248,11 @@ import Doughnut from '../Doughnut'
     var userId = props.userId
     var token = props.token
     var count = props.count
-  
     var fixedstring = encodeURIComponent(escape(token));
   
     useEffect(() => {
       async function fetchData(){ 
+          setIsLoading(true);
           axios({
               method: 'post',
               url: '/problem/submit',
@@ -276,57 +267,40 @@ import Doughnut from '../Doughnut'
               var data = res.data;
               setResultList(data)
               setAnscount(data.correctCount)
+              setIsLoading(false)
           });
-        } 
-  
+        }
+
         if(!isCompleted) fetchData();
-  
+        
         return () => {
             setIsCompleted(true);
         }
     }, [fixedstring])
+    console.log(userId)
+    console.log(resultList)
 
-    // console.log(resultList)
-  
-    if(showing == "totalpage") {
+
+    if(isLoading) return <div>loading...</div>
+
     return (
       <div className="board">
         <div className={style.container}>
           <div className={style.inner}>
             <TopBar/>
-            <TotalPage total={count} ans={anscount} wrong={count - anscount} />
-         </div>  
+            {showing === "totalpage" && <TotalPage total={count} ans={anscount} wrong={count - anscount} />}
+
+            {showing === "answerpage" && <ColorInfoSub/>}
+            {showing === "answerpage" && <CurrentChk question={props.question} resultList={resultList} reslen={resultList.details.length} detail={resultList.details}/>}
+            
+            {showing === "falsepage" && <ColorInfo/>}
+            {showing === "falsepage" && <FalseChk question={props.question} resultList={resultList} reslen={resultList.details.length} detail={resultList.details}/>}
+          </div>  
         </div>  
       </div>
     );
-    } else if(showing == "answerpage") {
-      return (
-        <div className="board">
-        <div className={style.container}>
-          <div className={style.inner}>
-            <TopBar/>
-            <ColorInfoSub/>
-            <CurrentChk question={props.question} resultList={resultList} reslen={resultList.details.length} detail={resultList.details}/>
-         </div>  
-        </div>  
-      </div>
-      )
-    } else {
-      return (
-        <div className="board">
-        <div className={style.container}>
-          <div className={style.inner}>
-            <TopBar/>
-            <ColorInfo/>
-            <FalseChk question={props.question} resultList={resultList} reslen={resultList.details.length} detail={resultList.details}/>
-         </div>  
-        </div>  
-      </div>
-      )
-    }
+    
   };
-
-  
 
 
 

@@ -82,12 +82,9 @@ const JoinForm = (props) => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        console.log(DOB)
-        dateFormat(DOB)
-        console.log(DOB)
         axios({
             method : 'post',
-            url : '/signup',
+            url : '/auth/signup',
             data: {
                 "detailAddress" : detailAddress,
                 "nickname" : nickname,
