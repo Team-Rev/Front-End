@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import monent from 'react-moment';
 import { useHistory } from 'react-router';
 import { Container } from '../../Container/Container'
 import axios from 'axios';
 import styles from './Join.module.css'
+import moment from 'moment';
 
 export function Join(props) {
     return(
@@ -17,6 +19,8 @@ const JoinBoard = () => {
         </div>
     )
 }
+
+
 
 const JoinForm = (props) => {
     let history = useHistory();
@@ -69,10 +73,18 @@ const JoinForm = (props) => {
     const Goback = () => {
         history.goBack();
     }
-    
+
+    const dateFormat = (DOB) => {
+        console.log('여기안에 옴')
+        moment(DOB).format('YYYY-MM-DD')
+        console.log(DOB)
+    }
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+        console.log(DOB)
+        dateFormat(DOB)
+        console.log(DOB)
         axios({
             method : 'post',
             url : '/signup',
@@ -92,6 +104,13 @@ const JoinForm = (props) => {
         console.log('체크')
         if(res.data == "SUCCESS") {
             history.push("/login")
+        } else if(res.data == "ID is present") {
+            alert('아이디가 중복됩니다.')
+            var id = document.getElementById("id")
+            id.style.border = "2px solid red"
+        } 
+        else {
+            alert('다시 시도해주세요')
         }
     })
     .catch(error => console.log(error))
@@ -106,12 +125,19 @@ const JoinForm = (props) => {
             <div className={styles.container}>
              <div className={styles.contentbox}>
              <form className={styles.formtag} onSubmit={onSubmitHandler}>
-                <input type="email"  name={userId} className="text-field" placeholder="아이디" onChange={onIdHandler}></input>
-                <input type="password" name={password} className="text-field" placeholder="비밀번호" onChange={onPasswordHandler}></input>
+                <input type="email"  name={userId} id="id" className="text-field" placeholder="아이디" onChange={onIdHandler}></input>
+                <div style={{paddingLeft : 15}}><p style={{color : "#a7abab", fontSize : 12}}>이메일 형식으로 입력하세요</p></div>
+                <input type="password" name={password} className="text-field" placeholder="비밀번호(8자리 이상)" onChange={onPasswordHandler}></input>
+
+                {password.length >= 8 && password.length <= 10 ? 
+                    <div style={{paddingLeft : 15}}><p style={{color : "blue", fontSize : 12}}>사용 가능합니다.</p></div> : 
+                    <div style={{paddingLeft : 15}}><p style={{color : "#a7abab", fontSize : 12}}>8~10 자리수로 입력하세요</p></div>}
                 <input type="text" name={name} className="text-field" placeholder="이름" onChange={onUsernameHandler}></input>
+
                 <input type="text"  name={nickname} className="text-field" placeholder="닉네임" onChange={onNickHandler}></input>
-                <input type="text" name={DOB} className="text-field" placeholder="출생년일(YYYY-MM-DD)" onChange={onDateHandler}></input>
-                <input type="text" name={phone} className="text-field" placeholder="폰번호" onChange={onPhoneHandler}></input>
+                {/* <input type="text" name={DOB} className="text-field" placeholder="출생년일(YYYY-MM-DD)" onChange={onDateHandler}></input> */}
+                <input type="date" name={DOB} required pattern="\d{4}-\d{2}-\d{2}" onChange={onDateHandler}></input>
+                <input type="text" name={phone} className="text-field" placeholder="폰 번호" onChange={onPhoneHandler}></input>
                 <input type="text" name={detailAddress} className="text-field" placeholder="상세주소" onChange={onDetailAddHandler}></input>
                 <input type="text" name={address} className="text-field" placeholder="거주주소" onChange={onAddHandler}></input>
                 <input type="text" name={postNumber} className="text-field" placeholder="우편번호" onChange={onPostnumHandler}></input>

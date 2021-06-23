@@ -41,3 +41,8 @@
     font-weight: 300;
     line-height : 2px;
 }
+
+.submitBtn:hover{
+    background-color: #2bc777;
+    box-shadow: 3px 3px 7px thistle;
+}
