@@ -155,17 +155,22 @@ const Comment = (props) => {
     var comment = props.comment;
     return(
         <div className={style.Comment}>
-            <div>
-                {comment.nickname}
+            <div className={style.CommentHeader}>
+                <span className={style.Nickname}>
+                    {comment.nickname}
+                </span>
+                <span className={style.Date}>
+                    {dateCal(comment.postDate)}
+                </span>
             </div>
-            <div>
+            <div className={style.CommentText}>
                 {comment.comment}
             </div>
-            <div>
-                {dateCal(comment.postDate)} {comment.good} {comment.reComment}
+            <div className={style.Good}>
+                {comment.good} <span className={style.GoodText}>좋아요</span>
             </div>
-            <div>
-                답글 더보기
+            <div className={style.Recomment}>
+                답글 {comment.reComment}개 더보기
             </div>
         </div>
     );
