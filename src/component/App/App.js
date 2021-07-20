@@ -15,8 +15,14 @@ import { StartExam } from '../Main/StartExam/StartExam'
 import { Sidebar } from '../Main/Sidebar/Sidebar'
 import { TotalPage } from '../Main/TotalPage/TotalPage'
 import { Join } from '../Main/Join/Join'
+import jwtDecode from 'jwt-decode';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogout } from '../../store/modules/userSlice';
 
 export function App () {
+
+    const dispatch = useDispatch()
+    const id = useSelector(state => state.user.id)
 
     const [isLogin, setLogin] = useState(false);
     const [isLoginOpen, setLoginOpen] = useState(false);
@@ -28,19 +34,17 @@ export function App () {
     const login =(info) => {
         setLogin(info.token.length > 0);
         setInfo(info);
+        console.log(id)
     }
    
     const logout = () => {
-        setLogin(false);
-        setInfo({
-            token : "",
-            nickname : ""
-        });
+        dispatch(userLogout())
+        localStorage.clear()
+        console.log(id)
     }
 
     const [userId, setUserId] = useState("")
-
-    return (
+    return ( 
         <>
             {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login} setUserId={setUserId}/>}
             <Sidebar 
@@ -92,7 +96,9 @@ export function App () {
 
             <Route path="/pointrecord" 
                 render={() => 
-                    <Pointrecord />
+                    <Pointrecord 
+                        info={info}
+                    />
                 }>
             </Route>
 

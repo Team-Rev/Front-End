@@ -19,6 +19,9 @@ export function StartExamForm(props) {
     var [question, setQuestion] = useState(null);
     var [num, setNum] = useState(0);
 
+    // console.log(localStorage.getItem("ACCESS_TOKEN"))
+    
+
     // 이전 버튼
     const handleDecrese = () => { 
       if(num == 0) alert('첫번째 페이지입니다')

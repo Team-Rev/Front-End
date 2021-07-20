@@ -1,6 +1,8 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { Container } from '../../Container/Container'
 import style from './Point.module.css'
+import jwt_decode from "jwt-decode";
 
 export function Pointrecord (props) {
     return (
@@ -12,128 +14,110 @@ export function Pointrecord (props) {
 
 const PointBoard = (props) => {
 
-    
+    var [check, setCheck] = useState("");
+    var [nowPage, setNowPage] = useState(0);
+    var [pagePoint, setPagePoint] = useState(null);
+
+    var userId = jwt_decode(props.info.token).sub
+    var token = props.info.token
+    var fixedstring = encodeURIComponent(escape(token));
+    console.log(userId, fixedstring)
+
+    const [isCompleted, setIsCompleted] = useState(false)
+        const [pointrecord, setPointRecord] = useState();
+
+        useEffect(() => {
+            async function fetchData(){
+                axios({
+                    method: 'get',
+                    url: `/point/userRecord/${userId}?page=0&size=3`,
+                    headers: {
+                        "Authorization" : `Bearer ${fixedstring}`
+                    }
+                }).then(res => {
+                    var article = res.data;
+                    setPointRecord(article)
+                });
+            }
+            if(!isCompleted) fetchData();
+
+            return () => {
+                setIsCompleted(true);
+            }
+        }, [fixedstring])
+
+        console.log(pointrecord)
+
+    const TopBar = (props) => {
+        return (
+            <div className={style.top_menu}>
+                <div className={style.getpoint}> 
+                    <p onClick={handleInput} data-key="stackPoint">적립 내역</p>
+                </div>
+                <div className={style.usepoint}> 
+                    <p onClick={handleInput} data-key="usePoint">사용 내역</p>
+                </div>
+            </div>
+        )  
+    }
+
+    const StackPoint = (props) => {
+
+        const article = props.article
+        console.log(article)
+
+        return (
+            <ul>
+                <li className={style.listTab}>
+                   <div className={style.contentList}> 
+                    <div className={style.date}>
+                        <p>{article[0].date}</p>
+                        <p>{article[0].reason}</p>
+                    </div>
+                    <div className={style.right_float}>  
+                    <div className={style.point}>
+                        <p>{article[0].point}포인트</p>
+                    </div>
+                  </div> 
+                  </div>
+                </li>
+            </ul>
+        )  
+    }
+
+    const UsePoint = (props) => {
+        return (
+            <ul>
+                <li className={style.listTab}>
+                   <div className={style.contentList}> 
+                    <div className={style.date}>
+                        <p>2021-04-25 21:37</p>
+                        <p>문제 생성</p>
+                    </div>
+                    <div className={style.right_float}>  
+                    <div className={style.point}>
+                        <p style={{color : "red"}}>-100 포인트</p>
+                    </div>
+                  </div> 
+                  </div>
+                </li>
+            </ul>
+        )
+    }
+
+    const handleInput = (e) => {
+        setCheck(e.target.getAttribute('data-key'))
+    }
 
     return (
         <div className={style.container}>
             <div className={style.contentbox}>
-                <div className={style.top_menu}>
-                   <div className={style.getpoint}> 
-                      <p>적립 내역</p>
-                   </div>
-                   <div className={style.usepoint}> 
-                      <p>사용 내역</p>
-                   </div>
-                </div>
+                <TopBar/>
                 <div className={style.main_content}>
-                    <ul>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-25 21:37</p>
-                                <p>문제 생성</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>100 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-22 02:24</p>
-                                <p>질문 답변</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>50 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-19 15:08</p>
-                                <p>생성 문제 추천</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>200 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-12 00:27</p>
-                                <p>게시판 글 등록</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>70 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-25 21:37</p>
-                                <p>문제 생성</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>100 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-25 21:37</p>
-                                <p>문제 생성</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>100 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-25 21:37</p>
-                                <p>문제 생성</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>100 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                        <li className={style.listTab}>
-                           <div className={style.contentList}> 
-                            <div className={style.date}>
-                                <p>2021-04-25 21:37</p>
-                                <p>문제 생성</p>
-                            </div>
-                            <div className={style.right_float}>  
-                            <div className={style.point}>
-                                <p>100 포인트</p>
-                            </div>
-                          </div> 
-                          </div>
-                        </li>
-                    </ul>
-                </div>  
-            </div>   
+                    {check === "stackPoint" && <StackPoint article={pointrecord}/>}
+                    {check === "usePoint" && <UsePoint/>}
+                </div>
+            </div>
         </div>
     )
 }
