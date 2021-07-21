@@ -4,12 +4,13 @@ import { Link, useHistory } from "react-router-dom";
 import axios from 'axios'
 import jwt_decode from "jwt-decode";
 import $ from 'jquery'
+import { useSelector } from 'react-redux';
 
 
 export function StartExamForm(props) {
 
     const history = useHistory();
-    var userId = jwt_decode(props.info.token).sub  // yeong@naver.com 사용자 ID
+    var userId = useSelector(state => state.user.id)  // yeong@naver.com 사용자 ID
     var [arr, setArr] = useState([
       
     ])
@@ -134,7 +135,7 @@ export function StartExamForm(props) {
     };
     console.log(arr)
 
-    var token = props.info.token
+    var token = useSelector(state => state.user.token)
     //console.log(token)
 
     var fixedstring = encodeURIComponent(escape(token));
@@ -249,8 +250,8 @@ export function StartExamForm(props) {
               <div className="bottom-btn right" style={{ float: "right" }}>
                 <Link to={{pathname : '/totalpage', state : 
                     {   submitList : data, 
-                        userId : userId, 
-                        token : token,
+                        // userId : userId, 
+                        // token : token,
                         count : question.length,
                         question : question
                     }}}>

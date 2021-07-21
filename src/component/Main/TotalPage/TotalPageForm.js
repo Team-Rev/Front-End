@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import style from './TotalPage.module.css'
 import {Graph} from '../Doughnut'
+import { useSelector } from 'react-redux';
 // import InfiniteScroll from 'react-infinite-scroll-component';
 // import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -245,8 +246,8 @@ import {Graph} from '../Doughnut'
     const [resultList, setResultList] = useState([]);
     const [showing, setShowing] = useState("totalpage");
     var submitList = props.submitList
-    var userId = props.userId
-    var token = props.token
+    var userId = useSelector(state => state.user.id)
+    var token = useSelector(state => state.user.token)
     var count = props.count
     var fixedstring = encodeURIComponent(escape(token));
   

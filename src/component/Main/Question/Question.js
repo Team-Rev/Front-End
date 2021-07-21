@@ -11,7 +11,7 @@ export function Question (props) {
     return (
         <Container 
             content={QuestionBoard}
-            info={props.info}
+            // info={props.info}
         />
     );
 };
@@ -24,7 +24,7 @@ const QuestionBoard = (props) =>{
     return(
         <div className={style.QuestionBoard}>
             <AskBoard
-                info={props.info}
+                // info={props.info}
                 isAskOpened={isAskOpened}
                 setIsAskOpened={setIsAskOpened}
                 nowAsk={nowAsk}

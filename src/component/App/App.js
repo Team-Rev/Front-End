@@ -17,34 +17,53 @@ import { TotalPage } from '../Main/TotalPage/TotalPage'
 import { Join } from '../Main/Join/Join'
 import jwtDecode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogout } from '../../store/modules/userSlice';
+import { userLogin, userLogout } from '../../store/modules/userSlice';
+import { useHistory } from 'react-router';
+import { useEffect } from 'react';
 
 export function App () {
-
+    const history = useHistory()
     const dispatch = useDispatch()
+
     const id = useSelector(state => state.user.id)
 
     const [isLogin, setLogin] = useState(false);
     const [isLoginOpen, setLoginOpen] = useState(false);
+
     const [info, setInfo] = useState({
+        username : "",
         token:"",
         nickname:""
     });
 
+    const [loginChk, setLoginChk] = useState(false)
+
     const login =(info) => {
         setLogin(info.token.length > 0);
-        setInfo(info);
-        console.log(id)
+        setInfo(info)
+        dispatch(userLogin(info.username, info.token, info.nickname)) 
     }
    
     const logout = () => {
         dispatch(userLogout())
         localStorage.clear()
-        console.log(id)
+        history.push('/')
     }
 
     const [userId, setUserId] = useState("")
-    return ( 
+
+    const isLoginChk = useSelector(state => state.user.isLogin)
+    console.log(isLoginChk)
+    const localStoragetokenCheck = localStorage.getItem("ACCESS_TOKEN");
+
+
+    useEffect(() => {
+        if (localStoragetokenCheck) {
+            setLoginChk(isLoginChk)
+        }
+    }, []);
+
+    return (  
         <>
             {isLoginOpen && <Login setLoginOpen={setLoginOpen} login={login} setUserId={setUserId}/>}
             <Sidebar 
@@ -53,7 +72,6 @@ export function App () {
                 isLogin={isLogin}
                 logout={logout}
             />
-
             <Route exact path="/"
                 render={() => 
                     <Main/>
@@ -75,7 +93,7 @@ export function App () {
             <Route path="/question"
                 render={() => 
                     <Question
-                        info={info}
+                        info={info}  
                     />
                 }>
             </Route>
@@ -120,7 +138,7 @@ export function App () {
             </Route>
             <Route path="/startexam" 
                 render={() => 
-                    <StartExam info={info} userId={userId}/>
+                    <StartExam info={info} />
                 }>
             </Route>
             <Route path="/totalpage" 

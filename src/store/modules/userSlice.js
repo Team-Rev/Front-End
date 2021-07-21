@@ -1,8 +1,9 @@
 const LOGIN = "userSlice/LOGIN";
 const LOGOUT = "userSlice/LOGOUT";
 
-export const getLogin = (id, token, nickname) => ({ type : LOGIN, id, token, nickname });
+export const userLogin = (id, token, nickname) => ({ type : LOGIN, id, token, nickname });
 export const userLogout = () => ({ type : LOGOUT })
+
 
 const initState = {
     id : null,
@@ -25,7 +26,7 @@ export default function loginUserId(state = initState, action) {
         case LOGOUT:
             return {
                 ...state,
-                id : "hihihihihi",
+                id : "",
                 isLogin : false,
                 token : "",
                 nickname : ""

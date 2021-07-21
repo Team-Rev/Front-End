@@ -5,13 +5,13 @@ import { useLocation } from 'react-router'
 export function TotalPage (props) {
     const location = useLocation();
     const submitList = location.state.submitList
-    const userId = location.state.userId
-    const token = location.state.token
+    // const userId = location.state.userId
+    // const token = location.state.token
     const count = location.state.count
     const question = location.state.question
     return (
         <>
-            <TotalPageForm token={props.token} submitList={submitList} userId={userId} token={token} count={count} question={question}/>
+            <TotalPageForm token={props.token} submitList={submitList} count={count} question={question}/>
         </>
     );
 };

@@ -6,7 +6,9 @@ import learn from './img/learn.png'
 import notice from './img/notice.png'
 import ques from './img/ques.png'
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
+import loginChk from '../../../store/modules/userSlice'
 
 
 export function Sidebar(props) {

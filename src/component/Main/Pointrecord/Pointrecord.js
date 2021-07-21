@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container } from '../../Container/Container'
 import style from './Point.module.css'
 import jwt_decode from "jwt-decode";
+import { useSelector } from 'react-redux';
 
 export function Pointrecord (props) {
     return (
@@ -18,8 +19,9 @@ const PointBoard = (props) => {
     var [nowPage, setNowPage] = useState(0);
     var [pagePoint, setPagePoint] = useState(null);
 
-    var userId = jwt_decode(props.info.token).sub
-    var token = props.info.token
+    var token = useSelector(state => state.user.token)
+
+    var userId = useSelector(state => state.user.id)
     var fixedstring = encodeURIComponent(escape(token));
     console.log(userId, fixedstring)
 
