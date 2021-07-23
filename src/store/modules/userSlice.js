@@ -1,17 +1,18 @@
 const LOGIN = "userSlice/LOGIN";
 const LOGOUT = "userSlice/LOGOUT";
 
+// ACTION
 export const userLogin = (id, token, nickname) => ({ type : LOGIN, id, token, nickname });
 export const userLogout = () => ({ type : LOGOUT })
 
 
+// REDUCER
 const initState = {
     id : null,
     isLogin : false,
     token : '',
     nickname : ''
 };
-
 
 export default function loginUserId(state = initState, action) {
     switch(action.type) {
