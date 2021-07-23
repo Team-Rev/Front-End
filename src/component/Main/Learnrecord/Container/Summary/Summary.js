@@ -19,6 +19,7 @@ const TotalSummary = (props) => {
 
 export function Summary(props){
     var decodedToken = jwt_decode(props.token);
+
     const [totalInfo, setTotalInfo] = useState(null);
 
     const [isCompleted, setIsCompleted] = useState(false);

@@ -11,7 +11,7 @@ export function Question (props) {
     return (
         <Container 
             content={QuestionBoard}
-            info={props.info}
+            // info={props.info}
         />
     );
 };
@@ -24,7 +24,7 @@ const QuestionBoard = (props) =>{
     return(
         <div className={style.QuestionBoard}>
             <AskBoard
-                info={props.info}
+                // info={props.info}
                 isAskOpened={isAskOpened}
                 setIsAskOpened={setIsAskOpened}
                 nowAsk={nowAsk}
@@ -100,8 +100,8 @@ const FrequentCard = (props) => {
 function FrequentlyAskedQuestions(props){
 
     const article = {
-        title : `동영이 컬러링 왜저럼?`,
-        detail : `동영이한테 전화 했는데 컬러링 트로트 나오던데, 컬러링 왜 저따구임 ㅋㅋㅋ`,
+        title : `캡스톤 디자인 기말평가입니다.`,
+        detail : `기말평가에 대한 내용입니다. 궁금하신점이나 문의하실점이 있으면 알려주세요!!!`,
         hits : 0,
         comments : 0,
     }

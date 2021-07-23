@@ -63,6 +63,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.CommentBox::-webkit-scrollbar{
+    width: 0px;
+}
 
 .CommentTop{
 
@@ -73,9 +76,44 @@
     width: 0px;
 }
 .Comment{
-    padding : 5px 10px 5px 10px
+    padding : 5px 10px 7px 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.15)   ;
 }
 
+.CommentHeader{
+    display: flex;
+}
+.CommentHeader span{
+    display: block;
+    padding:5px 0px 5px 0px;    
+}
+.Nickname{
+    font-size: 14px;
+    color: #242424;
+    margin-right: 5px;
+}
+.Date{
+    color: #606060;
+    font-size: 13px;
+    font-weight: 200;
+}
+.CommentText{
+    margin-bottom: 5px;
+    
+}
+.Good{  
+    font-size: 14px;
+    color: #606060;
+    margin-bottom: 5px;
+}
+.GoodText{
+    font-size: 13px;
+    color: #606060;
+}
+.Recomment{
+    color: #065FD4;
+    font-size: 14px; 
+}
 .CommentInput{
     resize: none;
     width: 250px;

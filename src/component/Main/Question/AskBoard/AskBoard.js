@@ -5,6 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import axios from 'axios';
 import jwt from 'jwt-decode';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useSelector } from 'react-redux';
 
 export const AskBoard = (props) => {
     const [contentHeight, setContentHeight] = useState(0);
@@ -110,7 +111,7 @@ export const AskBoard = (props) => {
                     commentsArr={commentsArr}
                     fetchMoreData={fetchMoreData}
                     hasMore={hasMore}
-                    info={props.info}
+                    // info={props.info}
                     nowAsk={props.nowAsk}
                     initComment={initComment}
                 />
@@ -120,6 +121,9 @@ export const AskBoard = (props) => {
 }
 
 const CommentBox = (props) => {
+    
+    const token = useSelector(state => state.user.token)
+
     return (
         <div className={style.CommentBox}>
             <div id="comment_scroll" className={style.CommentTop}>
@@ -141,8 +145,8 @@ const CommentBox = (props) => {
 
                 </InfiniteScroll>
             </div>
-            {props.info.token.length > 0 && <CommentBottom 
-                info={props.info}
+            {token.length > 0 && <CommentBottom 
+                // info={props.info}
                 nowAsk={props.nowAsk}
                 initComment={props.initComment}
             />}
@@ -155,23 +159,31 @@ const Comment = (props) => {
     var comment = props.comment;
     return(
         <div className={style.Comment}>
-            <div>
-                {comment.nickname}
+            <div className={style.CommentHeader}>
+                <span className={style.Nickname}>
+                    {comment.nickname}
+                </span>
+                <span className={style.Date}>
+                    {dateCal(comment.postDate)}
+                </span>
             </div>
-            <div>
+            <div className={style.CommentText}>
                 {comment.comment}
             </div>
-            <div>
-                {dateCal(comment.postDate)} {comment.good} {comment.reComment}
+            <div className={style.Good}>
+                {comment.good} <span className={style.GoodText}>좋아요</span>
             </div>
-            <div>
-                답글 더보기
+            <div className={style.Recomment}>
+                답글 {comment.reComment}개 더보기
             </div>
         </div>
     );
 }
 
 const CommentBottom = (props) => {
+
+    const token = useSelector(state => state.user.token)
+    const nickname = useSelector(state => state.user.nickname)
 
     const [areaValue, setAreaValue] = useState("");
 
@@ -200,13 +212,13 @@ const CommentBottom = (props) => {
                             method : 'post',
                             url: `/board/comment`,
                             data : {
-                                "userId" : jwt(props.info.token).sub,
-                                "nickname" : props.info.nickname,
+                                "userId" : jwt(token).sub,
+                                "nickname" : nickname,
                                 "comment" : areaValue,
                                 "refAsk" : props.nowAsk.askId
                             },
                             headers : {
-                                "Authorization" : `Bearer ${props.info.token}`,
+                                "Authorization" : `Bearer ${token}`,
                             }
                         }).then( res => {
                             setAreaValue("");

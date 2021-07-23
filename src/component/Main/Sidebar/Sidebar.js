@@ -5,6 +5,12 @@ import user from './img/user.png'
 import learn from './img/learn.png'
 import notice from './img/notice.png'
 import ques from './img/ques.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
+import loginChk from '../../../store/modules/userSlice'
+
+
 export function Sidebar(props) {
 
     /*
@@ -13,9 +19,9 @@ export function Sidebar(props) {
             $('.active').css('color', "#00251a");
         });
     });*/
-
-    var isLogin = props.isLogin;
-
+    var isLogin = useSelector(state => state.user.isLogin)
+    var username = useSelector(state => state.user.nickname)
+    
     return (
         <div className="side-bar">
             <div className="logo-box">
@@ -25,7 +31,7 @@ export function Sidebar(props) {
                 <div className="login-box" >
                         <img src={user}  alt="유저아이콘"/>
                         {!isLogin && <button to="/login" className="login" onClick={() => props.setLoginOpen(true)} >로그인</button>}
-                        {isLogin && <a href="/#" className="user">{props.nickname}</a>}
+                        {isLogin && <a href="/#" className="user">{username}</a>}
                 </div>
             
                 <ul className="main-box">

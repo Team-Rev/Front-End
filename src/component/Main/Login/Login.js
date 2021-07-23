@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom'
-import style from './Login.module.css'
-import logo from './img/logo.png'
-import axios from 'axios'
+import { NavLink } from 'react-router-dom';
+import style from './Login.module.css';
+import logo from './img/logo.png';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import jwt_decode from "jwt-decode";
 
 export function Login(props) {
     
+    const dispatch = useDispatch();
     var [id, setId] = useState("");
     var [password, setPassword] = useState("");
 
+
     const handleInput = (e) => {
         var name = e.target.name
-        console.log(name)
-        console.log(e.target.value)
         switch(name){
             case "id":
                 setId(e.target.value);
@@ -25,7 +27,7 @@ export function Login(props) {
         }
     }
 
-    const login = () =>{
+    const login = () =>{    
         props.setLoginOpen(false);
         axios({
             method: 'post',
@@ -37,13 +39,15 @@ export function Login(props) {
         }).then(res => {
             console.log(res)
             props.login({
+                username : id,
                 token : res.data.jwt,
                 nickname : res.data.nickname
             });
+            localStorage.setItem("ACCESS_TOKEN", res.data.jwt)
         })
         .catch(error => console.log(error));
     }
-    
+
 
    return (
         <div className={style.container}>
