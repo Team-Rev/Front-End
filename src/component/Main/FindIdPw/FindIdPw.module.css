@@ -1,0 +1,111 @@
+.container{
+    display : flex;
+    justify-content: center;
+    width : 100%;
+    height : 100vh;
+}
+
+.contentbox{
+    width : 100%;
+    background-color: white;
+    border-radius: 15px;
+    padding : 15px;
+    margin : 10px 0 0 20px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+}
+
+.containerbox {
+    margin-top : 40px;
+    text-align: center;
+}
+
+.containerbox p:first-child {
+    font-size : 27px;
+    font-weight: bold;
+}
+
+.containerbox p {
+    margin : 20px 0;
+}
+
+.maintab {
+    border-bottom : 0.1px solid rgb(184, 184, 184);
+    text-align: center;
+}
+
+.maintab ul li {
+    display: inline-block;
+    font-size : 17px;
+    color : rgb(41, 41, 41);
+    text-decoration: none;
+    margin : 10px; 
+}
+
+.FindForm {
+    margin-top : 10px;
+    display: inline-block;
+}
+
+.FindForm input {
+    display: block;
+    width: 270px;
+    border: 1px solid #25bc6d;
+    border-radius: 8px;
+    padding: 7px 12px 7px 12px;
+    outline: #1faf65;
+    margin-bottom: 15px;
+}
+
+.findBtn{
+    width: 100px;
+    border: 1px solid #25bc6d;
+    background-color: #25bc6d;
+    padding: 8px 0 8px 0;
+    border-radius: 8px;
+    outline: #1faf65;
+    color:white;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: ease-in 0.15s;
+    box-shadow: 3px 3px 7px transparent;
+}
+
+.findBtn:hover{
+    background-color: #2bc777;
+    box-shadow: 3px 3px 7px thistle;
+}
+
+.findBtn:focus{
+    background-color: #2bc777;
+    border-color: #9dffcd;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3) inset;;
+}
+
+.findpwBtn{
+    width: 150px;
+    border: 1px solid #25bc6d;
+    background-color: #25bc6d;
+    padding: 8px 0 8px 0;
+    border-radius: 8px;
+    outline: #1faf65;
+    color:white;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: ease-in 0.15s;
+    box-shadow: 3px 3px 7px transparent;
+}
+
+.findpwBtn:hover{
+    background-color: #2bc777;
+    box-shadow: 3px 3px 7px thistle;
+}
+
+.findpwBtn:focus{
+    background-color: #2bc777;
+    border-color: #9dffcd;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3) inset;;
+}
