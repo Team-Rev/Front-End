@@ -8,14 +8,26 @@ import { useSelector } from 'react-redux';
 
   export function TotalPageForm(props) {
     const handleInput = (e) => setShowing(e.target.getAttribute('data-key'))
-  
+
     const TopBar = (props) => {
       return (
         <div className={style.maintab}>
           <ul>
-            <li id="total" onClick={handleInput} className={style.p} data-key="totalpage">종합</li>
-            <li id="correct" onClick={handleInput} className={style.p} data-key="answerpage">정답</li>
-            <li id="uncorrect" onClick={handleInput} className={style.p} data-key="falsepage">오답</li>     
+            <li id="total" 
+              onClick={handleInput} 
+              className={style.p} data-key="totalpage">
+              종합
+            </li>
+            <li id="correct" 
+              onClick={handleInput} 
+              className={style.p} data-key="answerpage">
+              정답
+            </li>
+            <li id="uncorrect" 
+              onClick={handleInput} 
+              className={style.p} data-key="falsepage">
+              오답
+            </li>     
           </ul>           
         </div>
       );

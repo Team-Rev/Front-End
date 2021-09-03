@@ -31,7 +31,7 @@ export function Sidebar(props) {
                 <div className="login-box" >
                         <img src={user}  alt="유저아이콘"/>
                         {!isLogin && <button to="/login" className="login" onClick={() => props.setLoginOpen(true)} >로그인</button>}
-                        {isLogin && <a href="/#" className="user">{username}</a>}
+                        {isLogin && <a href="/mypage" className="user">{username}</a>}
                 </div>
             
                 <ul className="main-box">

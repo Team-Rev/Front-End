@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './Solveques.module.css'
 import { Link } from 'react-router-dom'
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 export function SolvequesForm() {
+
+    var [quesnum, setQuesNum] = useState(0);
+
+    // const handleOnClick = (e) => {
+
+    // }
+
     return (
         <div className="board">
            <div className={style.container}> 
@@ -13,7 +21,8 @@ export function SolvequesForm() {
                     나에게 맞는 문제를 추천합니다<br/>
                     개선사항에 대한 의견을 게시판에서 들려주세요.
                 </p>
-              <div className={style.btn}>  
+              <div className={style.btn}>
+               {/* <input type="number" style={{width:150, textAlign:"center"}}></input>    */}
                <Link to="/startexam"><button className={style.test_btn}>추천 문제 풀기</button></Link>
                <Link to="/startexam"><button className={style.test_btn}>키워드 선택 풀기</button></Link>
               </div>  

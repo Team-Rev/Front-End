@@ -4,6 +4,7 @@ import style from './Login.module.css';
 import logo from './img/logo.png';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import jwt_decode from "jwt-decode";
 
 export function Login(props) {
@@ -64,7 +65,7 @@ export function Login(props) {
                             name="id"
                             type="text"
                             value={id}
-                            placeholder="아이디" />
+                            placeholder="아이디"/>
                         <input
                             onChange={(e) => handleInput(e)}
                             name="pw"
@@ -79,7 +80,7 @@ export function Login(props) {
                         <span>
                             아이디/비밀번호를 잊어버리셨나요?
                         </span>
-                        <button>아이디/비밀번호 찾기</button>
+                        <NavLink to="/findidpw" className={style.joinBtn} onClick={() => { props.setLoginOpen(false)}}>아이디/비밀번호 찾기</NavLink>
                     </div>
                     <div className={style.signIn}>
                         <span>

@@ -4,6 +4,7 @@ import { Login } from '../Main/Login/Login'
 import { Learning } from '../Main/Learning/Learning'
 import { Notice } from '../Main/Notice/Notice'
 import { Question } from '../Main/Question//Question'
+import { Findidpw } from '../Main/FindIdPw/FindIdPw';
 import { Learnrecord } from '../Main/Learnrecord/Learnrecord'
 import { Vulnerable } from '../Main/Vulnerable/Vulnerable'
 import { Pointrecord } from '../Main/Pointrecord/Pointrecord'
@@ -15,7 +16,6 @@ import { StartExam } from '../Main/StartExam/StartExam'
 import { Sidebar } from '../Main/Sidebar/Sidebar'
 import { TotalPage } from '../Main/TotalPage/TotalPage'
 import { Join } from '../Main/Join/Join'
-import jwtDecode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin, userLogout } from '../../store/modules/userSlice';
 import { useHistory } from 'react-router';
@@ -131,24 +131,34 @@ export function App () {
                     <Writer />
                 }>
             </Route>
+
             <Route path="/solveques" 
                 render={() => 
                     <Solveques/>
                 }>
             </Route>
-            <Route path="/startexam" 
+
+            <Route path="/startexam"    
                 render={() => 
                     <StartExam info={info} />
                 }>
             </Route>
+
             <Route path="/totalpage" 
                 render={() => 
                     <TotalPage/>
                 }>
             </Route>
+
             <Route path="/join" 
                 render={() => 
                     <Join/>
+                }>
+            </Route>
+
+            <Route path="/findidpw" 
+                render={() => 
+                    <Findidpw/>
                 }>
             </Route>
         </>
