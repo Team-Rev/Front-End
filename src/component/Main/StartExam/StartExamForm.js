@@ -20,7 +20,8 @@ export function StartExamForm(props) {
     var [question, setQuestion] = useState(null);
     var [num, setNum] = useState(0);
 
-    // console.log(localStorage.getItem("ACCESS_TOKEN"))
+    var questionNum = props.quesnum
+
     
 
     // 이전 버튼
@@ -56,18 +57,10 @@ export function StartExamForm(props) {
         console.log(choiceIdlist)
         console.log(prevIdlist)
         if(choiceIdlist){
-          // for(let j = 0; j < prevIdlist.multiple.length; j++){
-          //   $(document).ready(function() {
-          //     console.log(prevIdlist.multiple[j])
-          //     $("input:checkbox[id=" + prevIdlist.multiple[j] + "]").prop("checked", false);
-          //     console.log("체크 풀었다")
-          //   })
-          // }
           $('.checks').prop('checked', false);
           for(let i = 0; i < choiceIdlist.multipleChoiceIds.length; i++){
             $(document).ready(function() {
               $("input:checkbox[id=" + choiceIdlist.multipleChoiceIds[i] + "]").prop("checked", true);
-              console.log("체크 했다")
             })
           }
         } else{
@@ -144,7 +137,7 @@ export function StartExamForm(props) {
         async function fetchData(){ 
             axios({
                 method: 'get',
-                url: '/problem/rangeQuestions?start=1&end=10',
+                url: `/problem/rangeQuestions?start=1&end=${questionNum}`,
                 headers: {
                   "Authorization" : `Bearer ${fixedstring}`,
                 }
@@ -202,35 +195,6 @@ export function StartExamForm(props) {
               count++
           }
        
-        //   $("input:checkbox").on('click', function() {
-        //     if($('input:checkbox:checked').length == 1) {
-        //         $(":checkbox:not(:checked)").attr("disabled", "disabled");
-        //     } else {
-        //         $("input:checkbox").removeAttr("disabled");
-        //     }
-        // })
-      // } else if(count == 2) {
-      //   $("input:checkbox").on('click', function() {
-      //     if($('input:checkbox:checked').length == 2) {
-      //         $(":checkbox:not(:checked)").attr("disabled", "disabled");
-      //     } else {
-      //         $("input:checkbox").removeAttr("disabled");
-      //     }
-      // })
-
-          
-            
-          // var url = "http://34.64.73.179:8760/problem/submit"
-
-          // axios({
-          //     method : 'post',
-          //     url : url,
-          //     data : {
-          //         "userId" : userId,
-          //         "submitList" : []
-          //     }
-          // })
-
   return (
     <div className="board">
       <div className={style.container}>

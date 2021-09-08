@@ -9,7 +9,7 @@ import { Learnrecord } from '../Main/Learnrecord/Learnrecord'
 import { Vulnerable } from '../Main/Vulnerable/Vulnerable'
 import { Pointrecord } from '../Main/Pointrecord/Pointrecord'
 import { Createques } from '../Main/Createques/Createques'
-import { Writer } from '../Main/Writer/Writer'
+// import { Writer } from '../Main/Writer/Writer'
 import { Main } from '../Main/Main'
 import { Solveques } from '../Main/Solveques/Solveques'
 import { StartExam } from '../Main/StartExam/StartExam'
@@ -46,7 +46,7 @@ export function App () {
    
     const logout = () => {
         dispatch(userLogout())
-        localStorage.clear()
+        sessionStorage.clear()
         history.push('/')
     }
 
@@ -54,11 +54,11 @@ export function App () {
 
     const isLoginChk = useSelector(state => state.user.isLogin)
     console.log(isLoginChk)
-    const localStoragetokenCheck = localStorage.getItem("ACCESS_TOKEN");
+    const sessionStoragetokenCheck = sessionStorage.getItem("ACCESS_TOKEN");
 
 
     useEffect(() => {
-        if (localStoragetokenCheck) {
+        if (sessionStoragetokenCheck) {
             setLoginChk(isLoginChk)
         }
     }, []);
@@ -126,11 +126,11 @@ export function App () {
                 }>
             </Route>
 
-            <Route path="/writer" 
+            {/* <Route path="/writer" 
                 render={() => 
                     <Writer />
                 }>
-            </Route>
+            </Route> */}
 
             <Route path="/solveques" 
                 render={() => 
