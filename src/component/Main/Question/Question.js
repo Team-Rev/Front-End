@@ -33,7 +33,7 @@ const QuestionBoard = (props) =>{
             <TopOfQuestion
                 isAskOpened={isAskOpened}
             />
-            <FrequentlyAskedQuestions
+            <FrequentCard
                 isAskOpened={isAskOpened}
             />
             <TotalQuestion
@@ -83,65 +83,87 @@ function TopOfQuestion(props){
 }
 
 const FrequentCard = (props) => {
-    const article = props.article;
-    return(
-        <li className={style.FrequentContent}>
-            <div className={style.FrequentTitle}>{article.title}</div>
-            <div className={style.FrequentDetail}>{article.detail}</div>
-            <div className={style.FrequentInfo}>
-                <span className={style.FrequentHits} >{article.hits} Hits</span>
-                <span className={style.FrequentComments} >{article.comments} Comments</span>
+
+    const [article, setArticle] = useState();
+    const [completed, setCompleted] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            axios({
+                method : 'get',
+                url : '/board/ask/top',
+            }).then(res => {
+                setArticle(res.data)
+            });
+        }
+        if (!completed) fetchData();
+
+        return () => {
+            setCompleted(true);
+        }
+    });
+
+       if( props.isAskOpened ) return null;
+
+       console.log(article)
+
+
+    if (!article) {
+        return null;
+    } else {
+        var leftlists = []
+        var rightlists = []
+        var i = 0
+        var check = true
+        while (i < article.length) {
+            <div>
+                {check ? leftlists.push(
+                        <li className={style.FrequentContent}>
+                            <div className={style.FrequentTitle}>{article[i].title}</div>
+                            <div className={style.FrequentDetail}>{article[i].content}</div>
+                            <div className={style.FrequentInfo}>
+                                <span className={style.FrequentHits} >{article[i].hits} Hits</span>
+                                <span className={style.FrequentComments} >{article[i].comments} Comments</span>
+                            </div>
+                        </li>
+                ) : 
+                rightlists.push(
+                    <li className={style.FrequentContent}>
+                        <div className={style.FrequentTitle}>{article[i].title}</div>
+                        <div className={style.FrequentDetail}>{article[i].content}</div>
+                        <div className={style.FrequentInfo}>
+                            <span className={style.FrequentHits} >{article[i].hits} Hits</span>
+                            <span className={style.FrequentComments} >{article[i].comments} Comments</span>
+                        </div>
+                    </li>)}
             </div>
+            if (i % 2 !== 0) {
+                check = true
+            } else {
+                check = false
+            }
+            i++;
+        }
 
-        </li>
-    );
-};
-
-function FrequentlyAskedQuestions(props){
-
-    const article = {
-        title : `캡스톤 디자인 기말평가입니다.`,
-        detail : `기말평가에 대한 내용입니다. 궁금하신점이나 문의하실점이 있으면 알려주세요!!!`,
-        hits : 0,
-        comments : 0,
+        return(
+            <div className={style.FrequentlyBoard}>
+                <div className={style.Frequently}>
+                    <div className={style.FrequentMain}>
+                        많이 본 질문
+                    </div>
+                    <div className={style.FrequentContentBoard}>
+                       <ul>
+                          {leftlists}   
+                       </ul> 
+                       <ul>
+                           {rightlists}
+                       </ul>
+                    </div>
+                </div>
+            </div>
+        );
     }
-    if( props.isAskOpened ) return null;
-    return(
-        <div className={style.FrequentlyBoard}>
-            <div className={style.Frequently}>
-                <div className={style.FrequentMain}>
-                    많이 본 질문
-                </div>
-                <div className={style.FrequentContentBoard}>
-                    <ul>
-                        <FrequentCard
-                            article={article}
-                        />
-                        <FrequentCard
-                            article={article}
-                        />
-                        <FrequentCard
-                            article={article}
-                        />
-                    </ul>
-                    <ul>
-                        <FrequentCard
-                            article={article}
-                        />
-                        <FrequentCard
-                            article={article}
-                        />
-                        <FrequentCard
-                            article={article}
-                        />
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-    );
-}
-
+};
 
 const TotalCard = (props) =>{
     const article = props.article;

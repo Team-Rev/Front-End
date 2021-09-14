@@ -44,7 +44,7 @@ export function Login(props) {
                 token : res.data.jwt,
                 nickname : res.data.nickname
             });
-            localStorage.setItem("ACCESS_TOKEN", res.data.jwt)
+            sessionStorage.setItem("ACCESS_TOKEN", res.data.jwt)
         })
         .catch(error => console.log(error));
     }

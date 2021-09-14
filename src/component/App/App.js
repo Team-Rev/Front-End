@@ -16,6 +16,7 @@ import { StartExam } from '../Main/StartExam/StartExam'
 import { Sidebar } from '../Main/Sidebar/Sidebar'
 import { TotalPage } from '../Main/TotalPage/TotalPage'
 import { Join } from '../Main/Join/Join'
+import { Modifyques } from '../Main/Modifyques/Modifyques';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin, userLogout } from '../../store/modules/userSlice';
 import { useHistory } from 'react-router';
@@ -46,6 +47,7 @@ export function App () {
    
     const logout = () => {
         dispatch(userLogout())
+        sessionStorage.clear()
         localStorage.clear()
         history.push('/')
     }
@@ -54,11 +56,11 @@ export function App () {
 
     const isLoginChk = useSelector(state => state.user.isLogin)
     console.log(isLoginChk)
-    const localStoragetokenCheck = localStorage.getItem("ACCESS_TOKEN");
+    const sessionStoragetokenCheck = sessionStorage.getItem("ACCESS_TOKEN");
 
 
     useEffect(() => {
-        if (localStoragetokenCheck) {
+        if (sessionStoragetokenCheck) {
             setLoginChk(isLoginChk)
         }
     }, []);
@@ -159,6 +161,12 @@ export function App () {
             <Route path="/findidpw" 
                 render={() => 
                     <Findidpw/>
+                }>
+            </Route>
+
+            <Route path="/modifyques" 
+                render={() => 
+                    <Modifyques/>
                 }>
             </Route>
         </>

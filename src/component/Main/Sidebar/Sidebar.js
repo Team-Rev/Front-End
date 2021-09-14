@@ -6,6 +6,7 @@ import learn from './img/learn.png'
 import notice from './img/notice.png'
 import ques from './img/ques.png'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import loginChk from '../../../store/modules/userSlice'
@@ -21,15 +22,20 @@ export function Sidebar(props) {
     });*/
     var isLogin = useSelector(state => state.user.isLogin)
     var username = useSelector(state => state.user.nickname)
-    
+    const history = useHistory()
+
+    const handleOnClick = (e) => {
+        history.push('/')
+    }
+
     return (
         <div className="side-bar">
             <div className="logo-box">
-                <img src={logo} alt="로고이미지" className="logo" />
+                <img src={logo} alt="로고이미지" className="logo" onClick={handleOnClick}/>
             </div>
             <div className="menu__container">
                 <div className="login-box" >
-                        <img src={user}  alt="유저아이콘"/>
+                        <img src={user}  alt="유저아이콘" />
                         {!isLogin && <button to="/login" className="login" onClick={() => props.setLoginOpen(true)} >로그인</button>}
                         {isLogin && <a href="/mypage" className="user">{username}</a>}
                 </div>
@@ -62,9 +68,9 @@ export function Sidebar(props) {
                     <li>
                         <NavLink to="/createques">생성한 문제</NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to="/writer">작성한 글</NavLink>
-                    </li>
+                    </li> */}
                     <li>
                         <button className="logout" onClick={() => props.logout()}>로그아웃</button>
                     </li>
