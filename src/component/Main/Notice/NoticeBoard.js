@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import style from './Notice.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-
+import { useSelector } from 'react-redux';
 import { dateCal } from '../../../util/DateManager'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { useHistory } from 'react-router';
 import axios from 'axios'
 
 export const Board = (props) => {
@@ -12,6 +13,18 @@ export const Board = (props) => {
     const [noticeHeight, setNoticeHeight] = useState(60)
     const [pos, setPos] = useState(0);
     const savedCallback = useRef();
+    const history = useHistory();
+
+    const handleOnClick = (e) => {
+        if (id !== "admin1@gmail.com") {
+            alert('관리자만 접근이 가능합니다.')
+        } else {
+           history.push('/writer')
+        }
+    }
+
+    var id = useSelector(state => state.user.id)
+    console.log(id)
 
     function callback() {
         var count = props.notice.length;
@@ -80,7 +93,6 @@ export const Board = (props) => {
             
             <div className={style.PageMoveContainer}>
                 <button className={style.PageMoveToLeft} 
-                    
                     onClick={() => {
                         if(props.nowPage/10 > 0) props.setNowPage(props.nowPage-10)
                     }
@@ -97,6 +109,7 @@ export const Board = (props) => {
                 }>
                     <FontAwesomeIcon icon={faChevronRight} />
                 </button>
+                {id === "admin1@gmail.com" ? <button onClick={handleOnClick}>작성</button> : null}
             </div>
         </>
     );

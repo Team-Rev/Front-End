@@ -27,7 +27,7 @@ export function Sidebar(props) {
     const handleOnClick = (e) => {
         history.push('/')
     }
-    
+
     return (
         <div className="side-bar">
             <div className="logo-box">

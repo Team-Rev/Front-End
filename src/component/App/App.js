@@ -9,13 +9,14 @@ import { Learnrecord } from '../Main/Learnrecord/Learnrecord'
 import { Vulnerable } from '../Main/Vulnerable/Vulnerable'
 import { Pointrecord } from '../Main/Pointrecord/Pointrecord'
 import { Createques } from '../Main/Createques/Createques'
-// import { Writer } from '../Main/Writer/Writer'
+import { Writer } from '../Main/Writer/Writer'
 import { Main } from '../Main/Main'
 import { Solveques } from '../Main/Solveques/Solveques'
 import { StartExam } from '../Main/StartExam/StartExam'
 import { Sidebar } from '../Main/Sidebar/Sidebar'
 import { TotalPage } from '../Main/TotalPage/TotalPage'
 import { Join } from '../Main/Join/Join'
+import { Modifyques } from '../Main/Modifyques/Modifyques';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin, userLogout } from '../../store/modules/userSlice';
 import { useHistory } from 'react-router';
@@ -47,6 +48,7 @@ export function App () {
     const logout = () => {
         dispatch(userLogout())
         sessionStorage.clear()
+        localStorage.clear()
         history.push('/')
     }
 
@@ -126,11 +128,11 @@ export function App () {
                 }>
             </Route>
 
-            {/* <Route path="/writer" 
+            <Route path="/writer" 
                 render={() => 
                     <Writer />
                 }>
-            </Route> */}
+            </Route>
 
             <Route path="/solveques" 
                 render={() => 
@@ -159,6 +161,12 @@ export function App () {
             <Route path="/findidpw" 
                 render={() => 
                     <Findidpw/>
+                }>
+            </Route>
+
+            <Route path="/modifyques" 
+                render={() => 
+                    <Modifyques/>
                 }>
             </Route>
         </>
