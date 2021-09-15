@@ -14,12 +14,16 @@ export const Board = (props) => {
     const [pos, setPos] = useState(0);
     const savedCallback = useRef();
     const history = useHistory();
+    const [notichk, setNotiChk] = useState("noticheck")
 
     const handleOnClick = (e) => {
         if (id !== "admin1@gmail.com") {
             alert('관리자만 접근이 가능합니다.')
         } else {
-           history.push('/writer')
+           history.push({
+               pathname : '/writer',
+               state : { chk : notichk }
+           })
         }
     }
 

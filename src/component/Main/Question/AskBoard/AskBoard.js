@@ -6,11 +6,13 @@ import axios from 'axios';
 import jwt from 'jwt-decode';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 export const AskBoard = (props) => {
     const [contentHeight, setContentHeight] = useState(0);
     const [comments , setComments] = useState(new Set())
     const [commentPage, setCommentsPage] = useState(0);
+    const history = useHistory();
 
     const [isCompleted, setIsCompleted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +56,34 @@ export const AskBoard = (props) => {
             setCommentsPage(commentPage+1);
         }
     };
+
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        axios({
+            method : 'DELETE',
+            url : `/board/ask?askId=${props.nowAsk.askId}`
+        }).then(res => {
+            if (res.data === "SUCCESS") {
+                history.push('/')
+            } else {
+                alert('삭제 중 문제발생')
+            }
+        }).catch(error => console.log(error)) 
+    }
+
+    const [queschk, setQuesChk] = useState("quescheck")
+    const content = props.nowAsk;
+
+    const handleModify = (e) => {
+        history.push({
+            pathname : "/modifyques",
+            state : {
+                content : content,
+                chk : props.nowAsk
+            }
+        })
+    }
     
     useEffect(() => {
         async function fetchData(){
@@ -106,6 +136,8 @@ export const AskBoard = (props) => {
                     {props.nowAsk && props.nowAsk.recommend}<br/>
                     {props.nowAsk && props.nowAsk.content}<br/>
                     {props.nowAsk && props.nowAsk.comments}<br/>
+                    <button className={style.AskBtn} onClick={handleDelete}>삭제</button>
+                    <button className={style.AskBtn} onClick={handleModify}>수정</button>
                 </div>
                 <CommentBox
                     commentsArr={commentsArr}

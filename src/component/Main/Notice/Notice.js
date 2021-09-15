@@ -106,21 +106,35 @@ const ContentBoard = (props) => {
     const content = props.content;
     const id = useSelector(state => state.user.id)
     const history = useHistory();
+    const [contentopen, setContentOpen] = useState(!props.isContentOpend)
+    const [notichk, setNotiChk] = useState("noticheck")
 
     const handleDelete = (e) => {
+        console.log(content.noticeId + "  " + contentopen)
         e.preventDefault();
         axios({
             method : 'DELETE',
-            url : `board/post?id=${content.noticeId}`
+            url : `board/notice?id=${content.noticeId}`
         }).then(res => {
-            history.push('/notice')
+            if (res.data === "OK") {
+                return (
+                    <NoticeBoard/>
+                )
+            } else {
+                alert('삭제 중 문제발생')
+            }
         }).catch(error => console.log(error)) 
     }
 
-    const handleChange = (e) => {
+    console.log("test case   " + contentopen)
+
+    const handleModify = (e) => {
         history.push({
             pathname : "/modifyques",
-            state : { content : content }
+            state : { 
+                content : content,
+                chk : notichk
+            }
         })
     }
 
@@ -159,7 +173,7 @@ const ContentBoard = (props) => {
                 </div>
                 <div>
                     {id === "admin1@gmail.com" ? <button className={style.DeleteBtn} onClick={handleDelete}>삭제</button> : null}
-                    {id === "admin1@gmail.com" ? <button className={style.ChangeBtn} onClick={handleChange}>수정</button> : null}
+                    {id === "admin1@gmail.com" ? <button className={style.ChangeBtn} onClick={handleModify}>수정</button> : null}
                 </div>
             <div>
             </div>

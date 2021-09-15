@@ -1,9 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { useHistory } from 'react-router';
+import { useState } from 'react';
 import style from "./PageBar.module.css"
 import axios from 'axios';
 
 export const PageBar = (props) => {
+    
+    const [queschk, setQuesChk] = useState("quescheck")
+    const history = useHistory();
+
+    const handleOnclick = (e) => {
+        history.push({
+            pathname : "/writer",
+            state : { chk : queschk }
+        })
+    }
+
     return (
         <div className={style.PageBar}>
             <button className={style.MoveLeft} onClick={ () => {
@@ -19,6 +32,7 @@ export const PageBar = (props) => {
             }}>
                 다음 <FontAwesomeIcon icon={faChevronRight} /> 
             </button>
+            <button className={style.WriteBtn} onClick={handleOnclick}>작성</button>
         </div>
     );
 }
