@@ -113,7 +113,7 @@ export const Board = (props) => {
                 }>
                     <FontAwesomeIcon icon={faChevronRight} />
                 </button>
-                {id === "admin1@gmail.com" ? <button onClick={handleOnClick}>작성</button> : null}
+                {id === "admin1@gmail.com" ? <button onClick={handleOnClick} className={style.WriteBtn}>글쓰기</button> : null}
             </div>
         </>
     );

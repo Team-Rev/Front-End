@@ -328,3 +328,23 @@
     color: rgb(0, 0, 0);
     font-weight: 500;
 }
+
+.WriteBtn {
+    width: 60px;
+    border: 1px solid #25bc6d;
+    background-color: #25bc6d;
+    padding: 5px 0 7px 0;
+    border-radius: 7px;
+    outline: #1faf65;
+    color:white;
+    font-size: 15px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: ease-in 0.15s;
+    box-shadow: 3px 3px 7px transparent;
+}
+
+.WriteBtn:hover {
+    background-color: #2bc777;
+    box-shadow: 3px 3px 7px thistle;
+}

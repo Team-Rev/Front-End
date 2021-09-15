@@ -74,12 +74,6 @@ const JoinForm = (props) => {
         history.goBack();
     }
 
-    const dateFormat = (DOB) => {
-        console.log('여기안에 옴')
-        moment(DOB).format('YYYY-MM-DD')
-        console.log(DOB)
-    }
-
     const onSubmitHandler = (e) => {
         e.preventDefault();
         axios({

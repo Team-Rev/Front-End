@@ -16,6 +16,7 @@ import { StartExam } from '../Main/StartExam/StartExam'
 import { Sidebar } from '../Main/Sidebar/Sidebar'
 import { TotalPage } from '../Main/TotalPage/TotalPage'
 import { Join } from '../Main/Join/Join'
+import { MyPage } from '../Main/MyPage/MyPage';
 import { Modifyques } from '../Main/Modifyques/Modifyques';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin, userLogout } from '../../store/modules/userSlice';
@@ -161,6 +162,12 @@ export function App () {
             <Route path="/findidpw" 
                 render={() => 
                     <Findidpw/>
+                }>
+            </Route>
+
+            <Route path="/mypage" 
+                render={() => 
+                    <MyPage/>
                 }>
             </Route>
 

@@ -10,6 +10,8 @@ import { useHistory } from "react-router-dom";
 import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import loginChk from '../../../store/modules/userSlice'
+import { useState } from 'react'
+import axios from 'axios'
 
 
 export function Sidebar(props) {
@@ -22,10 +24,28 @@ export function Sidebar(props) {
     });*/
     var isLogin = useSelector(state => state.user.isLogin)
     var username = useSelector(state => state.user.nickname)
+    var id = useSelector(state => state.user.id)
     const history = useHistory()
+
+    const [userInfo, setUserInfo] = useState();
 
     const handleOnClick = (e) => {
         history.push('/')
+    }
+
+    const userinformation = (e) => {
+        e.preventDefault();
+        axios({
+            method : "GET",
+            url : `/auth/userInfo?userId=${id}`
+        }).then(res => {
+            history.push({
+                pathname : "/mypage",
+                state : {
+                    info : res.data
+                }
+            })
+        }).catch(error => console.log(error))
     }
 
     return (
@@ -37,7 +57,7 @@ export function Sidebar(props) {
                 <div className="login-box" >
                         <img src={user}  alt="유저아이콘" />
                         {!isLogin && <button to="/login" className="login" onClick={() => props.setLoginOpen(true)} >로그인</button>}
-                        {isLogin && <a href="/mypage" className="user">{username}</a>}
+                        {isLogin && <a href="/" className="user">{username}</a>}
                 </div>
             
                 <ul className="main-box">
@@ -57,6 +77,9 @@ export function Sidebar(props) {
                 {isLogin && 
                 <ul className="sub-box">
                     <li>
+                        <NavLink to="/mypage" onClick={userinformation}>내 정보</NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/learnrecord">학습 내역</NavLink>
                     </li>
                     <li>
@@ -68,9 +91,6 @@ export function Sidebar(props) {
                     <li>
                         <NavLink to="/createques">생성한 문제</NavLink>
                     </li>
-                    {/* <li>
-                        <NavLink to="/writer">작성한 글</NavLink>
-                    </li> */}
                     <li>
                         <button className="logout" onClick={() => props.logout()}>로그아웃</button>
                     </li>
