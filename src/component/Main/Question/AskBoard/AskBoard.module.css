@@ -164,3 +164,18 @@
     transition: ease-in 0.15s;
     box-shadow: 3px 3px 7px transparent;
 }
+
+.AskBtn {
+    float : right;
+    padding-top : 470px;
+    padding-right : 15px;
+    border : 0px;
+    outline : 0px;
+    background-color: white;
+    color : rgb(150, 150, 150);
+    transition: ease-in 0.15s;
+}
+
+.AskBtn:hover {
+    color : rgb(0, 0, 0);
+}

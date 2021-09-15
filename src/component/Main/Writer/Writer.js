@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sidebar } from '../Sidebar/Sidebar'
 import { Container } from '../../Container/Container'
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import style from './Writer.module.css'
@@ -21,14 +21,20 @@ const WriterBoard = (props) => {
     const [writer, setWriter] = useState()
     const [content, setContent] = useState()
     const id = useSelector(state => state.user.id)
+    const nickname = useSelector(state => state.user.nickname)
 
+    const location = useLocation();
+    const chk = location.state.chk
     const history = useHistory()
 
+    const [postchk, setPostchk] = useState(chk);
+    
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (chk === "noticheck") {
         axios({
             method : 'post',
-            url : '/board/post',
+            url : '/board/notice',
             data : {
                 "userId" : id,
                 "title": title,
@@ -37,10 +43,28 @@ const WriterBoard = (props) => {
         }).then(res => {
             history.push('/notice')
         }).catch(error => console.log(error))
-    }
+      } else if (chk === "quescheck") {
+        axios({
+            method : 'post',
+            url : '/board/ask',
+            data : {
+                "userId" : id,
+                "nickname" : nickname,
+                "title": title,
+                "content": content
+            }
+        }).then(res => {
+            history.push('/question')
+        }).catch(error => console.log(error))
+      }
+    } 
 
     const backBtn = (e) => {
-        history.push('/notice')
+        if (chk === "noticheck") {
+            history.push('/notice')
+        } else {
+            history.push('/question')
+        }
     }
 
     const handleInput = (e) => {
@@ -48,9 +72,6 @@ const WriterBoard = (props) => {
         switch(name) {
             case "title":
                 setTitle(e.currentTarget.value);
-                break;
-            case "writer":
-                setWriter(e.currentTarget.value);
                 break;
             case "content":
                 setContent(e.currentTarget.value);
@@ -71,7 +92,7 @@ const WriterBoard = (props) => {
                 </div>
                 <div className="form-group">
                     <label for="exampleFormControlInput1">작성자</label>
-                    <input type="text" name="writer" value={writer} onChange={handleInput}/>
+                    <input type="text" name="writer" value={nickname} onChange={handleInput} disabled/>
                  </div>
                  <div className="form-group">
                     <label for="exampleFormControlTextarea1">내용</label>
