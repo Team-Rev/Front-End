@@ -85,24 +85,30 @@ const WriterBoard = (props) => {
         <div className={style.container}>
             <div className={style.contentbox}>
                <div className={style.writerbox}> 
-                <form>
-                <div className="form-group">
-                    <label for="exampleFormControlInput1">제목</label>
-                    <input type="text" name="title" value={title} onChange={handleInput}/>
-                </div>
-                <div className="form-group">
-                    <label for="exampleFormControlInput1">작성자</label>
-                    <input type="text" name="writer" value={nickname} onChange={handleInput} disabled/>
-                 </div>
-                 <div className="form-group">
-                    <label for="exampleFormControlTextarea1">내용</label>
-                    <textarea name="content" value={content} onChange={handleInput} rows="10"></textarea>
-                </div>
+               <form>
+               <table className={style.boardWrite}>   
+                <tbody>
+                    <tr>
+                        <th scope="row"><label for="bWriter">작성자</label></th>
+                        <td class="writer"><input type="text" name="bWriter" id="bWriter"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="bTitle">제목</label></th>
+                        <td class="title"><input type="text" name="bTitle" id="bTitle"/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="bContent">내용</label></th>
+                        <td class="content"><textarea name="bContent" id="bContent"></textarea></td>
+                    </tr>
+                </tbody>
+            <div className={style.btnSet}>
                 <button className={style.EnterBtn} onClick={handleSubmit}>등록하기</button>
                 <button className={style.EnterBtn} onClick={backBtn}>목록으로</button>
-                </form>
-              </div> 
             </div>
+            </table> 
+            </form>
+            </div> 
         </div>
+    </div>
     )
 }

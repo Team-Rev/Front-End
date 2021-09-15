@@ -32,7 +32,7 @@ export const PageBar = (props) => {
             }}>
                 다음 <FontAwesomeIcon icon={faChevronRight} /> 
             </button>
-            <button className={style.WriteBtn} onClick={handleOnclick}>작성</button>
+            <button className={style.WriBtn} onClick={handleOnclick}>작성</button>
         </div>
     );
 }

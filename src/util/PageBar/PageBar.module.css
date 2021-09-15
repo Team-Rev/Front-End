@@ -27,3 +27,29 @@
     width: 50px;
     height: 28px;
 }
+
+.WriBtn {
+    width: 100px;
+    border: 1px solid #25bc6d;
+    background-color: #25bc6d;
+    padding: 8px 0 8px 0;
+    border-radius: 8px;
+    outline: #1faf65;
+    color:white;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: ease-in 0.15s;
+    box-shadow: 3px 3px 7px transparent;
+}
+
+.WriBtn:hover{
+    background-color: #2bc777;
+    box-shadow: 3px 3px 7px thistle;
+}
+
+.WriBtn:focus{
+    background-color: #2bc777;
+    border-color: #9dffcd;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3) inset;;
+}

@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 export function Login(props) {
     
     const dispatch = useDispatch();
+    const history = useHistory();
     var [id, setId] = useState("");
     var [password, setPassword] = useState("");
 
@@ -29,22 +30,29 @@ export function Login(props) {
     }
 
     const login = () =>{    
+        console.log(id + "     " + password)
         props.setLoginOpen(false);
         axios({
             method: 'post',
             url: '/authenticate',
             data: {
-                "username": id,
+                "userId": id,
                 "password": password
             }
         }).then(res => {
             console.log(res)
-            props.login({
-                username : id,
-                token : res.data.jwt,
-                nickname : res.data.nickname
-            });
-            sessionStorage.setItem("ACCESS_TOKEN", res.data.jwt)
+            if (res.data !== "Incorrect username or password") {
+                props.login({
+                    username : id,
+                    token : res.data.jwt,
+                    nickname : res.data.nickname
+                });
+                sessionStorage.setItem("ACCESS_TOKEN", res.data.jwt)
+            } else {
+                alert('아이디 또는 비밀번호가 잘못되었습니다.')
+                history.push('/findidpw')
+            }
+            
         })
         .catch(error => console.log(error));
     }

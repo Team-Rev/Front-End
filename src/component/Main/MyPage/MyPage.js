@@ -1,7 +1,10 @@
 import React from 'react';
 import { Container } from '../../Container/Container';
-import style from './MyPage.module.css'
+import styles from './MyPage.module.css'
 import { useSelector } from 'react-redux';
+import { useLocation, useHistory } from 'react-router';
+import { useState } from 'react';
+import axios from 'axios';
 
 export function MyPage (props) {
     return (
@@ -13,49 +16,99 @@ export function MyPage (props) {
 
 const MyPageBoard = (props) => {
 
-    var nickname = useSelector(state => state.user.nickname)
+    const location = useLocation();
+    const history = useHistory();
+    const userinfo = location.state.info
+    console.log(userinfo)
+    
+    const [userId, setUserId] = useState(userinfo.userId);
+    const [nickname, setNickname] = useState(userinfo.nickname);
+    const [name, setName] = useState(userinfo.name);
+    const [DOB, setDOB] = useState(userinfo.DOB);
+    const [phone, setPhone] = useState(userinfo.phone);
+    const [address, setAddress] = useState(userinfo.address);
+    const [detailAddr, setDetailAddr] = useState(userinfo.detailAddress);
+    const [postnum, setPostNum] = useState(userinfo.postNumber);
+
+    const handleInput = (e) => {
+        var name = e.target.name
+        switch(name) {
+            case "userId":
+                setUserId(e.currentTarget.value);
+                break;
+            case "nickname":
+                setNickname(e.currentTarget.value);
+                break;
+            case "name":
+                setName(e.currentTarget.value);
+                break;
+            case "DOB":
+                setDOB(e.currentTarget.value);
+                break;
+            case "phone":
+                setPhone(e.currentTarget.value);
+                break;
+            case "address":
+                setAddress(e.currentTarget.value);
+                break;
+            case "detailAddress":
+                setDetailAddr(e.currentTarget.value);
+                break;
+            case "postNumber":
+                setPostNum(e.currentTarget.value);
+                break;
+        }
+    }
+
+    const handleBack = (e) => {
+        history.push('/')
+    }
+
+    const handleModify = (e) => {
+        // e.preventDefault();
+        // axios({
+        //     method : "POST",
+        //     url : "",
+        //     data : {
+        //         "userId" : userId,
+        //         "nickname" : nickname,
+        //         "name" : name,
+        //         "DOB" : DOB,
+        //         "phone" : phone,
+        //         "address" : address,
+        //         "detailAddress" : detailAddr,
+        //         "postNumber" : postnum
+        //     }
+        // }).then(res => {
+        //     if (res.data === "SUCCESS") {
+        //         alert('수정이 완료되었습니다.')
+        //         history.push('/')
+        //     } else {
+        //         alert('수정하는 중 오류가 발생하였습니다.')
+        //         history.push('/')
+        //     }
+        // })
+    }
 
     return (
-        <div className={style.container}>
-            <div className={style.contentbox}>  
-                <p style={{textAlign : 'center'}}>{nickname}님의 마이페이지</p><br/><hr/>
-                <div className={style.listbox}>
-                    <ul>
-                        <li>
-                            <p>수강중인 강좌</p>
-                            <p>
-                                <span>0</span>
-                                <span>건</span>
-                            </p>
-                            <span>현재 수강 건수</span>
-                        </li>
-                        <li>
-                            <p>수강중인 강좌</p>
-                            <p>
-                                <span>0</span>
-                                <span>건</span>
-                            </p>
-                            <span>현재 수강 건수</span>
-                        </li>
-                        <li>
-                            <p>수강중인 강좌</p>
-                            <p>
-                                <span>0</span>
-                                <span>건</span>
-                            </p>
-                            <span>현재 수강 건수</span>
-                        </li>
-                        <li>
-                            <p>나의 누적 포인트</p>
-                            <p>
-                                <span>0</span>
-                                <span>건</span>
-                            </p>
-                            <span>현재 수강 건수</span>
-                        </li>
-                    </ul>
-                </div>
+        <div className={styles.container}>
+            <div className={styles.contentbox}>  
+            <form className={styles.formtag}>
+                <input type="email" name="userId" value={userId} onChange={handleInput} className="text-field"/>
+                <input type="text" name="nickname" value={nickname} onChange={handleInput} className="text-field"/>
+                <input type="text" name="name" value={name} onChange={handleInput} className="text-field"/>
+                <input type="text" name="DOB" value={DOB}  onChange={handleInput} className="text-field"/>
+                <input type="text" name="phone" value={phone} onChange={handleInput} className="text-field"/>
+                <input type="text" name="address" value={address} onChange={handleInput} className="text-field"/>
+                <input type="text" name="detailAddress" value={detailAddr} onChange={handleInput} className="text-field"/>
+                <input type="text" name="postNumber" value={postnum} onChange={handleInput} className="text-field"/>
+                <br/>   
+               <div className={styles.bottom}> 
+                <input className={styles.submitBtn} type="button" value="뒤로가기" onClick={handleBack}/>
+                <input className={styles.submitBtn} type="submit" value="수정하기" onClick={handleModify}/>
+               </div>
+             </form>
+             </div>
             </div>
-        </div>
     )
 }
