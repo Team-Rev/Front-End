@@ -188,7 +188,26 @@ const CommentBox = (props) => {
 }
 
 const Comment = (props) => {
+
     var comment = props.comment;
+    const history = useHistory()
+
+    const DeleteComment = (e) => {
+        e.preventDefault();
+        axios({
+            method : 'DELETE',
+            url : `/board/comment?commentId=${comment.commentId}`
+        }).then(res => {
+            if (res.data === "OK") {
+                alert('댓글 삭제가 완료되었습니다.')
+                history.push('/')
+            } else {
+                alert('댓글 삭제가 되지않았습니다.')
+                history.push('/')
+            }
+        }).catch(error => console.log(error))
+    }
+
     return(
         <div className={style.Comment}>
             <div className={style.CommentHeader}>
@@ -202,11 +221,8 @@ const Comment = (props) => {
             <div className={style.CommentText}>
                 {comment.comment}
             </div>
-            <div className={style.Good}>
-                {comment.good} <span className={style.GoodText}>좋아요</span>
-            </div>
             <div className={style.Recomment}>
-                답글 {comment.reComment}개 더보기
+                <button className={style.DeleteBtn} onClick={DeleteComment}>X</button>
             </div>
         </div>
     );

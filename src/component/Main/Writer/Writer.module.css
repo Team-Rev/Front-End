@@ -65,7 +65,7 @@
     transition: ease-in 0.15s;
     box-shadow: 3px 3px 7px transparent;
     margin-top : 17px;
-    margin-left : 7px;
+    margin-left : 20px;
 }
 
 .EnterBtn:hover{
@@ -77,6 +77,10 @@
     background-color: #2bc777;
     border-color: #9dffcd;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3) inset;;
+}
+
+.Btn button {
+    padding-right : 70px;
 }
 
 

@@ -116,8 +116,9 @@ const JoinForm = (props) => {
             <div className={styles.container}>
              <div className={styles.contentbox}>
              <form className={styles.formtag} onSubmit={onSubmitHandler}>
+                <div style={{paddingLeft : 15}}><p style={{color : "red", fontSize : 13}}>※아이디, 이름, 닉네임은 수정이 불가능하니 신중하게 작성해주세요.</p></div>
                 <input type="email"  name={userId} id="id" className="text-field" placeholder="아이디" onChange={onIdHandler}></input>
-                <div style={{paddingLeft : 15}}><p style={{color : "#a7abab", fontSize : 12}}>이메일 형식으로 입력하세요</p></div>
+                <div style={{paddingLeft : 15}}><p style={{color : "#a7abab", fontSize : 12}}>이메일 형식으로 입력하세요.</p></div>
                 <input type="password" name={password} className="text-field" placeholder="비밀번호(8자리 이상)" onChange={onPasswordHandler}></input>
 
                 {password.length >= 8 && password.length <= 10 ? 
