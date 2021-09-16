@@ -65,39 +65,38 @@ const MyPageBoard = (props) => {
     }
 
     const handleModify = (e) => {
-        // e.preventDefault();
-        // axios({
-        //     method : "POST",
-        //     url : "",
-        //     data : {
-        //         "userId" : userId,
-        //         "nickname" : nickname,
-        //         "name" : name,
-        //         "DOB" : DOB,
-        //         "phone" : phone,
-        //         "address" : address,
-        //         "detailAddress" : detailAddr,
-        //         "postNumber" : postnum
-        //     }
-        // }).then(res => {
-        //     if (res.data === "SUCCESS") {
-        //         alert('수정이 완료되었습니다.')
-        //         history.push('/')
-        //     } else {
-        //         alert('수정하는 중 오류가 발생하였습니다.')
-        //         history.push('/')
-        //     }
-        // })
+        e.preventDefault();
+        axios({
+            method : "PATCH",
+            url : "/auth/userInfo",
+            data : {
+                "userId" : userId,
+                "DOB" : DOB,
+                "phone" : phone,
+                "address" : address,
+                "detailAddress" : detailAddr,
+                "postNumber" : postnum
+            }
+        }).then(res => {
+            if (res.data === "OK") {
+                alert('수정이 완료되었습니다.')
+                history.push('/')
+            } else {
+                alert('수정하는 중 오류가 발생하였습니다.')
+                history.push('/')
+            }
+        })
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.contentbox}>  
             <form className={styles.formtag}>
-                <input type="email" name="userId" value={userId} onChange={handleInput} className="text-field"/>
-                <input type="text" name="nickname" value={nickname} onChange={handleInput} className="text-field"/>
-                <input type="text" name="name" value={name} onChange={handleInput} className="text-field"/>
-                <input type="text" name="DOB" value={DOB}  onChange={handleInput} className="text-field"/>
+                <div style={{paddingLeft : 15}}><p style={{color : "red", fontSize : 13}}>※아이디, 이름, 닉네임은 수정이 불가능합니다.</p></div>
+                <input type="email" name="userId" value={userId} onChange={handleInput} className="text-field" disabled/>
+                <input type="text" name="nickname" value={nickname} onChange={handleInput} className="text-field" disabled/>
+                <input type="text" name="name" value={name} onChange={handleInput} className="text-field" disabled/>
+                <input type="date" name="DOB" value={DOB}  onChange={handleInput} className="text-field"/>
                 <input type="text" name="phone" value={phone} onChange={handleInput} className="text-field"/>
                 <input type="text" name="address" value={address} onChange={handleInput} className="text-field"/>
                 <input type="text" name="detailAddress" value={detailAddr} onChange={handleInput} className="text-field"/>

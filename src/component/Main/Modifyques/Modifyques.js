@@ -80,27 +80,56 @@ const ModifyquesBoard = (props) => {
        }
     }
 
+    const handleRollback = (e) => {
+        if (check === "noticecheck") {
+            history.push('/notice')
+        } else {
+            history.push('/question')
+        }
+    }
+
     return (
         <div className={style.container}>
         <div className={style.contentbox}>
            <div className={style.writerbox}> 
             <form>
-            <div className="form-group">
-                <label for="exampleFormControlInput1">제목</label>
-                <input type="text" name="title" value={title} onChange={handleInput}/>
-            </div>
-            <div className="form-group">
-                <label for="exampleFormControlInput1">작성자</label>
-                <input type="text" name="writer" value={writer} onChange={handleInput} disabled/>
-             </div>
-             <div className="form-group">
-                <label for="exampleFormControlTextarea1">내용</label>
-                <textarea name="content" value={contents} onChange={handleInput} rows="10"></textarea>
-            </div>
-            <button className={style.EnterBtn} onClick={handleChange}>수정하기</button>
+            <table className={style.boardWrite}>
+                <tbody>
+                    <tr>
+                        <th scope="row"><label for="bWriter">제목</label></th>
+                        <td class="writer"><input type="text" name="title" id="bWriter" value={title} onChange={handleInput}/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="bTitle">작성자</label></th>
+                        <td class="title"><input type="text" name="writer" id="bTitle" value={writer} onChange={handleInput} disabled/></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="bContent">내용</label></th>
+                        <td class="content"><textarea name="content" id="bContent" value={contents} onChange={handleInput}></textarea></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
             </form>
+            <div className={style.Btns}>
+                <button className={style.EnterBtn} onClick={handleChange}>수정하기</button>
+                <button className={style.EnterBtn} onClick={handleRollback}>목록으로</button>
+            </div>
           </div> 
         </div>
     </div>
     )
 }
+
+{/* <div className="form-group">
+                        <label for="exampleFormControlInput1">제목</label>
+                        <input type="text" name="title" value={title} onChange={handleInput}/>
+                    </div>
+                    <div className="form-group">
+                        <label for="exampleFormControlInput1">작성자</label>
+                        <input type="text" name="writer" value={writer} onChange={handleInput} disabled/>
+                    </div>
+                    <div className="form-group">
+                        <label for="exampleFormControlTextarea1">내용</label>
+                        <textarea name="content" value={contents} onChange={handleInput} rows="10"></textarea>
+                    </div> */}
