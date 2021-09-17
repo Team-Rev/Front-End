@@ -65,7 +65,7 @@ export const AskBoard = (props) => {
             url : `/board/ask?askId=${props.nowAsk.askId}`
         }).then(res => {
             if (res.data === "SUCCESS") {
-                history.push('/')
+                window.location.reload();
             } else {
                 alert('삭제 중 문제발생')
             }
@@ -127,15 +127,13 @@ export const AskBoard = (props) => {
                     닫기
                 </button>
                 <div className={style.ContentBox}>
-                    {/* {props.nowAsk && props.nowAsk.askId}<br/> */}
-                    {/* {props.nowAsk && props.nowAsk.userId}<br/> */}
-                    {props.nowAsk && props.nowAsk.title}<br/>
-                    {props.nowAsk && props.nowAsk.nickname}<br/>
-                    {props.nowAsk && props.nowAsk.hits}<br/>
-                    {props.nowAsk && dateFormating(props.nowAsk.postDate)}<br/>
-                    {props.nowAsk && props.nowAsk.recommend}<br/>
-                    {props.nowAsk && props.nowAsk.content}<br/>
-                    {props.nowAsk && props.nowAsk.comments}<br/>
+                    {props.nowAsk && <p className={style.title}>{props.nowAsk.title}</p>}<br/> 
+                    <ul className={style.MainBox}>
+                        <li>{props.nowAsk && <p>{props.nowAsk.nickname}</p>}</li>
+                        <li>{props.nowAsk && <p>{dateFormating(props.nowAsk.postDate)}</p>}</li>
+                        <li>{props.nowAsk && <p>{props.nowAsk.hits} HITS</p>}</li>
+                    </ul>  
+                    {props.nowAsk && <p>{props.nowAsk.content}</p>}<br/>
                     <button className={style.AskBtn} onClick={handleDelete}>삭제</button>
                     <button className={style.AskBtn} onClick={handleModify}>수정</button>
                 </div>
@@ -163,7 +161,7 @@ const CommentBox = (props) => {
                 dataLength={props.commentsArr.length}
                 next={props.fetchMoreData}
                 hasMore={props.hasMore}
-                loader={ <h4>loading...</h4> }
+                loader={<p></p>}
                 endMessage={
                     <p style={{ textAlign: 'center' }}>
                         <b>Yay! You have seen it all</b>
@@ -190,22 +188,28 @@ const CommentBox = (props) => {
 const Comment = (props) => {
 
     var comment = props.comment;
+    console.log(comment)
     const history = useHistory()
+    const id = useSelector(state => state.user.id)
 
     const DeleteComment = (e) => {
         e.preventDefault();
-        axios({
-            method : 'DELETE',
-            url : `/board/comment?commentId=${comment.commentId}`
-        }).then(res => {
-            if (res.data === "OK") {
-                alert('댓글 삭제가 완료되었습니다.')
-                history.push('/')
-            } else {
-                alert('댓글 삭제가 되지않았습니다.')
-                history.push('/')
-            }
-        }).catch(error => console.log(error))
+        if (comment.userId === id) {
+            axios({
+                method : 'DELETE',
+                url : `/board/comment?commentId=${comment.commentId}&refAsk=${comment.refAsk}`
+            }).then(res => {
+                if (res.data === "OK") {
+                    alert('댓글 삭제가 완료되었습니다.')
+                    window.location.reload()
+                } else {
+                    alert('댓글 삭제가 되지않았습니다.')
+                    window.location.reload()
+                }
+            }).catch(error => console.log(error))
+        } else {
+            alert('본인이 작성한 댓글만 삭제가능합니다.')
+        }
     }
 
     return(

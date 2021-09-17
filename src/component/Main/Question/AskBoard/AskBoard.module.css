@@ -165,9 +165,34 @@
     box-shadow: 3px 3px 7px transparent;
 }
 
+.boardWrite table {
+    width: 7000px;
+}
+
+.boardWrite th {
+    width: 300px;
+    padding: 7px;
+    text-align : right;
+    vertical-align: top
+}
+
+.boardWrite td {
+    width: 800px;
+    padding:5px
+}
+
+.boardWrite td input {
+    width : 300px;
+}
+
+.boardWrite textarea {
+    width : 500px;
+    height : 300px;
+}
+
 .AskBtn {
     float : right;
-    padding-top : 470px;
+    padding-top : 450px;
     padding-right : 15px;
     border : 0px;
     outline : 0px;
@@ -192,4 +217,30 @@
 
 .DeleteBtn:hover {
     color : rgb(0, 0, 0);
+}
+
+.title {
+    font-size : 25px;
+}
+
+.MainBox {
+    width: 96%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+.MainBox li {
+    color: rgb(122, 122, 122);
+    font-size: 15px;
+    font-weight: 300;
+    padding-right: 10px;
+    border-right: 1px solid rgb(177, 177, 177);
+    margin-right: 10px;
+}
+
+.MainBox li:last-child {
+    border : none;
 }
