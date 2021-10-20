@@ -206,3 +206,24 @@
 .Right{
     color : #d43811;
 }
+.buttona {
+    display: inline-block;
+    width : auto;
+    white-space: normal;
+    height : 30px;
+    box-sizing: border-box;
+    text-align: center;
+    padding : 5px 12px 10px 12px;
+    margin-top : 15px;
+    margin-bottom : -12px;
+    margin-left : 7px;
+    border : 0.3px solid #25cc6d;
+    border-radius: 6px;
+    font-family: 'Noto Sans KR', sans-serif;;
+    font-size: 15px;
+    font-weight : normal;
+    background-color: #25bc6d;
+    color : white;
+    outline: none;
+    cursor: pointer;
+}

@@ -3,6 +3,7 @@ import axios from 'axios'
 import style from './TotalPage.module.css'
 import {Graph} from '../Doughnut'
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 // import InfiniteScroll from 'react-infinite-scroll-component';
 // import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -206,6 +207,13 @@ import { useSelector } from 'react-redux';
   }
   
     const TotalPage = (props) => {
+
+      const history = useHistory();
+
+      const btnClick = (e) => {
+        history.push('/learnrecord')
+      }
+
       console.log(`ANSWER : ${props.ans}, WRONG : ${props.wrong}`)
       return (
            <div>
@@ -227,26 +235,9 @@ import { useSelector } from 'react-redux';
                   </div>
                </div>
                <div>
-                  <p className={style.keyword}>POINT KEYWORDS</p>
                </div>
-               <div>
-                  <button className={style.btna}>Inter-VLAN-Routing</button>
-                  <button className={style.btnb}>Security</button>
-                  <button className={style.btna}>OSPF</button>
-                  <button className={style.btnb}>Subnetting</button>
-                  <button className={style.btna}>Threat</button>
-                  <button className={style.btnb}>VLAN</button>
-                  <button className={style.btna}>Routing</button>
-                  <button className={style.btnb}>ACL</button>
-                  <button className={style.btna}>VLSM</button>
-                  <button className={style.btnb}>Spyware</button>
-                  <button className={style.btna}>NAT</button>
-                  <button className={style.btnb}>Protocol</button>
-                  <button className={style.btna}>TCP-IP</button>
-                  <button className={style.btnb}>Switch Device</button>
-                  <button className={style.btna}>QoS Concepts</button>
-                  <button className={style.btnb}>Traffic</button>
-                  <button className={style.btna}>Troubleshooting</button>
+               <div className={style.btnbox}>
+                  <button className={style.btna} onClick={btnClick}>상세정보 및 취약점 보러가기</button>
                </div>
             </div>
       );

@@ -83,9 +83,6 @@ export function Sidebar(props) {
                         <NavLink to="/learnrecord">학습 내역</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/vulnerable">취약점</NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/pointrecord">포인트 내역</NavLink>
                     </li>
                     <li>

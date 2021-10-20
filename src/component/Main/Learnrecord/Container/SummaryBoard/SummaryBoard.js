@@ -5,6 +5,7 @@ import axios from 'axios';
 import { dateFormating } from '../../../../../util/DateManager'
 import jwt_decode from "jwt-decode";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { faList } from '@fortawesome/free-solid-svg-icons';
 
 const MainBoard = (props) =>{
 
@@ -169,10 +170,17 @@ const DetailBoard = (props) =>{
         return (<li className={style.Normal}>{choice.choice}</li>);
 
     }
+    
 
     const renderQuestion = (question, index) => {
-        console.log(question);
+        const keywords = question.keywords
+        const list = []
+        for (var i = 0; i < keywords.length; i++) {
+            list.push(<div className={style.buttona}>{keywords[i]}</div>)
+        }
         return(
+            <div>
+                {list}
             <div className={style.Question}>
                 <div className={style.Exam}>{`${index}. ${question.question.exam}`}</div>
                 <ol className={style.Choices}>
@@ -181,6 +189,8 @@ const DetailBoard = (props) =>{
 
                     ))}
                 </ol>
+                {/* test*/}
+            </div>
             </div>
         );
     };
@@ -211,7 +221,6 @@ export function SummaryBoard(props){
             }
         }).then( res => {
             var data = res.data;
-
             setQuestions(data);
         });
 

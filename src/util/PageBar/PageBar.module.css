@@ -28,10 +28,10 @@
     height: 28px;
 }
 
-.WriBtn {
-    width: 100px;
+.BtnWrite {
+    width: 80px;
     border: 1px solid #25bc6d;
-    background-color: #25bc6d;
+    background-color: #25bc6d !important;
     padding: 8px 0 8px 0;
     border-radius: 8px;
     outline: #1faf65;
@@ -43,12 +43,13 @@
     box-shadow: 3px 3px 7px transparent;
 }
 
-.WriBtn:hover{
-    background-color: #2bc777;
+.BtnWrite:hover{
+    background-color: #2bc777 !important;
+    color : white !important;
     box-shadow: 3px 3px 7px thistle;
 }
 
-.WriBtn:focus{
+.BtnWrite:focus{
     background-color: #2bc777;
     border-color: #9dffcd;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.3) inset;;
